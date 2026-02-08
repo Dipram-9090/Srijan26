@@ -11,10 +11,24 @@ type RegistrationData = {
   college: string;
   year: string;
   department: string;
+  referralCode?: string;
 };
 
 const completeUserRegistration = async (data: RegistrationData, id: string) => {
   try {
+    if(data.referralCode){
+      await prisma.campusAmbassador.update({
+        where: {
+          referralCode: data.referralCode
+        },
+        data: {
+          referralCount: {
+            increment: 1
+          }
+        }
+      })
+    };
+    
     await prisma.user.update({
       where: {
         id,
