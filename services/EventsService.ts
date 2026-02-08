@@ -182,8 +182,6 @@ const transferTeamLead = async (teamId: string, newLeadId: string) => {
         if (!currentTeam.memberIds.includes(newLeadId)) {
             return { ok: false, message: "Member is no longer in team" };
         }
-        if (currentTeam?.memberIds.indexOf(newLeadId) === -1)
-            return { ok: false, message: "Member is no longer in team" };
 
         await prisma.team.update({
             where: {
@@ -234,10 +232,14 @@ const acceptPendingMember = async (
                 },
                 select: {
                     memberIds: true,
+                    pendingMemberIds: true
                 },
             });
 
             if (!team) return { ok: false, message: "Invalid team" };
+
+            if(!team.pendingMemberIds.includes(memberId)) return {ok: false, message: "Invalid invitation"};
+            
             const teamSize = team?.memberIds.length;
             if (teamSize >= event.maxMembers)
                 return { ok: false, message: "Team is full" };
@@ -275,7 +277,7 @@ const acceptPendingMember = async (
                 },
             });
         });
-        if(status && !status.ok) return status;
+        if (status && !status.ok) return status;
         return { ok: true, message: "Accepted member" };
     } catch (err) {
         console.log(`Error while accepting member: ${err}`);
@@ -347,30 +349,17 @@ const deleteTeam = async (team: Team) => {
 
 const leaveTeam = async (teamId: string, id: string) => {
     try {
-        await prisma.$transaction(async (txn) => {
-            await txn.user.update({
-                where: { id },
-                data: {
-                    teams: {
-                        disconnect: {
-                            id: teamId,
-                        },
+        await prisma.team.update({
+            where: {
+                id: teamId,
+            },
+            data: {
+                members: {
+                    disconnect: {
+                        id,
                     },
                 },
-            });
-
-            await txn.team.update({
-                where: {
-                    id: teamId,
-                },
-                data: {
-                    members: {
-                        disconnect: {
-                            id,
-                        },
-                    },
-                },
-            });
+            },
         });
         return { ok: true, message: "Left team successfully" };
     } catch (err) {
@@ -381,30 +370,17 @@ const leaveTeam = async (teamId: string, id: string) => {
 
 const leavePendingTeam = async (teamId: string, id: string) => {
     try {
-        await prisma.$transaction(async (txn) => {
-            await txn.user.update({
-                where: { id },
-                data: {
-                    pendingTeams: {
-                        disconnect: {
-                            id: teamId,
-                        },
+        await prisma.team.update({
+            where: {
+                id: teamId,
+            },
+            data: {
+                pendingMembers: {
+                    disconnect: {
+                        id,
                     },
                 },
-            });
-
-            await txn.team.update({
-                where: {
-                    id: teamId,
-                },
-                data: {
-                    pendingMembers: {
-                        disconnect: {
-                            id,
-                        },
-                    },
-                },
-            });
+            },
         });
 
         return { ok: true, message: "Left team successfully" };

@@ -6,7 +6,6 @@ import { PrismaAdapter } from "@auth/prisma-adapter";
 import { prisma } from "@/prisma/client";
 import { Adapter } from "next-auth/adapters";
 import { UserRole } from "./prisma/generated/prisma/enums";
-import { User } from "./types/user";
 declare module "next-auth" {
   interface User {
     role: UserRole;

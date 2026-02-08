@@ -1,7 +1,6 @@
 "use client";
 
 import { removeMember, transferTeamLead } from "@/services/EventsService";
-import { Team } from "@/types/events";
 import React from "react";
 import { useConfirmationDialogContext } from "@/hooks/useConfirmationDialog";
 import toast from "react-hot-toast";
