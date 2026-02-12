@@ -27,7 +27,7 @@ const UserSchema = z
         password: z
             .string()
             .regex(
-                RegExp("^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$"),
+                /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/,
                 "Weak Password",
             ),
         confirmPassword: z.string(),

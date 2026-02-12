@@ -7,21 +7,25 @@ import { redirect } from "next/navigation";
 import React from "react";
 
 async function Page() {
-  const user = await checkAuthentication("/dashboard");
-  const fullUser = await getUserByEmail(user.email);
+    const user = await checkAuthentication("/dashboard");
 
-  if (!fullUser) {
-    redirect("/login"); 
-  }
+    if (!user) {
+        redirect("/login");
+    }
 
-  if (!user.emailVerified)
-    return (
-      <SessionProvider>
-        <VerifyEmail user={user} />
-      </SessionProvider>
-    );
-  if (!user.registrationComplete) return <CompleteRegistration id={user.id} />;
-  return <Dashboard user={fullUser}/>;
+    if (!user.emailVerified)
+        return (
+            <SessionProvider>
+                <VerifyEmail user={user} />
+            </SessionProvider>
+        );
+    if (!user.registrationComplete)
+        return <CompleteRegistration id={user.id} />;
+
+    const fullUser = await getUserByEmail(user.email);
+    if(!fullUser) redirect("/login");
+
+    return <Dashboard user={fullUser} />;
 }
 
 export default Page;
