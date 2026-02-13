@@ -51,16 +51,22 @@ function ResetPassword() {
     });
     const [loading, setLoading] = useState(false);
 
+    
     useEffect(() => {
         verifyPasswordResetToken(token)
-            .then((res) => {
-                if (res.ok && res.id) setUserId(res.id);
-                else router.push("/404");
-            })
-            .catch(() => {
-                router.push("/404");
-            });
+        .then((res) => {
+            if (res.ok && res.id) setUserId(res.id);
+            else router.push("/404");
+        })
+        .catch(() => {
+            router.push("/404");
+        });
     }, [token, router]);
+    
+    if(!token){
+        router.push("/404");
+        return;
+    }
 
     const handleChange = (field: string, value: string) => {
         setData((oldData) => ({ ...oldData, [field]: value }));

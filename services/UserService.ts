@@ -5,6 +5,8 @@ import ShortUniqueId from "short-unique-id";
 import { sendPasswordResetEmail, sendVerificationEmail } from "./EmailService";
 import bcrypt from "bcryptjs";
 import { SERVER_URL } from "@/utils/constants";
+import { withAuth } from "@/utils/withAuth";
+import { signOut } from "@/auth";
 
 type RegistrationData = {
     phone: string;
@@ -14,57 +16,63 @@ type RegistrationData = {
     referralCode?: string;
 };
 
-const completeUserRegistration = async (data: RegistrationData, id: string) => {
-    try {
-        await prisma.$transaction(async (txn) => {
-            await txn.user.update({
-                where: {
-                    id,
-                },
-                data: {
-                    phone: data.phone,
-                    year: data.year,
-                    college: data.college,
-                    department: data.department,
-                    registrationComplete: true,
-                    emailVerified: new Date(),
-                },
-            });
-
-            if (data.referralCode) {
-              try{
-                await txn.campusAmbassador.update({
-                  where: {
-                    referralCode: data.referralCode,
-                  },
-                  data: {
-                    referralCount: {
-                      increment: 1,
-                    },
-                  },
+const completeUserRegistration = withAuth(async (sessionUserId: string, data: RegistrationData, id: string) => {
+        try {
+            if(sessionUserId !== id){
+                signOut({
+                    redirectTo: "/login"
                 });
-              }catch(err){
-                console.error(`Error while trying to increase referralCount - ${err}`);
-              }
+                throw new Error("Invalid session - id mismatch");
             }
-        });
-        return { ok: true, message: "Registration completed" };
-    } catch (err) {
-        console.error(`Error in completing user registration: ${err}`);
-        return {
-            ok: false,
-            message: "Error occurred - failed to complete registration",
-        };
-    }
-};
+            await prisma.$transaction(async (txn) => {
+                await txn.user.update({
+                    where: {
+                        id,
+                    },
+                    data: {
+                        phone: data.phone,
+                        year: data.year,
+                        college: data.college,
+                        department: data.department,
+                        registrationComplete: true,
+                        emailVerified: new Date(),
+                    },
+                });
+                
+                if (data.referralCode) {
+                    try{
+                        await txn.campusAmbassador.update({
+                            where: {
+                                referralCode: data.referralCode,
+                            },
+                            data: {
+                                referralCount: {
+                                    increment: 1,
+                                },
+                            },
+                        });
+                    }catch(err){
+                        console.error(`Error while trying to increase referralCount - ${err}`);
+                    }
+                }
+            });
+            return { ok: true, message: "Registration completed" };
+        } catch (err) {
+            console.error(`Error in completing user registration: ${err}`);
+            return {
+                ok: false,
+                message: "Error occurred - failed to complete registration",
+            };
+        }
+    }); 
 
-const matchVerificationCode = async (email: string, code: string) => {
+const matchVerificationCode = withAuth(async (sessionUserId: string, email: string, code: string) => {
     try {
         const userToken = await prisma.user.findFirst({
             where: { email },
-            select: { verificationToken: true },
+            select: { id: true, verificationToken: true },
         });
-        const match = userToken?.verificationToken === code;
+        const match = userToken?.verificationToken === code && userToken.id === sessionUserId;
 
         const verifiedAt = new Date();
         if (match)
@@ -77,13 +85,13 @@ const matchVerificationCode = async (email: string, code: string) => {
         console.error(err);
         return false;
     }
-};
+});
 
-const verifyEmail = async (email: string) => {
+const verifyEmail = withAuth(async (sessionUserId: string, email: string) => {
     try {
         const token = new ShortUniqueId({ length: 8 }).rnd();
         await prisma.user.update({
-            where: { email },
+            where: { id: sessionUserId, email, emailVerified: null },
             data: { verificationToken: token },
         });
 
@@ -95,7 +103,7 @@ const verifyEmail = async (email: string) => {
         console.error(`Error in email verification: ${err}`);
         return { ok: false, message: "Error in email verification" };
     }
-};
+});
 
 const handleForgotPassword = async (email: string) => {
     try {
@@ -147,9 +155,12 @@ const verifyPasswordResetToken = async (token: string | null) => {
 const resetPassword = async (
     userId: string,
     password: string,
-    token: string | null,
+    token: string,
 ) => {
     try {
+        const existingToken = await prisma.resetPasswordToken.delete({ where: { token }, select: {user_id: true} });
+        if(existingToken.user_id !== userId) throw new Error("Invalid token - user id mismatch");
+
         const hashedPassword = await bcrypt.hash(password, 12);
         await prisma.user.update({
             where: {
@@ -159,7 +170,6 @@ const resetPassword = async (
                 password: hashedPassword,
             },
         });
-        if (token) await prisma.resetPasswordToken.delete({ where: { token } });
 
         return { ok: true, message: "Password reset successfully" };
     } catch (err) {

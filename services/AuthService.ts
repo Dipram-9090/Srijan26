@@ -77,7 +77,7 @@ const signup = async (user: User, hCaptchaToken: string | null) => {
     const hashedPassword = await bcrypt.hash(user.password, 12);
     const newUser = {...user, password: hashedPassword}
 
-    await prisma.user.create({ data: newUser });
+    await prisma.user.create({ data: newUser },);
     
     try{
       await signIn("credentials", {
