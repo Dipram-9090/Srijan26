@@ -11,7 +11,7 @@ import { AuthError } from "next-auth";
 
 const getUserByEmail = async (email: string | null) => {
   if (!email) return null;
-  const user = await prisma.user.findFirst({ where: { email } });
+  const user = await prisma.user.findUnique({ where: { email } });
   return user;
 };
 
@@ -32,18 +32,18 @@ const handleSignin = async (email: string, password: string) => {
       password,
       redirect: false
     });
-    return {ok: true, message: "Signed in successfully"};
+    return {ok: true, message: "Login successful"};
   }catch(err){
     console.error(err);
     if(err instanceof AuthError && err.type === "CredentialsSignin")
       return {ok: false, message: "Invalid credentials"};
     else
-      return {ok: false, message: "Error in sign in"};
+      return {ok: false, message: "Error in login"};
   }
 }
 
 const verifyCaptchaToken = async (token: string | null) => {
-  if (!token) return { ok: false, message: "Captcha Verification Failed" };
+  if (!token) return false;
 
   const captchaBody = new URLSearchParams([
     ["secret", CONST.hcaptcha.SECRET || ""],
@@ -59,6 +59,7 @@ const verifyCaptchaToken = async (token: string | null) => {
     body: captchaBody.toString(),
   });
 
+  if(!captchaResponse.ok) return false;
   const captchaStatus = await captchaResponse.json();
   return captchaStatus.success;
 };
@@ -77,27 +78,21 @@ const signup = async (user: User, hCaptchaToken: string | null) => {
       return { ok: false, message: "Email already in use" };
 
     const hashedPassword = await bcrypt.hash(user.password, 12);
+    const newUser = {...user, password: hashedPassword}
 
-    const data: Prisma.UserCreateInput = {
-      name: user.name,
-      email: user.email,
-      password: hashedPassword,
-
-      // NEVER trust input role
-      role: UserRole.USER,
-
-      registrationComplete: false,
-      emailVerified: null,
-    };
-
-    const createdUser = await prisma.user.create({ data });
-
-    await signIn("credentials", {
-      email: user.email,
-      password: user.password,
-      redirect: false,
-    });
-
+    await prisma.user.create({ data: newUser },);
+    
+    try{
+      await signIn("credentials", {
+        email: user.email,
+        password: user.password,
+        redirect: false
+      });
+    }catch(err){
+      console.error(err);
+      return {ok: false, message: "Error in login after signup, please login manually"};
+    }
+  
     return { ok: true, message: "Signup successful" };
   } catch (err) {
     console.error(err);
@@ -106,12 +101,21 @@ const signup = async (user: User, hCaptchaToken: string | null) => {
 };
 
 const checkAuthentication = async (redirectUrl = "") => {
-  const session = await auth();
+  let session = await auth();
+  const encodedRedirectUrl = encodeURIComponent(redirectUrl);
   if (!session || !session.user || !session.user.id)
-    redirect(`/signin?redirect=${redirectUrl}`);
+    redirect(`/login?redirect=${encodedRedirectUrl}`);
 
-  if(redirectUrl.indexOf("dashboard") === -1 && (!session.user.emailVerified || !session.user.registrationComplete))
-    redirect(`/dashboard?redirect=${redirectUrl}`);
+  if(redirectUrl.indexOf("dashboard") !== -1) return session.user;
+
+  if(!session.user.emailVerified || !session.user.registrationComplete){
+    const status = await checkRegistrationStatus(session.user.id);
+    if(!session.user.emailVerified && status.emailVerified) session = await updateVerification();
+    if(session && !session.user.registrationComplete && status.registrationComplete) session = await updateRegistrationStatus();
+    
+    if(!session || !session.user.emailVerified || !session.user.registrationComplete) 
+      redirect(`/dashboard?redirect=${encodedRedirectUrl}`);
+  }
 
   return session.user;
 };
@@ -141,7 +145,7 @@ const checkSuperAdminAuthorization = async () => {
 
 const checkRegistrationStatus = async (id: string | undefined) => {
   if (!id) return { emailVerified: null, registrationComplete: false };
-  const user = await prisma.user.findFirst({
+  const user = await prisma.user.findUnique({
     where: { id },
     select: { emailVerified: true, registrationComplete: true },
   });

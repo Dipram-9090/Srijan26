@@ -13,6 +13,8 @@ export type EventParticipant = {
   phone?: string | null;
   college?: string | null;
   emailVerified: Date | null;
+  teamName?: string | null;
+  teamLeaderName?: string | null;
 };
 
 export type VerificationFilter = "all" | "verified" | "unverified";

@@ -47,10 +47,18 @@ const getEventParticipantsBySlug = async (
     include: { members: true },
   });
 
+  const leaderById = new Map<string, string>();
+  for (const team of teams) {
+    const leader = team.members.find((m) => m.id === team.leader);
+    if (leader) leaderById.set(team.id, leader.name);
+  }
+
   const seen = new Set<string>();
   const users: EventParticipant[] = [];
 
   for (const team of teams) {
+    const teamName = team.name;
+    const teamLeaderName = leaderById.get(team.id) ?? null;
     for (const member of team.members) {
       if (!member?.id || seen.has(member.id)) continue;
       seen.add(member.id);
@@ -65,6 +73,8 @@ const getEventParticipantsBySlug = async (
         phone: member.phone,
         college: member.college,
         emailVerified: member.emailVerified,
+        teamName,
+        teamLeaderName,
       });
 
     }

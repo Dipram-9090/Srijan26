@@ -1,17 +1,11 @@
 generator client {
-  provider = "prisma-client"
-  output   = "./generated/prisma"
+  provider = "prisma-client-js"
 }
 
 datasource db {
   provider = "mongodb"
   url      = env("DATABASE_URL")
 }
-
-/* =======================
-   ENUMS
-======================= */
-
 enum UserRole {
   USER
   ADMIN
@@ -52,41 +46,49 @@ enum PaymentTargetType {
   MERCHANDISE
 }
 
-enum Foodtype {
-  veg
-  nonveg
+enum Campus {
+  JADAVPUR
+  SALT_LAKE
 }
 
-/* =======================
-   USER & AUTH
-======================= */
+/**
+ * USER & AUTH
+ */
 
 model User {
-  id                   String    @id @default(auto()) @map("_id") @db.ObjectId
+  id                   String               @id @default(auto()) @map("_id") @db.ObjectId
   name                 String
-  email                String    @unique
+  email                String               @unique
   image                String?
   password             String?
-  phone                String?   @unique
+  phone                String?              @unique
   college              String?
   year                 String?
   department           String?
-  createdAt            DateTime  @default(now())
-  updatedAt            DateTime  @updatedAt
-  role                 UserRole  @default(USER)
+  createdAt            DateTime             @default(now())
+  updatedAt            DateTime             @updatedAt
+  role                 UserRole             @default(USER)
   emailVerified        DateTime?
-  registrationComplete Boolean   @default(false)
+  registrationComplete Boolean              @default(false)
   verificationToken    String?
+  passwordResetTokens  ResetPasswordToken[]
 
   accounts      Account[]
   notifications Notification[]
   merchandise   Merchandise[]
-  teamIds       String[]       @db.ObjectId
-  teams         Team[]         @relation(fields: [teamIds], references: [id])
-  workshopIds   String[]       @db.ObjectId
-  workshops     Workshop[]     @relation(fields: [workshopIds], references: [id])
-  payments      Payment[]      @relation("UserPayments")
-  adminEvents          EventAdmin[] @relation("AdminUserEvents")
+
+  teamIds            String[] @db.ObjectId
+  teams              Team[]   @relation("UserTeams", fields: [teamIds], references: [id])
+  pendingTeamIds     String[] @db.ObjectId
+  pendingTeams       Team[]   @relation("UserPendingTeams", fields: [pendingTeamIds], references: [id])
+  wishlistedEventIds String[] @db.ObjectId
+  wishlist           Event[]  @relation("UserWishlistedEvents", fields: [wishlistedEventIds], references: [id])
+
+  workshopIds String[]     @db.ObjectId
+  workshops   Workshop[]   @relation(fields: [workshopIds], references: [id])
+  payments    Payment[]    @relation("UserPayments")
+  adminEvents EventAdmin[] @relation("AdminUserEvents")
+
   @@map("user")
 }
 
@@ -110,9 +112,9 @@ model Account {
   @@map("account")
 }
 
-/* =======================
-   NOTIFICATIONS
-======================= */
+/**
+ * NOTIFICATIONS
+ */
 
 model Notification {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId
@@ -121,100 +123,105 @@ model Notification {
   read        Boolean  @default(false)
   createdAt   DateTime @default(now())
 
-  userId String
-  user   User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String @db.ObjectId
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId])
   @@map("notification")
 }
 
-/* =======================
-   MERCHANDISE
-======================= */
+/**
+ * MERCHANDISE
+ */
 
 model Merchandise {
-  id       String            @id @default(auto()) @map("_id") @db.ObjectId
-  size     MerchandiseSize?
-  color    MerchandiseColor?
-  status   PaymentStatus?
+  id              String            @id @default(auto()) @map("_id") @db.ObjectId
+  size            MerchandiseSize?
+  color           MerchandiseColor?
+  status          PaymentStatus?
+  preferredCampus Campus            @default(JADAVPUR)
 
-  userId   String
-  user     User              @relation(fields: [userId], references: [id], onDelete: Cascade)
-  payments Payment[]         @relation("MerchPayments")
+  userId   String    @db.ObjectId
+  user     User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  payments Payment[] @relation("MerchPayments")
 
   @@index([userId])
   @@map("merchandise")
 }
 
-/* =======================
-   EVENTS & TEAMS
-======================= */
+/**
+ * EVENTS & TEAMS
+ */
 
 model Event {
-  id                  String   @id @default(auto()) @map("_id") @db.ObjectId
-  slug                String   @unique
-  name                String
-  minMembers          Int
-  maxMembers          Int
+  id         String @id @default(auto()) @map("_id") @db.ObjectId
+  slug       String @unique
+  name       String
+  minMembers Int
+  maxMembers Int
 
-  isVisible           Boolean  @default(true)
-  registrationOpen    Boolean  @default(false)
+  isVisible        Boolean @default(true)
+  registrationOpen Boolean @default(false)
 
-  createdAt           DateTime @default(now())
-  updatedAt           DateTime @updatedAt
-  adminUsers          EventAdmin[] @relation("AdminEventUsers")
-  teams               Team[]
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
+  adminUsers EventAdmin[] @relation("AdminEventUsers")
+  teams      Team[]
+
+  wishlistedByIds String[] @db.ObjectId
+  wishlistedBy    User[]   @relation("UserWishlistedEvents", fields: [wishlistedByIds], references: [id])
 }
 
 model EventAdmin {
-  id        String  @id @default(auto()) @map("_id") @db.ObjectId
-  eventId   String  @db.ObjectId
-  userId    String  @db.ObjectId
+  id      String @id @default(auto()) @map("_id") @db.ObjectId
+  eventId String @db.ObjectId
+  userId  String @db.ObjectId
 
-  event     Event   @relation("AdminEventUsers", fields: [eventId], references: [id], onDelete: Cascade)
-  user      User    @relation("AdminUserEvents", fields: [userId], references: [id], onDelete: Cascade)
+  event Event @relation("AdminEventUsers", fields: [eventId], references: [id], onDelete: Cascade)
+  user  User  @relation("AdminUserEvents", fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([eventId, userId])
   @@map("event_admin")
 }
 
 model Team {
-  id             String   @id @default(auto()) @map("_id") @db.ObjectId
-  name           String
-  eventSlug      String
-  event          Event    @relation(fields: [eventSlug], references: [slug], onDelete: Cascade)
-  memberIds      String[] @db.ObjectId
-  members        User[]   @relation(fields: [memberIds], references: [id])
-  leader         String   @db.ObjectId
-  joiningCode    String   @unique
-  allowResetCode Boolean  @default(true)
+  id               String   @id @default(auto()) @map("_id") @db.ObjectId
+  name             String
+  eventSlug        String
+  event            Event    @relation(fields: [eventSlug], references: [slug], onDelete: Cascade)
+  memberIds        String[] @db.ObjectId
+  members          User[]   @relation("UserTeams", fields: [memberIds], references: [id])
+  pendingMemberIds String[] @db.ObjectId
+  pendingMembers   User[]   @relation("UserPendingTeams", fields: [pendingMemberIds], references: [id])
+  leader           String   @db.ObjectId
+  joiningCode      String   @unique
 
   @@map("team")
 }
 
-/* =======================
-   WORKSHOPS
-======================= */
+/**
+ * WORKSHOPS
+ */
 
 model Workshop {
-  id          String    @id @default(auto()) @map("_id") @db.ObjectId
-  slug        String    @unique
-  name        String
-  price       Float
+  id    String @id @default(auto()) @map("_id") @db.ObjectId
+  slug  String @unique
+  name  String
+  price Float
 
   payments    Payment[] @relation("WorkshopPayments")
   attendeeIds String[]  @db.ObjectId
   attendees   User[]    @relation(fields: [attendeeIds], references: [id])
 
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@map("workshop")
 }
 
-/* =======================
-   PAYMENTS
-======================= */
+/**
+ * PAYMENTS
+ */
 
 model Payment {
   id            String            @id @default(auto()) @map("_id") @db.ObjectId
@@ -224,14 +231,14 @@ model Payment {
   status        PaymentStatus
   targetType    PaymentTargetType
 
-  userId        String
-  user          User              @relation("UserPayments", fields: [userId], references: [id], onDelete: Cascade)
+  userId String @db.ObjectId
+  user   User   @relation("UserPayments", fields: [userId], references: [id], onDelete: Cascade)
 
-  workshopId    String?
-  workshop      Workshop?         @relation("WorkshopPayments", fields: [workshopId], references: [id])
+  workshopId String?   @db.ObjectId
+  workshop   Workshop? @relation("WorkshopPayments", fields: [workshopId], references: [id])
 
-  merchandiseId String?
-  merchandise   Merchandise?      @relation("MerchPayments", fields: [merchandiseId], references: [id])
+  merchandiseId String?      @db.ObjectId
+  merchandise   Merchandise? @relation("MerchPayments", fields: [merchandiseId], references: [id])
 
   @@index([userId])
   @@index([workshopId])
@@ -239,15 +246,28 @@ model Payment {
   @@map("payment")
 }
 
-/* =======================
-   PASSWORD RESET
-======================= */
+/**
+ * PASSWORD RESET
+ */
 
 model ResetPasswordToken {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   token     String   @unique
   user_id   String   @db.ObjectId
+  user      User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
   expiresAt DateTime
 
   @@map("reset_password_token")
+}
+
+/**
+ * CAMPUS AMBASSADOR
+ */
+
+model CampusAmbassador {
+  id            String @id @default(auto()) @map("_id") @db.ObjectId
+  name          String
+  college       String
+  referralCode  String @unique
+  referralCount Int    @default(0)
 }

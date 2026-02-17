@@ -97,6 +97,8 @@ export function AdminDashboard({ user, events }: AdminDashboardProps) {
     const headers = [
       "Name",
       "Email",
+      "Team",
+      "Team Leader",
       "Phone",
       "College",
       "Verified",
@@ -104,6 +106,8 @@ export function AdminDashboard({ user, events }: AdminDashboardProps) {
     const rows = participants.map((p) => [
       p.name,
       p.email,
+      p.teamName ?? "",
+      p.teamLeaderName ?? "",
       p.phone ?? "",
       p.college ?? "",
       p.emailVerified ? "Yes" : "No",
@@ -299,6 +303,8 @@ export function AdminDashboard({ user, events }: AdminDashboardProps) {
                             <TableRow>
                               <TableHead className="text-slate-700">Name</TableHead>
                               <TableHead className="text-slate-700">Email</TableHead>
+                              <TableHead className="text-slate-700">Team</TableHead>
+                              <TableHead className="text-slate-700">Leader</TableHead>
                               <TableHead className="text-slate-700">Phone</TableHead>
                               <TableHead className="text-slate-700">College</TableHead>
                               <TableHead className="text-center text-slate-700">
@@ -313,6 +319,16 @@ export function AdminDashboard({ user, events }: AdminDashboardProps) {
                                   {participant.name}
                                 </TableCell>
                                 <TableCell className="text-slate-700">{participant.email}</TableCell>
+                                <TableCell className="text-slate-700">
+                                  {participant.teamName || (
+                                    <span className="text-slate-400">N/A</span>
+                                  )}
+                                </TableCell>
+                                <TableCell className="text-slate-700">
+                                  {participant.teamLeaderName || (
+                                    <span className="text-slate-400">N/A</span>
+                                  )}
+                                </TableCell>
                                 <TableCell>
                                   {participant.phone || (
                                     <span className="text-slate-400">N/A</span>
