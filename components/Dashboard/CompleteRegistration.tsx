@@ -21,7 +21,7 @@ const RegistrationSchema = z.object({
     college: z.string().min(1, "College is required"),
     year: z.string().min(1, "Year of Study is required"),
     department: z.string().min(1, "Department is required"),
-    referralCode: z.string(),
+    referralCode: z.string().optional(),
 });
 
 function CompleteRegistration({ id }: { id: string }) {
