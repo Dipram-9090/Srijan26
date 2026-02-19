@@ -10,6 +10,7 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { usePayment } from "@/hooks/usePayment";
 
 // export default function MerchandisePage() {
 //   return (
@@ -120,7 +121,12 @@ export default function MerchandisePage() {
     customText: "",
   });
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
+
+  const { isLoading, handlePayment } = usePayment({
+    createOrderApi: "/api/create-order",
+    verifyOrderApi: "/api/verify-payment",
+    successRedirect: "/dashboard",
+  });
 
   const BATCH_CODE_REGEX = /^(2k\d{2}|20\d{2}|\d{8,12})$/i;
   const ALLOWED_CHARS_REGEX = /^[a-zA-Z0-9\s@#\.()]*$/;
@@ -168,30 +174,14 @@ export default function MerchandisePage() {
       return;
     }
 
-    setLoading(true);
     try {
-      const response = await fetch("/api/merchandise", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+      await handlePayment({
+        amount: 349, // From Price component
+        ...formData
       });
-
-      const result = await response.json();
-
-      if (!response.ok) {
-        throw new Error(result.error || "Failed to process order");
-      }
-
-      toast.success("Order initiated! Redirecting to payment...");
-      // Simulate redirection to payment gateway
-      setTimeout(() => {
-        setLoading(false);
-        // window.location.href = `/payment?order=${result.merchandiseId}`;
-      }, 2000);
     } catch (err: any) {
       setError(err.message);
       toast.error(err.message);
-      setLoading(false);
     }
   };
 
@@ -366,10 +356,10 @@ export default function MerchandisePage() {
 
             <button
               type="submit"
-              disabled={loading}
+              disabled={isLoading}
               className="w-full bg-[#EBD87D] text-black font-bold py-3.5 rounded-xl text-lg tracking-wide hover:bg-orange-400 disabled:opacity-50 transition-all transform active:scale-95 flex items-center justify-center gap-2"
             >
-              {loading ? (
+              {isLoading ? (
                 <>
                   <div className="w-5 h-5 border-2 border-black/30 border-t-black rounded-full animate-spin" />
                   Processing...
