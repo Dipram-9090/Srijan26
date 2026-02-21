@@ -3,14 +3,16 @@ import { EVENTS_DATA } from "@/components/events/constants/events";
 import EventDetailsClient from "@/components/events/EventDetailsClient";
 
 type Props = {
-  // 1. In Next.js 15, params is a Promise!
-  params: Promise<{ id: string }>; 
+  // 1. In Next.js 15, params is a Promise! Now looking for 'slug'
+  params: Promise<{ slug: string }>; 
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  // 2. You must await the params before reading the ID
+  // 2. You must await the params before reading the slug
   const resolvedParams = await params;
-  const event = EVENTS_DATA.find((e) => e.id === resolvedParams.id);
+  
+  // Find the event using the new slug property
+  const event = EVENTS_DATA.find((e) => e.slug === resolvedParams.slug);
 
   if (!event) {
     return {
@@ -27,7 +29,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: {
       title: event.title,
       description: event.description,
-      url: `${baseUrl}/events/${event.id}`,
+      // Update the canonical URL to use the slug
+      url: `${baseUrl}/events/${event.slug}`,
       siteName: "Srijan 2026",
       images: [
         {
@@ -52,7 +55,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function EventDetailsPage({ params }: Props) {
   // 4. Await the params here too!
   const resolvedParams = await params;
-  const event = EVENTS_DATA.find((e) => e.id === resolvedParams.id);
+  
+  // Find the event using the new slug property
+  const event = EVENTS_DATA.find((e) => e.slug === resolvedParams.slug);
 
   if (!event) {
     return <div className="text-white text-center mt-20">Event not found</div>;

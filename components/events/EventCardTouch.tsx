@@ -256,7 +256,7 @@ const EventCardTouch: React.FC<EventCardTouchProps> = memo(({ event }) => {
               />
 
               <Link
-                href={`/events/${event.id}`}
+                href={`/events/${event.slug}`}
                 style={{ clipPath: CLIP_PATH }}
                 className="font-euclid text-xs uppercase font-bold flex items-center justify-center py-2 gap-2 rounded bg-white hover:bg-yellow-300 active:scale-[0.98] active:bg-yellow-400 duration-150 transition-all text-black"
                 title="More Info"
@@ -266,7 +266,7 @@ const EventCardTouch: React.FC<EventCardTouchProps> = memo(({ event }) => {
               </Link>
 
               <ShareButton
-                eventId={event.id}
+                eventSlug={event.slug}
                 eventTitle={event.title}
                 isCard={true}
               />

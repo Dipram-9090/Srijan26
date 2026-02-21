@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useRef } from "react";
+import { useRouter } from "next/navigation";
+import React, { useRef, useCallback } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { Event } from "@/components/events/types/events";
@@ -23,18 +24,47 @@ interface Props {
 
 export default function EventDetailsClient({ event }: Props) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
 
-  useGSAP(() => {
-    gsap.fromTo(
-      containerRef.current,
-      { opacity: 0, y: 30 },
-      { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" },
-    );
-  }, []);
+  const transitionTo = useCallback(
+    (url: string) => {
+      const tl = gsap.timeline();
+
+      // EXIT ANIMATION: Content wipes away from Left to Right
+      tl.fromTo(
+        // Notice we are targeting our new content wrapper class
+        ".clip-reveal-content",
+        {
+          // Start State: Fully visible
+          clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+        },
+        {
+          // End State: Clipped completely to the right edge (invisible)
+          clipPath: "polygon(100% 0%, 100% 0%, 100% 100%, 100% 100%)",
+          duration: 0.5,
+          ease: "power3.in",
+          onComplete: () => {
+            router.push(url); // Change the page once fully hidden
+          },
+        },
+      );
+      tl.to(
+        ".gsap-animate",
+        {
+          autoAlpha: 0,
+          duration: 0.6,
+          ease: "power3.inOut",
+        },
+        "<",
+      );
+    },
+    [router],
+  );
 
   return (
     <main className="min-h-screen text-white pb-32 px-6 md:px-12 lg:px-24 font-euclid selection:bg-orange-400 selection:text-white">
       <WavyGradient
+        className="gsap-animate"
         brightness={0.5}
         color1="#F09400"
         color2="#A80000"
@@ -47,7 +77,7 @@ export default function EventDetailsClient({ event }: Props) {
       />
 
       <div ref={containerRef} className="relative max-w-7xl mx-auto space-y-8">
-        <EventNavigation event={event} />
+        <EventNavigation event={event} onNavigate={transitionTo} />
 
         <section className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
           {/* Left: Image */}
@@ -74,7 +104,7 @@ export default function EventDetailsClient({ event }: Props) {
           </div>
         </section>
 
-        <section className="grid grid-cols-1 lg:grid-cols-3 gap-12 border-t border-white/10 pt-12">
+        <section className="grid grid-cols-1 lg:grid-cols-3 gap-12 pt-12">
           <div className="lg:col-span-2 space-y-12">
             <EventRules rules={event.rules} color={event.color} />
           </div>

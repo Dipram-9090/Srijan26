@@ -25,6 +25,7 @@ export const EVENTS_DATA: Event[] = [
   // --- CODING ---
   {
     id: "1",
+    slug: "h42", 
     color: "#FF3429", 
     title: "H42",
     category: "Coding",
@@ -48,6 +49,7 @@ export const EVENTS_DATA: Event[] = [
   },
   {
     id: "2",
+    slug: "c33", 
     color: "#FA892E", 
     title: "Cypher 3301",
     category: "Coding",
@@ -71,6 +73,7 @@ export const EVENTS_DATA: Event[] = [
   },
   {
     id: "3",
+    slug: "dd", 
     color: "#1CC1EB", 
     title: "Data Drift",
     category: "Coding",
@@ -91,6 +94,7 @@ export const EVENTS_DATA: Event[] = [
   },
   {
     id: "4",
+    slug: "ww", 
     color: "#384DFF", 
     title: "Web Weaver",
     category: "Coding",
@@ -113,6 +117,7 @@ export const EVENTS_DATA: Event[] = [
   // --- CIRCUITS AND ROBOTICS ---
   {
     id: "5",
+    slug: "dr", 
     color: "#D3EDFB", 
     title: "Death Race",
     category: "Circuits and Robotics",
@@ -136,6 +141,7 @@ export const EVENTS_DATA: Event[] = [
   },
   {
     id: "6",
+    slug: "lf", 
     color: "#E05B78", 
     title: "Line Follower",
     category: "Circuits and Robotics",
@@ -156,6 +162,7 @@ export const EVENTS_DATA: Event[] = [
   },
   {
     id: "7",
+    slug: "cd", 
     color: "#1DDBFF", 
     title: "Circuit Debugger",
     category: "Circuits and Robotics",
@@ -176,6 +183,7 @@ export const EVENTS_DATA: Event[] = [
   // --- BUSINESS ---
   {
     id: "8",
+    slug: "bp", 
     color: "#FBEC1D", 
     title: "B-Plan",
     category: "Business",
@@ -198,6 +206,7 @@ export const EVENTS_DATA: Event[] = [
   },
   {
     id: "9",
+    slug: "ms", 
     color: "#E1F701", 
     title: "Mock Stock",
     category: "Business",
@@ -218,6 +227,7 @@ export const EVENTS_DATA: Event[] = [
   // --- BRAINSTORMING ---
   {
     id: "10",
+    slug: "td", 
     color: "#A9FEFC", 
     title: "Tech Debate",
     category: "Brainstroming",
@@ -236,6 +246,7 @@ export const EVENTS_DATA: Event[] = [
   },
   {
     id: "11",
+    slug: "cs", 
     color: "#EA423F", 
     title: "Case Study",
     category: "Brainstroming",
@@ -256,6 +267,7 @@ export const EVENTS_DATA: Event[] = [
   // --- ESPORTS ---
   {
     id: "12",
+    slug: "vt", 
     color: "#FC422D", 
     title: "Valorant Tournament",
     category: "Esports",
@@ -276,6 +288,7 @@ export const EVENTS_DATA: Event[] = [
   },
   {
     id: "13",
+    slug: "bgmi", 
     color: "#FE7A16", 
     title: "BGMI Clash",
     category: "Esports",
@@ -296,6 +309,7 @@ export const EVENTS_DATA: Event[] = [
   },
   {
     id: "14",
+    slug: "eafc", 
     color: "#B7BEC0", 
     title: "EA FC 24",
     category: "Esports",
@@ -316,6 +330,7 @@ export const EVENTS_DATA: Event[] = [
   // --- GAMING (Casual/Board) ---
   {
     id: "15",
+    slug: "cb", 
     color: "#E6C31D", 
     title: "Chess Blitz",
     category: "Gaming",
@@ -336,6 +351,7 @@ export const EVENTS_DATA: Event[] = [
   // --- SPECIAL ATTRACTIONS ---
   {
     id: "16",
+    slug: "te", 
     color: "#FDFC34", 
     title: "Tech Expo",
     category: "Special Attractions",
@@ -355,6 +371,7 @@ export const EVENTS_DATA: Event[] = [
   },
   {
     id: "17",
+    slug: "gla", 
     color: "#EDCD48", 
     title: "Guest Lecture: AI Future",
     category: "Special Attractions",
@@ -375,6 +392,7 @@ export const EVENTS_DATA: Event[] = [
   // --- MISC ---
   {
     id: "18",
+    slug: "rcr", 
     color: "#E77374", 
     title: "Rubik's Cube Relay",
     category: "Misc",
@@ -393,6 +411,7 @@ export const EVENTS_DATA: Event[] = [
   },
   {
     id: "19",
+    slug: "mo", 
     color: "#D21C2D", 
     title: "Math Olympiad",
     category: "Misc",
@@ -411,6 +430,7 @@ export const EVENTS_DATA: Event[] = [
   },
   {
     id: "20",
+    slug: "th", 
     color: "#FE0000", 
     title: "Treasure Hunt",
     category: "Misc",

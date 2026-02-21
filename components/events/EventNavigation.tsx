@@ -8,9 +8,10 @@ import { useRouter } from "next/navigation";
 
 interface Props {
   event: Event;
+  onNavigate: (url: string) => void;
 }
 
-export default function EventNavigation({ event }: Props) {
+export default function EventNavigation({ event, onNavigate }: Props) {
   const desktopClipStyle = {
     "--desktop-clip": CLIP_PATH,
   } as React.CSSProperties;
@@ -18,16 +19,21 @@ export default function EventNavigation({ event }: Props) {
   const router = useRouter();
   const currentId = parseInt(event.id);
 
-  // ── Keyboard navigation ──────────────────────────────
+  // Use your existing math to grab the correct slugs from the array
+  // (Subtract 2 because currentId is 1-based, but arrays are 0-based)
+  const prevSlug = currentId > 1 ? EVENTS_DATA[currentId - 2].slug : null;
+  const nextSlug = currentId < EVENTS_DATA.length ? EVENTS_DATA[currentId].slug : null;
+
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
-      if (e.key === "ArrowLeft" && currentId > 1) {
-        router.push(`/events/${currentId - 1}`);
-      } else if (e.key === "ArrowRight" && currentId < EVENTS_DATA.length) {
-        router.push(`/events/${currentId + 1}`);
+      // Use onNavigate instead of router.push!
+      if (e.key === "ArrowLeft" && prevSlug) {
+        onNavigate(`/events/${prevSlug}`); 
+      } else if (e.key === "ArrowRight" && nextSlug) {
+        onNavigate(`/events/${nextSlug}`);
       }
     },
-    [currentId, router],
+    [prevSlug, nextSlug, onNavigate], // Update dependencies
   );
 
   useEffect(() => {
@@ -41,9 +47,9 @@ export default function EventNavigation({ event }: Props) {
     <section className="sticky top-20 z-50">
       <div className="top-0 flex justify-between items-center w-full z-20 relative pt-4">
         <div className="flex items-center gap-2 md:gap-4">
-          {parseInt(event.id) > 1 && (
-            <Link
-              href={`/events/${parseInt(event.id) - 1}`}
+          {prevSlug && (
+            <button
+              onClick={() => onNavigate(`/events/${prevSlug}`)}
               style={desktopClipStyle}
               className={`flex items-center gap-1 md:gap-2 bg-white text-black hover:text-white hover:bg-red active:scale-[0.98] duration-150 transition-all uppercase text-xs font-euclid tracking-wider group px-4 py-2 md:pl-8 md:pr-14 md:py-2 rounded-full md:rounded-none md:[clip-path:var(--desktop-clip)]`}
             >
@@ -52,7 +58,7 @@ export default function EventNavigation({ event }: Props) {
                 className="group-hover:-translate-x-1 transition-transform"
               />{" "}
               <span className="hidden md:inline">Prev</span>
-            </Link>
+            </button>
           )}
 
           <Link
@@ -65,9 +71,9 @@ export default function EventNavigation({ event }: Props) {
         </div>
 
         <div>
-          {parseInt(event.id) < EVENTS_DATA.length && (
-            <Link
-              href={`/events/${parseInt(event.id) + 1}`}
+          {nextSlug && (
+            <button
+              onClick={() => onNavigate(`/events/${nextSlug}`)}
               style={desktopClipStyle}
               className={`flex items-center gap-1 md:gap-2 bg-white text-black hover:text-white hover:bg-red active:scale-[0.98] duration-150 transition-all uppercase text-xs font-euclid tracking-wider group px-4 py-2 md:pl-8 md:pr-14 md:py-2 rounded-full md:rounded-none md:[clip-path:var(--desktop-clip)]`}
             >
@@ -76,7 +82,7 @@ export default function EventNavigation({ event }: Props) {
                 size={16}
                 className="group-hover:translate-x-1 transition-transform"
               />
-            </Link>
+            </button>
           )}
         </div>
       </div>
