@@ -202,7 +202,7 @@ const EventCard: React.FC<EventCardProps> = memo(({ event }) => {
               ref={titleRef}
               className="font-elnath text-2xl font-bold text-white uppercase will-change-[color]"
             >
-              {event.title}
+              {event.id}{"."} {event.title}
             </h3>
           </div>
 

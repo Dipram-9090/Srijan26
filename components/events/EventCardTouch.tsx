@@ -207,7 +207,7 @@ const EventCardTouch: React.FC<EventCardTouchProps> = memo(({ event }) => {
               ref={titleRef}
               className="font-elnath text-2xl font-bold text-white uppercase will-change-[color] pointer-events-auto"
             >
-              {event.title}
+              {event.id}{"."} {event.title}
             </h3>
           </div>
 
