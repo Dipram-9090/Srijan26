@@ -22,7 +22,7 @@ const Header: React.FC<HeaderProps> = ({ searchQuery, setSearchQuery }) => {
 
         <div
           style={desktopClipStyle}
-          className="flex items-center gap-4 max-w-120 w-full bg-white/10 py-2 px-6 rounded-full md:rounded-none md:pl-10 md:pr-16 md:[clip-path:var(--desktop-clip)] transition-all"
+          className="flex items-center gap-4 max-w-120 w-full bg-white/30 py-2 px-6 rounded-full md:rounded-none md:pl-10 md:pr-16 md:[clip-path:var(--desktop-clip)] transition-all"
         >
           <Search className="font-euclid text-gray-400 w-5 h-5 shrink-0" />
           <input
