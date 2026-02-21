@@ -40,7 +40,7 @@ type StringObj = {
 type EventFrontendData = {
   name: string;
   slug: string;
-  eventListingData: EventListing
+  eventListingData: EventListing | null
 }
 
 type EventFormType = {
@@ -58,7 +58,5 @@ type EventFormType = {
   coordinators: StringObj[];
 }
 
-export type { EventFrontendData, EventCategory, EventFormType };
-
+export type { EventFrontendData, EventCategory, EventFormType, Event, Team };
 export { RegistrationStatus };
-export type { Event, Team };

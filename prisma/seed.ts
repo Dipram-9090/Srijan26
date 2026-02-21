@@ -97,7 +97,7 @@ async function main() {
       registrationOpen: false,
     },
   ];
-
+  
   const events = [];
   for (const event of eventsData) {
     const created = await prisma.event.upsert({

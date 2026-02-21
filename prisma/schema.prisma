@@ -184,7 +184,7 @@ model Event {
   name       String
   minMembers Int
   maxMembers Int
-  eventListingData EventListing
+  eventListingData EventListing?
 
   isVisible        Boolean @default(true)
   registrationOpen Boolean @default(false)

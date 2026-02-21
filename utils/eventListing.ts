@@ -1,6 +1,4 @@
-import { prisma } from "@/prisma/client";
-import type { EventFrontendData, EventFormType, EventCategory } from "@/types/events";
-import { withAuth } from "@/utils/withAuth";
+import { EventCategory, EventFormType, EventFrontendData } from "@/types/events";
 
 const eventCategories = ["CODING", "CIRCUITS_AND_ROBOTICS", "BUSINESS", "BRAINSTORMING", "GAMING","MISCELLANEOUS"];
 
@@ -51,21 +49,4 @@ function eventToForm(eventData: EventFrontendData):EventFormType{
   return data;
 }
 
-const getEventBySlug = withAuth(async (sessionUserId: string, slug: string) => {
-    const event = await prisma.event.findUnique({
-      where: {slug},
-      select: {
-        name: true,
-        slug: true,
-        eventListingData: true
-      }
-    });
-    return eventToForm(event);
-});
-
-const updateEvent = withAuth(async (sessionUserId: string, data: EventFormType) => {
-    console.log(data);
-    return {ok: true, message: "yes"};
-});
-
-export { validateCategory, transformCategory, formToEvent, eventToForm, getEventBySlug, updateEvent };
+export {validateCategory, transformCategory, formToEvent, eventToForm}

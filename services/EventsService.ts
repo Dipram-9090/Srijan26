@@ -516,6 +516,8 @@ const leavePendingTeam = withAuth(
     },
 );
 
+
+
 export {
     getRegistrationStatus,
     getEventFromSlug,
