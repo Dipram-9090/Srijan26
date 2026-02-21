@@ -20,6 +20,7 @@ import EventDetailImage from "./EventDetailImage";
 import WavyGradient from "../WavyGradient";
 import ShareButton from "./ShareButton";
 import RegisterButton from "./RegisterButton";
+import EventNavigation from "./EventNavigation";
 
 interface Props {
   event: Event;
@@ -59,57 +60,19 @@ export default function EventDetailsClient({ event }: Props) {
 
       <div ref={containerRef} className="max-w-7xl mx-auto space-y-8">
         {/* EVENT NAVIGATION ARROWS */}
-        <div className="flex justify-between items-center w-full z-20 relative pt-4">
-          <div className="flex items-center gap-2 md:gap-4">
-            {parseInt(event.id) > 1 && (
-              <Link
-                href={`/events/${parseInt(event.id) - 1}`}
-                style={desktopClipStyle}
-                className={`flex items-center gap-1 md:gap-2 bg-white/20 text-white hover:text-black hover:bg-white active:scale-[0.98] duration-150 transition-all uppercase text-xs font-euclid tracking-wider group px-4 py-2 md:pl-8 md:pr-14 md:py-2 rounded-full md:rounded-none md:[clip-path:var(--desktop-clip)]`}
-              >
-                <ChevronLeft
-                  size={16}
-                  className="group-hover:-translate-x-1 transition-transform"
-                />{" "}
-                <span className="hidden md:inline">Prev</span>
-              </Link>
-            )}
-
-            <Link
-              href="/events"
-              style={desktopClipStyle}
-              className={`flex items-center gap-2 bg-white/20 text-white hover:text-black hover:bg-white active:scale-[0.98] duration-150 transition-all uppercase text-xs font-euclid tracking-wider group px-4 py-2 md:pl-10 md:pr-14 md:py-2 rounded-full md:rounded-none md:[clip-path:var(--desktop-clip)]`}
-            >
-              All Events
-            </Link>
-          </div>
-
-          <div>
-            {parseInt(event.id) < EVENTS_DATA.length && (
-              <Link
-                href={`/events/${parseInt(event.id) + 1}`}
-                style={desktopClipStyle}
-                className={`flex items-center gap-1 md:gap-2 bg-white/20 text-white hover:text-black hover:bg-white active:scale-[0.98] duration-150 transition-all uppercase text-xs font-euclid tracking-wider group px-4 py-2 md:pl-10 md:pr-12 md:py-2 rounded-full md:rounded-none md:[clip-path:var(--desktop-clip)]`}
-              >
-                <span className="hidden md:inline">Next</span>
-                <ChevronRight
-                  size={16}
-                  className="group-hover:translate-x-1 transition-transform"
-                />
-              </Link>
-            )}
-          </div>
-        </div>
+        <EventNavigation event={event} />
 
         {/* TOP HERO SECTION */}
         <section className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start mt-12">
           {/* Left: Image */}
-          <div className="lg:col-span-5 w-full flex justify-center lg:justify-start">
+          <div className="relative lg:col-span-5 w-full flex justify-center lg:justify-start">
             <EventDetailImage
               src={event.image}
               alt={event.title}
-              color={event.color}
             />
+            {/* <p className="absolute top-0 left-0 font-elnath text-4xl w-20 h-20 -z-10">
+              {event.id}
+            </p> */}
           </div>
 
           {/* Right: Event Info */}
@@ -138,7 +101,7 @@ export default function EventDetailsClient({ event }: Props) {
                 style={{ color: event.color }}
                 className="font-elnath text-5xl md:text-7xl font-bold uppercase tracking-wide"
               >
-                {event.title}
+                {event.id}{"."} {event.title}
               </h1>
               
               <p className="mt-2 text-sm md:text-base text-white/70 leading-relaxed">
