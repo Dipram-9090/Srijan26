@@ -6,6 +6,7 @@ datasource db {
   provider = "mongodb"
   url      = env("DATABASE_URL")
 }
+
 enum UserRole {
   USER
   ADMIN
@@ -143,14 +144,14 @@ model Merchandise {
   customText      String?
 
   // Payment details
-  orderId     String?  @unique
-  amount      Float?
-  currency    String   @default("INR")
-  paymentId   String?  // Cashfree payment session ID or payment ID
-  couponUsed  Boolean  @default(false)
-  couponCode  String?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  orderId    String?  @unique
+  amount     Float?
+  currency   String   @default("INR")
+  paymentId  String? // Cashfree payment session ID or payment ID
+  couponUsed Boolean  @default(false)
+  couponCode String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 
   userId   String    @db.ObjectId
   user     User      @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -164,12 +165,26 @@ model Merchandise {
  * EVENTS & TEAMS
  */
 
+type EventListing {
+  category String
+  description String
+  format String
+  rules String[]
+  dates String[]
+  prizes String[]
+  coordinators String[]
+  driveLink String?
+  poster String
+  tags String[]
+}
+
 model Event {
   id         String @id @default(auto()) @map("_id") @db.ObjectId
   slug       String @unique
   name       String
   minMembers Int
   maxMembers Int
+  eventListingData EventListing
 
   isVisible        Boolean @default(true)
   registrationOpen Boolean @default(false)
