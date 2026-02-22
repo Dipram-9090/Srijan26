@@ -24,7 +24,11 @@ const getAdminEvents = async (
 
   const assignments = await prisma.eventAdmin.findMany({
     where: { userId },
-    include: { event: true },
+    include: { event: {
+      omit: {
+        eventListingData: true
+      }
+    } },
   });
 
   return assignments.map((a) => ({
