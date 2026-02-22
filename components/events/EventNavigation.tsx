@@ -22,15 +22,18 @@ export default function EventNavigation({ event, onNavigate }: Props) {
   // Use your existing math to grab the correct slugs from the array
   // (Subtract 2 because currentId is 1-based, but arrays are 0-based)
   const prevSlug = currentId > 1 ? EVENTS_DATA[currentId - 2].slug : null;
-  const nextSlug = currentId < EVENTS_DATA.length ? EVENTS_DATA[currentId].slug : null;
+  const nextSlug =
+    currentId < EVENTS_DATA.length ? EVENTS_DATA[currentId].slug : null;
 
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
       // Use onNavigate instead of router.push!
       if (e.key === "ArrowLeft" && prevSlug) {
-        onNavigate(`/events/${prevSlug}`); 
+        onNavigate(`/events/${prevSlug}`);
       } else if (e.key === "ArrowRight" && nextSlug) {
         onNavigate(`/events/${nextSlug}`);
+      } else if (e.key === "Escape") {
+        onNavigate("/events");
       }
     },
     [prevSlug, nextSlug, onNavigate], // Update dependencies
@@ -61,13 +64,13 @@ export default function EventNavigation({ event, onNavigate }: Props) {
             </button>
           )}
 
-          <Link
-            href="/events"
+          <button
+            onClick={() => onNavigate("/events")}
             style={desktopClipStyle}
             className={`flex items-center gap-1 md:gap-2 bg-white text-black hover:text-white hover:bg-red active:scale-[0.98] duration-150 transition-all uppercase text-xs font-euclid tracking-wider group px-4 py-2 md:pl-8 md:pr-14 md:py-2 rounded-full md:rounded-none md:[clip-path:var(--desktop-clip)]`}
           >
             All Events
-          </Link>
+          </button>
         </div>
 
         <div>

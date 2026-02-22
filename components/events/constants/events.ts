@@ -14,8 +14,15 @@ export const CATEGORIES: Category[] = [
   "Brainstroming",
   "Gaming",
   "Esports",
-  "Special Attractions",
-  "Special Attractions1",
+  "Specials1",
+  "Specials2",
+  "Specials3",
+  "Specials4",
+  "Specials5",
+  "Specials6",
+  "Specials7",
+  "Specials8",
+  "Specials9",
   "Misc",
 ];
 
@@ -348,13 +355,12 @@ export const EVENTS_DATA: Event[] = [
     status: "Open",
   },
 
-  // --- SPECIAL ATTRACTIONS ---
   {
     id: "16",
     slug: "te", 
     color: "#FDFC34", 
     title: "Tech Expo",
-    category: "Special Attractions",
+    category: "Misc",
     description: "Exhibition of the latest projects, drones, and software created by students and industry professionals.",
     format: "Offline",
     rules: ["Open to all attendees", "No registration required for viewing"],
@@ -374,7 +380,7 @@ export const EVENTS_DATA: Event[] = [
     slug: "gla", 
     color: "#EDCD48", 
     title: "Guest Lecture: AI Future",
-    category: "Special Attractions",
+    category: "Misc",
     description: "A keynote session by an industry veteran on the future of Generative AI and its impact on software engineering.",
     format: "Hybrid",
     rules: ["Seats on first-come-first-serve basis"],
