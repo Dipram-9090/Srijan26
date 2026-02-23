@@ -54,7 +54,7 @@ export default function EventNavigation({ event, onNavigate }: Props) {
             <button
               onClick={() => onNavigate(`/events/${prevSlug}`)}
               style={desktopClipStyle}
-              className={`flex items-center gap-1 md:gap-2 bg-white text-black hover:text-white hover:bg-red active:scale-[0.98] duration-150 transition-all uppercase text-xs font-euclid tracking-wider group px-4 py-2 md:pl-8 md:pr-14 md:py-2 rounded-full md:rounded-none md:[clip-path:var(--desktop-clip)]`}
+              className={`cursor-pointer flex items-center gap-1 md:gap-2 bg-white text-black hover:text-white hover:bg-red lg:active:bg-red/80 active:bg-white/80 duration-150 transition-all uppercase text-xs font-euclid tracking-wider group px-4 py-2 md:pl-8 md:pr-14 md:py-2 rounded-full md:rounded-none md:[clip-path:var(--desktop-clip)]`}
             >
               <ChevronLeft
                 size={16}
@@ -67,7 +67,7 @@ export default function EventNavigation({ event, onNavigate }: Props) {
           <button
             onClick={() => onNavigate("/events")}
             style={desktopClipStyle}
-            className={`flex items-center gap-1 md:gap-2 bg-white text-black hover:text-white hover:bg-red active:scale-[0.98] duration-150 transition-all uppercase text-xs font-euclid tracking-wider group px-4 py-2 md:pl-8 md:pr-14 md:py-2 rounded-full md:rounded-none md:[clip-path:var(--desktop-clip)]`}
+            className={`cursor-pointer flex items-center gap-1 md:gap-2 bg-white text-black hover:text-white hover:bg-red lg:active:bg-red/80 active:bg-white/80 duration-150 transition-all uppercase text-xs font-euclid tracking-wider group px-4 py-2 md:pl-8 md:pr-14 md:py-2 rounded-full md:rounded-none md:[clip-path:var(--desktop-clip)]`}
           >
             All Events
           </button>
@@ -78,7 +78,7 @@ export default function EventNavigation({ event, onNavigate }: Props) {
             <button
               onClick={() => onNavigate(`/events/${nextSlug}`)}
               style={desktopClipStyle}
-              className={`flex items-center gap-1 md:gap-2 bg-white text-black hover:text-white hover:bg-red active:scale-[0.98] duration-150 transition-all uppercase text-xs font-euclid tracking-wider group px-4 py-2 md:pl-8 md:pr-14 md:py-2 rounded-full md:rounded-none md:[clip-path:var(--desktop-clip)]`}
+              className={`cursor-pointer flex items-center gap-1 md:gap-2 bg-white text-black hover:text-white hover:bg-red lg:active:bg-red/80 active:bg-white/80 duration-150 transition-all uppercase text-xs font-euclid tracking-wider group px-4 py-2 md:pl-8 md:pr-14 md:py-2 rounded-full md:rounded-none md:[clip-path:var(--desktop-clip)]`}
             >
               <span className="hidden md:inline">Next</span>
               <ChevronRight

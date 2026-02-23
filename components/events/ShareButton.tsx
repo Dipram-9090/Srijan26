@@ -30,14 +30,14 @@ const ShareButton: React.FC<ShareButtonProps> = ({
           setOpen(true);
         }}
         style={desktopClipStyle}
-        className={`bg-white hover:bg-white/80 active:bg-gray-200 transition-all duration-150 text-black font-euclid uppercase font-semibold tracking-wider flex items-center justify-center gap-2 cursor-pointer 
+        className={`bg-white hover:bg-white/80 active:bg-gray-200 transition-all duration-150 text-black font-euclid uppercase font-semibold tracking-wider flex items-center justify-start gap-2 cursor-pointer 
         ${
           isCard
-            ? "py-2 w-full text-xs [clip-path:var(--desktop-clip)]"
+            ? "py-2 pl-10 w-full text-xs [clip-path:var(--desktop-clip)]"
             : "p-3 md:pl-10 md:pr-14 md:py-2 lg:text-sm text-xs rounded-full md:rounded-none md:[clip-path:var(--desktop-clip)]"
         }`}
       >
-        <span className={isCard ? "inline" : "hidden md:inline"}>Share</span>
+        <span className={isCard ? "hidden" : "hidden md:inline"}>Share</span>
         <Share2 size={isCard ? 16 : 18} strokeWidth={2} />
       </button>
 

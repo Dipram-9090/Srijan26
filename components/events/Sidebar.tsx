@@ -85,7 +85,7 @@ const Sidebar: React.FC<SidebarProps> = ({
         <div>
           <button
             onClick={() => setIsCategoriesOpen(!isCategoriesOpen)}
-            className="w-full font-euclid text-lg mb-2 pb-2 flex items-center justify-between text-yellow-200 border-b border-white/20 hover:text-yellow-100 transition-colors"
+            className="cursor-pointer w-full font-elnath text-lg mb-2 pb-2 flex items-center justify-between text-yellow-200 border-b border-white/20 hover:text-yellow-100 transition-colors"
           >
             <span>Categories</span>
             <ChevronDown
@@ -105,7 +105,7 @@ const Sidebar: React.FC<SidebarProps> = ({
                   key={cat}
                   onClick={() => setActiveCategory(cat)}
                   style={{ clipPath: CLIP_PATH }}
-                  className={`font-euclid text-left pl-10 px-4 py-2 rounded-lg transition-all duration-200 text-sm ${
+                  className={`cursor-pointer font-euclid text-left pl-10 px-4 py-2 rounded-lg transition-all duration-200 text-sm ${
                     activeCategory === cat
                       ? "bg-red-500 text-white font-medium"
                       : "text-white hover:bg-white/20 hover:text-white"
@@ -122,7 +122,7 @@ const Sidebar: React.FC<SidebarProps> = ({
         <div>
           <button
             onClick={() => setIsStatusOpen(!isStatusOpen)}
-            className="w-full font-euclid text-lg mb-2 pb-2 flex items-center justify-between text-yellow-200 border-b border-white/20 hover:text-yellow-100 transition-colors"
+            className="cursor-pointer w-full font-elnath text-lg mb-2 pb-2 flex items-center justify-between text-yellow-200 border-b border-white/20 hover:text-yellow-100 transition-colors"
           >
             <span>Status</span>
             <ChevronDown
@@ -140,7 +140,7 @@ const Sidebar: React.FC<SidebarProps> = ({
                   key={status}
                   onClick={() => setActiveStatus(status)}
                   style={{ clipPath: CLIP_PATH }}
-                  className={`font-euclid text-left pl-10 px-4 py-2 rounded-lg transition-all duration-200 text-sm ${
+                  className={`cursor-pointer font-euclid text-left pl-10 px-4 py-2 rounded-lg transition-all duration-200 text-sm ${
                     activeStatus === status
                       ? "bg-red-500 text-white font-medium"
                       : "text-white hover:bg-white/20 hover:text-white"

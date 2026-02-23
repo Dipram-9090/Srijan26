@@ -11,7 +11,7 @@ export default function EventRules({ rules, color, className }: Props) {
   return (
     <SwipeReveal>
       <div className={` ${className} space-y-4`}>
-        <h2 className="font-elnath text-3xl uppercase" style={{ color }}>
+        <h2 className="font-elnath text-3xl uppercase border-b pb-2" style={{ color }}>
           Event Rules
         </h2>
         <ul className="space-y-3 text-white">

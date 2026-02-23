@@ -2,6 +2,7 @@ import React from "react";
 import ShareButton from "./ShareButton";
 import RegisterButton from "./RegisterButton";
 import { Event } from "@/components/events/types/events";
+import DocButton from "./DocButton";
 
 interface Props {
   event: Event;
@@ -27,6 +28,7 @@ export default function FloatingActionBar({ event }: Props) {
         </p>
 
         <div className="flex gap-2 sm:gap-4 w-fit">
+          <DocButton docUrl={event.driveLink ?? event.pdfLink ?? ""} label="RuleBook" />
           <ShareButton eventSlug={event.slug} eventTitle={event.title} />
           <RegisterButton status={event.status} link={event.link} />
         </div>
