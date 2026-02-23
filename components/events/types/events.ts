@@ -53,7 +53,8 @@ export interface Event {
 
   // --- Links & Contacts ---
   link: string;
-  driveLink: string;
+  driveLink?: string;
+  pdfLink?: string;
   coordinators: Coordinator[];
 
   // --- State ---

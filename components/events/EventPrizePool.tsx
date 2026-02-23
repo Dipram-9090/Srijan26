@@ -13,11 +13,8 @@ export default function EventPrizePool({ event, className }: Props) {
     <SwipeReveal>
       <div className={` ${className} space-y-4`}>
         <h3
-          style={{
-            color: event.color,
-            borderBottom: `2px solid ${event.color}`,
-          }}
-          className="font-elnath text-xl uppercase border-b-2 border-white/80 pb-2 inline-block"
+          style={{color: event.color}}
+          className="font-elnath text-xl uppercase border-b pb-2 inline-block"
         >
           Prize Pool
         </h3>

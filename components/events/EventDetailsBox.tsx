@@ -15,9 +15,8 @@ export default function EventDetailsBox({ event, className }: Props) {
         <h3
           style={{
             color: event.color,
-            borderBottom: `2px solid ${event.color}`,
           }}
-          className="font-elnath text-xl uppercase border-b-2 border-white/80 pb-2 inline-block"
+          className="font-elnath text-xl uppercase border-b pb-2 inline-block"
         >
           Event Details
         </h3>

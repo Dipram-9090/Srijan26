@@ -15,10 +15,6 @@ const CustomScrollArea: React.FC<CustomScrollAreaProps> = ({
       className={`
         overflow-y-auto
         [&::-webkit-scrollbar]:w-1.5
-        [&::-webkit-scrollbar-track]:bg-white/5
-        [&::-webkit-scrollbar-track]:rounded-full
-        [&::-webkit-scrollbar-thumb]:bg-white/20
-        [&::-webkit-scrollbar-thumb]:rounded-full
         pr-3        
         ${className}
       `}
