@@ -267,3 +267,8 @@ body {
     transform: translate3D(0%, 51%, 0) rotate(360deg);
   }
 }
+
+dialog {
+  scrollbar-color: white;
+  scrollbar-track-color: white;
+}
