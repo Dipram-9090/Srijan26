@@ -2,9 +2,8 @@ export type Category =
   | "All"
   | "Coding"
   | "Circuits and Robotics"
-  | "Busine  | "Brainstorming"
-ng"
-
+  | "Business"  
+  | "Brainstorming"
   | "Gaming"
   | "Esports"
   | "Special Attractions"
