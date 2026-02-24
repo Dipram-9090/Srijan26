@@ -1,10 +1,12 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
 import SrijanBigTextSVG from "./SrijanBigTextSVG";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -13,9 +15,8 @@ const NAV_LINKS = [
   { label: "Home", href: "/" },
   { label: "Events", href: "/events" },
   { label: "Merchandise", href: "/merchandise" },
-  { label: "Accomodation", href: "/accommodation" },
   { label: "Dashboard", href: "/dashboard" },
-  { label: "Contact", href: "/contact" },
+  { label: "Contact", href: "/#contact-us" },
 ];
 
 const LEGAL_LINKS = [
@@ -30,42 +31,45 @@ const SOCIAL_LINKS = [
   { icon: "/icons/youtube.svg", alt: "YouTube", href: "https://youtube.com" },
 ];
 
-export default function Footer() {
+
+function FooterInner() {
   const footerRef = useRef<HTMLElement>(null);
 
-  useEffect(() => {
+  useGSAP(() => {
     if (!footerRef.current) return;
 
-    const ctx = gsap.context(() => {
-      gsap.to(".reveal-stop", {
+    gsap.fromTo(
+      ".reveal-stop",
+      { attr: { offset: "0%" } },
+      {
         attr: { offset: "100%" },
         ease: "none",
         scrollTrigger: {
           trigger: footerRef.current,
           start: "center 100%",
           end: "bottom bottom",
-          scrub: 1,
+          scrub: 1, 
         },
-      });
+      }
+    );
 
-      gsap.fromTo(
-        ".floating-dot",
-        { y: 50 },
-        {
-          y: 0,
-          ease: "none",
-          scrollTrigger: {
-            trigger: footerRef.current,
-            start: "top 80%",
-            end: "bottom bottom",
-            scrub: 2,
-          },
-        }
-      );
-    }, footerRef);
-
-    return () => ctx.revert();
-  }, []);
+    gsap.fromTo(
+      ".floating-dot",
+      { y: 50 },
+      {
+        y: 0,
+        ease: "none",
+        scrollTrigger: {
+          trigger: footerRef.current,
+          start: "top 80%",
+          end: "bottom bottom",
+          scrub: 2,
+        },
+      }
+    );
+  }, {
+    scope: footerRef,
+  });
 
   return (
     <footer
@@ -188,4 +192,11 @@ export default function Footer() {
       </div>
     </footer>
   );
+}
+
+// this re-renders the inner component every time the page changes
+// this is done to reset the animation
+export default function Footer() {
+  const pathname = usePathname();
+  return <FooterInner key={pathname} />;
 }

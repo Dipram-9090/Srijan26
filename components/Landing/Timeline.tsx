@@ -140,8 +140,8 @@ export default function Timeline() {
   return (
     <section className="relative py-20 flex flex-col items-center overflow-hidden" style={{ gridColumn: '1 / -1', width: '100%' }}>
       {/* Timeline Title */}
-      <h2 className="font-elnath text-3xl md:text-5xl lg:text-6xl uppercase tracking-[0.3em] text-amber-200/90 mb-16">
-        Timeline
+      <h2 className="font-elnath text-2xl sm:text-3xl md:text-5xl lg:text-6xl uppercase tracking-[0.15em] sm:tracking-[0.2em] md:tracking-[0.3em] text-amber-200/90 mb-10 sm:mb-16 text-center px-4">
+        Explore Events at JU
       </h2>
 
 
