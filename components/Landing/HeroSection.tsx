@@ -37,9 +37,10 @@ export function HeroSection() {
         <Clickable
           as="a"
           href="/events"
-          className="justify-self-center w-fit! h-[40px]! lg:h-[45px]! px-8! lg:px-10! uppercase bg-red hover:bg-red-500 mt-2 font-bold tracking-widest text-base lg:text-lg"
+          className="group relative overflow-hidden justify-self-center w-fit! h-[40px]! lg:h-[45px]! px-8! lg:px-10! uppercase bg-red hover:bg-red-500 hover:scale-105 hover:drop-shadow-[0_0_20px_rgba(240,0,0,0.6)] active:scale-95 transition-all duration-300 ease-out mt-2 font-bold tracking-widest text-base lg:text-lg"
         >
-          Find events!
+          <span className="absolute inset-0 w-full h-full -translate-x-full bg-gradient-to-r from-transparent via-white/40 to-transparent group-hover:translate-x-full transition-transform duration-700 ease-in-out"></span>
+          <span className="relative z-10">Find events!</span>
         </Clickable>
       </article>
     </section>
