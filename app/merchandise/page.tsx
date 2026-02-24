@@ -6,11 +6,40 @@ import Contact from "@/components/Merchandise/Contact";
 import WavyGradient from "@/components/WavyGradient";
 import Image from "next/image";
 import { Clickable } from "@/components/Clickable";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import toast from "react-hot-toast";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { usePayment } from "@/hooks/usePayment";
+import { MerchSelect } from "@/components/Merchandise/MerchSelect";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
+
+interface SplitTextMaskProps {
+  text: string;
+  className?: string;
+  itemClass?: string;
+}
+
+const SplitTextMask = ({ text, className = "", itemClass = "" }: SplitTextMaskProps) => {
+  return (
+    <span className={`inline-flex flex-wrap ${className}`}>
+      {text.split("").map((char, index) => (
+        <span key={index} className="overflow-hidden inline-block pb-1">
+          {char === " " ? (
+             <span className="inline-block w-2">&nbsp;</span>
+          ) : (
+            <span className={`${itemClass} inline-block translate-y-[110%]`}>
+              {char}
+            </span>
+          )}
+        </span>
+      ))}
+    </span>
+  );
+};
+
 
 // export default function MerchandisePage() {
 //   return (
@@ -111,6 +140,7 @@ import { usePayment } from "@/hooks/usePayment";
 export default function MerchandisePage() {
   const { data: session } = useSession();
   const router = useRouter();
+  const containerRef = useRef<HTMLElement>(null);
 
   const [activeIndex, setActiveIndex] = useState(0);
   const [formData, setFormData] = useState({
@@ -127,6 +157,28 @@ export default function MerchandisePage() {
     verifyOrderApi: "/api/verify-payment",
     successRedirect: "/dashboard",
   });
+
+  useGSAP(
+    () => {
+      const tl = gsap.timeline({
+        defaults: { ease: "power4.out" },
+      });
+
+      tl.to(
+        ".merch-title-char",
+        { y: "0%", duration: 1.2, stagger: 0.05, ease: "expo.out" },
+        0.2
+      )
+      .fromTo(
+        ".merch-fade-in",
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.8, stagger: 0.1 },
+        "<"
+      );
+    },
+    { scope: containerRef }
+  );
+
 
   const BATCH_CODE_REGEX = /^(2k\d{2}|20\d{2}|\d{8,12})$/i;
   const ALLOWED_CHARS_REGEX = /^[a-zA-Z0-9\s@#\.()]*$/;
@@ -194,7 +246,7 @@ export default function MerchandisePage() {
   ];
 
   return (
-    <main className="full-bleed min-h-screen relative text-white">
+    <main ref={containerRef} className="full-bleed min-h-screen relative text-white">
       <WavyGradient
         color1="#bc6116"
         color2="#8f0c03"
@@ -215,8 +267,28 @@ export default function MerchandisePage() {
           items-start
         "
       >
-        <div className="flex flex-col items-center gap-6 md:gap-10 lg:sticky lg:top-20">
-          <ProductView />
+        <div className="flex flex-col items-center gap-6 md:gap-10 lg:sticky lg:top-20 w-full">
+          <div className="flex items-center justify-center w-full gap-2 sm:gap-4">
+            <button
+              onClick={() => setActiveIndex((prev) => (prev > 0 ? prev - 1 : 2))}
+              className="group w-10 h-10 sm:w-14 sm:h-12 flex-shrink-0 flex items-center justify-center bg-[#EBD87D] text-black hover:bg-[#ffe88a] active:bg-red-600 active:text-white active:scale-95 transition-all duration-150 cursor-pointer"
+              style={{ clipPath: "polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px)" }}
+              aria-label="Previous image"
+            >
+              <ArrowLeft size={18} className="group-hover:-translate-x-1 group-active:translate-x-0 transition-transform duration-200" />
+            </button>
+
+            <ProductView />
+
+            <button
+              onClick={() => setActiveIndex((prev) => (prev < 2 ? prev + 1 : 0))}
+              className="group w-10 h-10 sm:w-14 sm:h-12 flex-shrink-0 flex items-center justify-center bg-[#EBD87D] text-black hover:bg-[#ffe88a] active:bg-red-600 active:text-white active:scale-95 transition-all duration-150 cursor-pointer"
+              style={{ clipPath: "polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px)" }}
+              aria-label="Next image"
+            >
+              <ArrowRight size={18} className="group-hover:translate-x-1 group-active:translate-x-0 transition-transform duration-200" />
+            </button>
+          </div>
 
           <div className="flex gap-3 md:gap-4">
             {[0, 1, 2].map((i) => (
@@ -255,11 +327,11 @@ export default function MerchandisePage() {
         </div>
 
         <div className="flex flex-col items-center text-center gap-6 md:gap-8 max-w-xl mx-auto w-full">
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-elnath tracking-wide text-[#EBD87D]">
-            MERCHANDISE
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-elnath tracking-wide text-[#EBD87D] flex justify-center">
+            <SplitTextMask text="MERCHANDISE" itemClass="merch-title-char" />
           </h1>
 
-          <div className="text-white/80 space-y-3 md:space-y-4 font-euclid">
+          <div className="merch-fade-in text-white/80 space-y-3 md:space-y-4 font-euclid opacity-0">
             <p className="text-lg md:text-[24px] leading-[120%]">
               Presenting the Official Merchandise for Srijan&apos;26!
             </p>
@@ -268,13 +340,16 @@ export default function MerchandisePage() {
             </p>
           </div>
 
-          <Price />
+          <div className="merch-fade-in opacity-0">
+            <Price />
+          </div>
 
           {/* Form Start */}
           <form
             onSubmit={handleSubmit}
-            className="w-full space-y-6 text-left mt-4 border border-white/10 p-6 md:p-8 rounded-2xl bg-black/40 backdrop-blur-sm"
+            className="merch-fade-in opacity-0 w-full space-y-6 text-left mt-4 border border-white/10 p-6 md:p-8 rounded-2xl bg-white/5 backdrop-blur-md shadow-2xl relative overflow-hidden"
           >
+            <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent pointer-events-none" />
             {error && (
               <div className="bg-red-500/20 border border-red-500/50 text-red-500 p-3 rounded-lg text-sm text-center">
                 {error}
@@ -287,26 +362,12 @@ export default function MerchandisePage() {
                 <label className="text-sm font-medium text-[#EBD87D]">
                   Shirt Size
                 </label>
-                <select
+                <MerchSelect
                   value={formData.size}
-                  onChange={(e) => handleInputChange("size", e.target.value)}
-                  className="w-full bg-white/5 border border-white/20 rounded-lg px-4 py-2.5 text-white focus:border-[#EBD87D] outline-none transition appearance-none"
-                  style={{
-                    backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23EBD87D'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E")`,
-                    backgroundRepeat: "no-repeat",
-                    backgroundPosition: "right 1rem center",
-                    backgroundSize: "1.5em",
-                  }}
-                >
-                  <option value="" disabled className="bg-neutral-900">
-                    Select Size
-                  </option>
-                  {sizes.map((s) => (
-                    <option key={s} value={s} className="bg-neutral-900">
-                      {s}
-                    </option>
-                  ))}
-                </select>
+                  onValueChange={(val) => handleInputChange("size", val)}
+                  options={sizes.map(s => ({ label: s, value: s }))}
+                  placeholder="Select Size"
+                />
               </div>
 
               {/* Campus Dropdown */}
@@ -314,27 +375,12 @@ export default function MerchandisePage() {
                 <label className="text-sm font-medium text-[#EBD87D]">
                   Delivery Location
                 </label>
-                <select
+                <MerchSelect
                   value={formData.campus}
-                  onChange={(e) => handleInputChange("campus", e.target.value)}
-                  className="w-full bg-white/5 border border-white/20 rounded-lg px-4 py-2.5 text-white focus:border-[#EBD87D] outline-none transition appearance-none"
-                  style={{
-                    backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23EBD87D'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E")`,
-                    backgroundRepeat: "no-repeat",
-                    backgroundPosition: "right 1rem center",
-                    backgroundSize: "1.5em",
-                  }}
-                >
-                  {campuses.map((c) => (
-                    <option
-                      key={c.value}
-                      value={c.value}
-                      className="bg-neutral-900"
-                    >
-                      {c.label}
-                    </option>
-                  ))}
-                </select>
+                  onValueChange={(val) => handleInputChange("campus", val)}
+                  options={campuses}
+                  placeholder="Select Location"
+                />
               </div>
             </div>
 
@@ -455,22 +501,23 @@ export default function MerchandisePage() {
             <Clickable
               type="submit"
               disabled={isLoading}
-              className="w-full bg-[#EBD87D] text-black uppercase text-lg tracking-wide hover:bg-[#EBD87D]/80 disabled:opacity-50 gap-2 h-12"
+              className="w-full cursor-pointer disabled:cursor-not-allowed group relative overflow-hidden uppercase bg-red hover:bg-red-500 hover:scale-[1.02] active:scale-95 transition-all duration-300 ease-out font-bold tracking-widest text-base lg:text-lg h-12 flex justify-center items-center disabled:opacity-50"
             >
+              <span className="absolute inset-0 w-full h-full -translate-x-full bg-gradient-to-r from-transparent via-white/40 to-transparent group-hover:translate-x-full transition-transform duration-700 ease-in-out"></span>
               {isLoading ? (
-                <>
-                  <div className="w-5 h-5 border-2 border-black/30 border-t-black rounded-full animate-spin" />
+                <div className="relative z-10 flex items-center justify-center gap-2 text-white">
+                  <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
                   Processing...
-                </>
+                </div>
               ) : (
-                "BUY NOW"
+                <span className="relative z-10 text-white">BUY NOW</span>
               )}
             </Clickable>
           </form>
           {/* Form End */}
 
-          <div className="pt-6 md:pt-10 flex flex-col items-center gap-4 md:gap-6">
-            <h3 className="text-[#EBD87D] text-lg md:text-2xl">Contact us</h3>
+          <div className="merch-fade-in opacity-0 pt-6 md:pt-10 flex flex-col items-center gap-4 md:gap-6 w-full">
+            <h3 className="text-[#EBD87D] text-2xl md:text-3xl font-elnath tracking-wider uppercase">Contact us</h3>
             <Contact />
           </div>
         </div>
