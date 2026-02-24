@@ -1,8 +1,9 @@
 "use server";
-
+import "server-only";
 import { User } from "@/types/types";
 import bcrypt from "bcryptjs";
 import { prisma } from "@/prisma/client";
+import { UserRole } from "@prisma/client";
 import { auth, signIn, unstable_update } from "@/auth";
 import { redirect } from "next/navigation";
 import { CONST } from "@/utils/constants";
@@ -10,7 +11,7 @@ import { AuthError } from "next-auth";
 
 const getUserByEmail = async (email: string | null) => {
   if (!email) return null;
-  const user = await prisma.user.findFirst({ where: { email } });
+  const user = await prisma.user.findUnique({ where: { email } });
   return user;
 };
 
@@ -24,25 +25,25 @@ const validateUser = async (user: User | null, password: string) => {
 };
 
 const handleSignin = async (email: string, password: string) => {
-  if(!email || !password) return {ok: false, message: "Email and password required"};
-  try{
-    await signIn("credentials",{
+  if (!email || !password) return { ok: false, message: "Email and password required" };
+  try {
+    await signIn("credentials", {
       email,
       password,
       redirect: false
     });
-    return {ok: true, message: "Signed in successfully"};
-  }catch(err){
+    return { ok: true, message: "Login successful" };
+  } catch (err) {
     console.error(err);
-    if(err instanceof AuthError && err.type === "CredentialsSignin")
-      return {ok: false, message: "Invalid credentials"};
+    if (err instanceof AuthError && err.type === "CredentialsSignin")
+      return { ok: false, message: "Invalid credentials" };
     else
-      return {ok: false, message: "Error in sign in"};
+      return { ok: false, message: "Error in login" };
   }
 }
 
 const verifyCaptchaToken = async (token: string | null) => {
-  if (!token) return { ok: false, message: "Captcha Verification Failed" };
+  if (!token) return false;
 
   const captchaBody = new URLSearchParams([
     ["secret", CONST.hcaptcha.SECRET || ""],
@@ -58,6 +59,7 @@ const verifyCaptchaToken = async (token: string | null) => {
     body: captchaBody.toString(),
   });
 
+  if (!captchaResponse.ok) return false;
   const captchaStatus = await captchaResponse.json();
   return captchaStatus.success;
 };
@@ -68,25 +70,45 @@ const signup = async (user: User, hCaptchaToken: string | null) => {
     if (!validCaptcha)
       return { ok: false, message: "Captcha Verification Failed" };
 
-    if (!user.password) return { ok: false, message: "Password is required" };
+    if (!user.password)
+      return { ok: false, message: "Password is required" };
 
     const existingUser = await getUserByEmail(user.email);
-    if (existingUser) return { ok: false, message: "Email already in use" };
+    if (existingUser)
+      return { ok: false, message: "Email already in use" };
 
-    const password = user.password;
     const hashedPassword = await bcrypt.hash(user.password, 12);
-    user.password = hashedPassword;
+    // Destructure referralCode to exclude it from the database write
+    const { referralCode, ...userData } = user;
+    const dbUser = {
+      ...userData,
+      password: hashedPassword,
+      role: userData.role as UserRole
+    };
 
-    const createdUser = await prisma.user.create({ data: user });
+    await prisma.user.create({ data: dbUser });
 
-    if (!createdUser) return {ok: false, message: "Error in signup"};
-    
-    await signIn("credentials", {
-      email: user.email,
-      password: password,
-      redirect: false
-    });
-  
+    if (referralCode) {
+      try {
+        await prisma.campusAmbassador.update({
+          where: { referralCode: referralCode },
+          data: { referralCount: { increment: 1 } },
+        });
+      } catch (err) {
+        console.error(`Error incrementing CA count: ${err}`);
+      }
+    }
+
+    try {
+      await signIn("credentials", {
+        email: user.email,
+        password: user.password,
+        redirect: false
+      });
+    } catch (err) {
+      console.error(err);
+      return { ok: false, message: "Error in login after signup, please login manually" };
+    }
     return { ok: true, message: "Signup successful" };
   } catch (err) {
     console.error(err);
@@ -96,31 +118,45 @@ const signup = async (user: User, hCaptchaToken: string | null) => {
 
 const checkAuthentication = async (redirectUrl = "") => {
   const session = await auth();
+  const encodedRedirectUrl = encodeURIComponent(redirectUrl);
   if (!session || !session.user || !session.user.id)
-    redirect(`/signin?redirect=${redirectUrl}`);
+    redirect(`/signin?redirect=${encodedRedirectUrl}`);
 
-  if(redirectUrl.indexOf("dashboard") === -1 && (!session.user.emailVerified || !session.user.registrationComplete))
-    redirect(`/dashboard?redirect=${redirectUrl}`);
+  if (redirectUrl.indexOf("dashboard") !== -1) return session.user;
+
+  if(!session.user.emailVerified || !session.user.registrationComplete)
+      redirect(`/dashboard?redirect=${encodedRedirectUrl}`);
+  
 
   return session.user;
 };
 
 const checkAdminAuthorization = async () => {
   const session = await auth();
+
+  if (!session || !session.user || !["ADMIN", "SUPERADMIN"].includes(session.user.role)) {
+    redirect("/admin/login");
+  }
+  return session.user;
+};
+
+const checkSuperAdminAuthorization = async () => {
+  const session = await auth();
+
   if (
     !session ||
     !session.user ||
-    !session.user.id ||
-    session.user.role !== "ADMIN"
-  )
-    redirect("/signin");
+    session.user.role !== "SUPERADMIN"
+  ) {
+    redirect("/admin/login");
+  }
 
   return session.user;
 };
 
 const checkRegistrationStatus = async (id: string | undefined) => {
   if (!id) return { emailVerified: null, registrationComplete: false };
-  const user = await prisma.user.findFirst({
+  const user = await prisma.user.findUnique({
     where: { id },
     select: { emailVerified: true, registrationComplete: true },
   });
@@ -138,6 +174,14 @@ const updateRegistrationStatus = async () => {
   return res;
 };
 
+// services/AuthService.ts
+export type AuthUser = {
+  id: string;
+  email: string;
+  role: string;
+  referralCode?: string;
+};
+
 export {
   getUserByEmail,
   validateUser,
@@ -145,6 +189,7 @@ export {
   signup,
   checkAuthentication,
   checkAdminAuthorization,
+  checkSuperAdminAuthorization,
   checkRegistrationStatus,
   updateVerification,
   updateRegistrationStatus,

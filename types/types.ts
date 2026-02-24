@@ -4,6 +4,8 @@ type User = {
     updatedAt?: Date;
     name: string;
     email: string;
+    phone?: string | null;
+    college?: string | null;
     registrationComplete: boolean;
     emailVerified: Date | null;
     image?: string | null;
@@ -11,6 +13,7 @@ type User = {
     role?: string;
     year?: string | null;
     department?: string | null;
+    referralCode?: string;
 }
 
 type SessionUser = {
@@ -41,4 +44,4 @@ type Team = {
     allowResetCode: boolean;
 }
 
-export type {User, SessionUser, Event, Team};
+export type { User, SessionUser, Event, Team };

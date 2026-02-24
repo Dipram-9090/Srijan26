@@ -1,7 +1,6 @@
 "use client";
 
 import { removeMember, transferTeamLead } from "@/services/EventsService";
-import { Team } from "@/types/types";
 import React from "react";
 import { useConfirmationDialogContext } from "@/hooks/useConfirmationDialog";
 import toast from "react-hot-toast";
@@ -9,19 +8,21 @@ import { useRouter } from "next/navigation";
 
 function MemberControls({
   memberId,
-  team,
+  memberName,
+  teamId,
 }: {
   memberId: string;
-  team: Team;
+  memberName: string;
+  teamId: string;
 }) {
   const modalContext = useConfirmationDialogContext();
   const router = useRouter();
 
   const handleTransferTeamLead = () => {
     modalContext.showDialog(
-      "Are you sure you want to transfer team lead?",
+      `Are you sure you want to make ${memberName} team lead?`,
       () => {
-        transferTeamLead(team, memberId).then((res) => {
+        transferTeamLead(teamId, memberId).then((res) => {
           if(res.ok){
             toast.success(res.message);
             router.refresh();
@@ -33,8 +34,8 @@ function MemberControls({
     );
   };
   const handleRemoveMember = () => {
-    modalContext.showDialog("Are you sure you want to remove this member?", () => {
-      removeMember(team, memberId).then((res) => {
+    modalContext.showDialog(`Are you sure you want to remove ${memberName}?`, () => {
+      removeMember(teamId, memberId).then((res) => {
         if(res.ok){
             toast.success(res.message);
             router.refresh();

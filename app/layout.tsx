@@ -1,29 +1,67 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Poppins } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import { ConfirmationDialogContextProvider } from "@/hooks/useConfirmationDialog";
+import { MobileNavProvider } from "@/hooks/useMobileNav";
+import NavBar from "@/components/NavBar";
 import { Toaster } from "react-hot-toast";
+import SmoothScroll from "@/components/Landing/SmoothScroll";
+import Footer from "@/components/Landing/Footer";
+import { SessionProvider } from "next-auth/react";
 
-const geistSans = Geist({
-    variable: "--font-geist-sans",
-    subsets: ["latin"],
+const euclid = localFont({
+    variable: "--font-euclid",
+    src: "../public/fonts/Euclid-Circular-B.woff2",
+    display: "swap",
+    preload: true,
 });
 
-const geistMono = Geist_Mono({
-    variable: "--font-geist-mono",
-    subsets: ["latin"],
+const elnath = localFont({
+    variable: "--font-elnath",
+    src: "../public/fonts/ELNATH.woff2",
+    display: "swap",
+    preload: true,
 });
 
-const poppins = Poppins({
-    variable: "--font-poppins",
-    subsets: ["latin"],
-    weight: ["100", "200", "300", "400", "500", "600", "700", "800"]
+const futura = localFont({
+    variable: "--font-futura",
+    src: "../public/fonts/Futura-Now-Headline.woff2",
+    display: "swap",
+    preload: true,
 });
 
 export const metadata: Metadata = {
-    title: "Srijan 26 | Jadavpur University",
+    title: "SRIJAN'26 | Jadavpur University",
     description:
-        "Jadavpur University's Annual Techfest, organised by F.E.T.S.U.",
+        "F.E.T.S.U. presents SRIJAN'26, the annual Techno-Management fest of Jadavpur University. Participate in over 50+ events comprising genres of Coding, Gaming, Management, Brainstorming and many more. Since it's inception in 2007, Srijan has held a plethora of events, and collecting the best ideas & minds of Kolkata ever since",
+    keywords: ["SRIJAN'26", "Jadavpur University", "Kolkata", "Fest", "Techfest", "Management events", "skills", "comedy show", "concert", "DJ night", "workshop", "seminar", "FETSU", "Techno-Management Fest", "Coding", "Gaming", "Management", "Brainstorming"],
+    authors: [{ name: "FETSU" }],
+    creator: "FETSU",
+    publisher: "FETSU",
+    openGraph: {
+        title: "SRIJAN'26 | Jadavpur University",
+        description:
+            "F.E.T.S.U. presents SRIJAN'26, the annual Techno-Management fest of Jadavpur University. Participate in over 50+ events comprising genres of Coding, Gaming, Management, Brainstorming and many more. Since it's inception in 2007, Srijan has held a plethora of events, and collecting the best ideas & minds of Kolkata ever since",
+        url: "https://srijanju.in",
+        siteName: "SRIJAN'26",
+        images: [
+            {
+                url: "https://srijanju.in/opengraph.webp",
+                width: 1200,
+                height: 640,
+                alt: "SRIJAN'26 | Jadavpur University",
+            },
+        ],
+        locale: "en_US",
+        type: "website",
+    },
+    twitter: {
+        title: "SRIJAN'26 | Jadavpur University",
+        description:
+            "F.E.T.S.U. presents SRIJAN'26, the annual Techno-Management fest of Jadavpur University. Participate in over 50+ events comprising genres of Coding, Gaming, Management, Brainstorming and many more. Ever since it's inception in 2007, Srijan has held a plethora of events, and collecting the best ideas & minds of Kolkata ever since",
+        creator: "FETSU",
+        images: ["https://srijanju.in/opengraph.webp"],
+    },
 };
 
 export default function RootLayout({
@@ -34,11 +72,19 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body
-                className={`${geistSans.variable} ${geistMono.variable} ${poppins.variable} antialiased`}
+                className={`${euclid.variable} ${elnath.variable} ${futura.variable} antialiased`}
             >
-                <ConfirmationDialogContextProvider>
-                    {children}
-                </ConfirmationDialogContextProvider>
+                <SessionProvider>
+                    <SmoothScroll>
+                        <MobileNavProvider>
+                            <ConfirmationDialogContextProvider>
+                                <NavBar />
+                                {children}
+                                <Footer />
+                            </ConfirmationDialogContextProvider>
+                        </MobileNavProvider>
+                    </SmoothScroll>
+                </SessionProvider>
                 <Toaster
                     position="bottom-right"
                     toastOptions={{
@@ -49,7 +95,8 @@ export default function RootLayout({
                             borderRadius: "6px",
                             minWidth: "300px",
                             textAlign: "left",
-                            fontFamily: "JetBrains Mono",
+                            fontFamily: "Futura",
+                            fontWeight: "bold",
                         },
                         success: {
                             iconTheme: {
