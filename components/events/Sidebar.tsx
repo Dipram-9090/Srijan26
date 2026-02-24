@@ -6,6 +6,7 @@ import gsap from "gsap";
 import { Category } from "@/components/events/types/events";
 import { CLIP_PATH } from "./constants/events";
 import CustomScrollArea from "./CustomScrollArea";
+import { useLenis } from "lenis/react";
 
 interface SidebarProps {
   categories: Category[];
@@ -24,6 +25,7 @@ const Sidebar: React.FC<SidebarProps> = ({
   activeStatus,
   setActiveStatus,
 }) => {
+  const lenis = useLenis();
   // Independent states for each dropdown
   const [isCategoriesOpen, setIsCategoriesOpen] = useState(true);
   const [isStatusOpen, setIsStatusOpen] = useState(true);
@@ -96,14 +98,18 @@ const Sidebar: React.FC<SidebarProps> = ({
             />
           </button>
 
-          <CustomScrollArea
-            className="categoriesClass relative overflow-y-auto max-h-[30vh] mask-[linear-gradient(to_bottom,black_calc(100%-40px),transparent_100%)]"
-          >
+          <CustomScrollArea className="categoriesClass relative overflow-y-auto max-h-[30vh] mask-[linear-gradient(to_bottom,black_calc(100%-40px),transparent_100%)]">
             <div className="flex flex-col gap-1 pt-2 pb-8">
               {categories.map((cat) => (
                 <button
                   key={cat}
-                  onClick={() => setActiveCategory(cat)}
+                  onClick={() => {
+                    setActiveCategory(cat);
+                    lenis?.scrollTo("top", {
+                      immediate: true,
+                      lock: true,
+                    });
+                  }}
                   style={{ clipPath: CLIP_PATH }}
                   className={`cursor-pointer font-euclid text-left pl-10 px-4 py-2 rounded-lg transition-all duration-200 text-sm ${
                     activeCategory === cat
@@ -121,7 +127,13 @@ const Sidebar: React.FC<SidebarProps> = ({
         {/* Status Section */}
         <div>
           <button
-            onClick={() => setIsStatusOpen(!isStatusOpen)}
+            onClick={() => {
+              setIsStatusOpen(!isStatusOpen);
+              lenis?.scrollTo("top", {
+                immediate: true,
+                lock: true,
+              });
+            }}
             className="cursor-pointer w-full font-elnath text-lg mb-2 pb-2 flex items-center justify-between text-yellow-200 border-b border-white/20 hover:text-yellow-100 transition-colors"
           >
             <span>Status</span>
