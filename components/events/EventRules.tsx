@@ -18,7 +18,7 @@ export default function EventRules({ rules, color, className }: Props) {
           {rules.map((rule, index) => (
             <li key={index} className="flex items-start gap-3">
               <span
-                className="mt-1.5 w-1.5 h-1.5 rounded-full shrink-0"
+                className="mt-2.5 w-1.5 h-1.5 rounded-full shrink-0"
                 style={{ backgroundColor: color }}
               />
               <span className="leading-relaxed">{rule}</span>

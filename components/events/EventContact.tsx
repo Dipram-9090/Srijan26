@@ -20,7 +20,7 @@ export default function EventContact({
 }: Props) {
   return (
     <SwipeReveal>
-      <div className={` ${className} space-y-6 `}>
+      <div className={` ${className} space-y-4 `}>
         <h2
           className="font-elnath text-3xl uppercase border-b pb-2"
           style={{ color }}
@@ -29,7 +29,7 @@ export default function EventContact({
         </h2>
         <div className="space-y-2">
           {coordinators.map((coord, index) => (
-            <div key={index} className="py-2 flex items-center justify-between">
+            <div key={index} className="flex items-center justify-between">
               <span className="text-gray-200">{coord.name}</span>
               <a
                 href={`tel:${coord.contact}`}
