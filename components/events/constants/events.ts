@@ -5,7 +5,15 @@ export const IMAGE_CLIP_PATH = "polygon(40px 0%, 100% 0%, 100% calc(100% - 40px)
 export const CARD_DIMENSIONS = { w: 298, h: 418 };
 
 export const CATEGORIES: Category[] = [
-  "All", "Coding", "Circuits and Robotics", "Business", "Brainstorming", "Gaming", "Esports", "Misc", "Special Attractions"
+  "All",
+  "Coding",
+  "Circuits and Robotics",
+  "Business",
+  "Brainstorming",
+  "Gaming",
+  "Esports",
+  "Special Attractions",
+  "Misc",
 ];
 
 export const STATUSES: EventStatus[] = ["All", "Open", "Closed", "Coming Soon"];
@@ -1149,6 +1157,15 @@ const MISC_EVENTS: Event[] = [
     driveLink: "https://drive.google.com/file/d/1MNxhmYoRsTENWJwPbv7MB-bBVr7e6SH4/view?usp=drivesdk",
     image: "/images/events/misc-default.jpg",
     tags: ["Photography", "Arts"],
+    rules: ["Campus bounds only", "Time limit: 2 hours"],
+    lastDate: "21st April",
+    prizePool: "₹ 10,000",
+    teamSize: "4-5 Members",
+    coordinators: [{ name: "Jack Sparrow", contact: "9900112233" }],
+    link: "/register/hunt",
+    pdfLink: "https://lorempdf.com/612/867/20",
+    image: "https://i.pinimg.com/1200x/c8/9e/46/c89e469e6aa96a0df4e9c47e94f0c7be.jpg",
+    tags: ["Fun", "Outdoor", "Teamwork"],
     status: "Open",
     coordinators: [
       { name: "Srijit Rakshit", contact: "99075 45764" },
