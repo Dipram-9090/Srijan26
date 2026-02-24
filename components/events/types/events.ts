@@ -2,7 +2,11 @@ export type Category =
   | "All"
   | "Coding"
   | "Circuits and Robotics"
+<<<<<<< HEAD
   | "Business" 
+=======
+  | "Business"  
+>>>>>>> 5c9ee0c8c5d63667024076a57d6c82ee732fd771
   | "Brainstorming"
   | "Gaming"
   | "Esports"
