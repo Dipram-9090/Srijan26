@@ -1,5 +1,5 @@
 import { auth } from "@/auth";
-import { notFound, redirect } from "next/navigation";
+import { notFound } from "next/navigation";
 
 export default async function AdminLayout({
   children,
@@ -9,7 +9,7 @@ export default async function AdminLayout({
   const session = await auth();
 
   if (!session || !session.user) {
-    redirect("/login?redirect=/admin");
+    notFound();
   }
 
   const role = session.user.role;

@@ -39,6 +39,7 @@ import {
 import { cn } from "@/lib/utils";
 import type { AuthUser } from "@/services/AuthService";
 import { EVENTS_DATA } from "@/components/events/constants/events";
+import EditEventDetails from "./EditEventDetails";
 
 // Define local types to avoid dependency on @prisma/client which might not be generated
 type Campus = "JADAVPUR" | "SALT_LAKE";
@@ -129,6 +130,7 @@ export function SuperAdminDashboard({ user }: SuperAdminDashboardProps) {
     const [searchingUsers, setSearchingUsers] = useState(false);
     const [loadingAdmins, setLoadingAdmins] = useState(false);
     const [loadingEvents, setLoadingEvents] = useState(false);
+    const [activeTab, setActiveTab] = useState<string>("users");
 
     useEffect(() => {
         fetchUsers();
@@ -479,7 +481,7 @@ export function SuperAdminDashboard({ user }: SuperAdminDashboardProps) {
             </div>
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-                <Tabs defaultValue="users" className="space-y-6">
+                <Tabs defaultValue="users" value={activeTab} onValueChange={setActiveTab} className="space-y-6">
                     <TabsList className="bg-slate-100 p-1 rounded-lg">
                         <TabsTrigger value="users" className="data-[state=active]:bg-white data-[state=active]:text-slate-900 data-[state=active]:shadow-sm">Users</TabsTrigger>
                         <TabsTrigger value="merchandise" className="data-[state=active]:bg-white data-[state=active]:text-slate-900 data-[state=active]:shadow-sm">Merchandise</TabsTrigger>
@@ -660,9 +662,14 @@ export function SuperAdminDashboard({ user }: SuperAdminDashboardProps) {
 
                     <TabsContent value="live-events" className="space-y-4">
                         <Card className="border-slate-200 shadow-sm">
-                            <CardHeader>
-                                <CardTitle>Manage Live Events</CardTitle>
-                                <CardDescription>Events added here will be displayed on the homepage ticker.</CardDescription>
+                            <CardHeader className="flex flex-row items-center justify-between">
+                                <div>
+                                    <CardTitle>Manage Live Events</CardTitle>
+                                    <CardDescription>Events added here will be displayed on the homepage ticker.</CardDescription>
+                                </div>
+                                {activeTab === "live-events" && (
+                                    <EditEventDetails slug={newEventSlug || liveEvents[0]?.slug} />
+                                )}
                             </CardHeader>
                             <CardContent className="space-y-6">
                                 <div className="grid grid-cols-1 md:grid-cols-4 gap-4 items-end bg-slate-50 p-4 rounded-lg border border-slate-200">
