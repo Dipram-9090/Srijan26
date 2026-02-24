@@ -116,7 +116,7 @@ const SPONSORS = [
 
 export const PastSponsors = () => {
   return (
-    <MarqueeSlider name="Past Sponsors" itemCount={SPONSORS.length} baseSpeed={0.03}>
+    <MarqueeSlider name="Past Sponsors" itemCount={SPONSORS.length} baseSpeed={-0.02}>
       {SPONSORS.map((sponsor) => (
         <li
           key={sponsor.name}
