@@ -4,7 +4,7 @@ import { Countdown } from "@/components/Landing/Countdown";
 
 export function HeroSection() {
   return (
-    <section className="w-full py-16 flex flex-col">
+    <section className="w-full min-h-screen py-16 flex flex-col justify-center">
       <Image
         src="/images/srijan-wide-icon.svg"
         alt="A wide layout logo for Srijan'26"
