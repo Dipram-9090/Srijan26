@@ -3,7 +3,7 @@
 import ProductView from "@/components/Merchandise/ProductView";
 import Price from "@/components/Merchandise/Price";
 import Contact from "@/components/Merchandise/Contact";
-import Balls from "@/components/Balls";
+import WavyGradient from "@/components/WavyGradient";
 import Image from "next/image";
 import { Clickable } from "@/components/Clickable";
 import { useState } from "react";
@@ -194,9 +194,17 @@ export default function MerchandisePage() {
   ];
 
   return (
-    <main className="full-bleed min-h-screen bg-[url('/bg.jpg')] bg-cover bg-center relative text-white">
-      <Balls />
-      <div className="absolute inset-0 bg-black/70" />
+    <main className="full-bleed min-h-screen relative text-white">
+      <WavyGradient
+        color1="#bc6116"
+        color2="#8f0c03"
+        color3="#1A0000"
+        direction={20}
+        speed={1.5}
+        waveHeight={0.45}
+        noiseIntensity={5}
+        waveAmplitude={1}
+      />
 
       <div
         className="
