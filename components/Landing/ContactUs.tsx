@@ -26,7 +26,7 @@ export const ContactUs = () => {
   return (
     <>
       <div id="contact-us" className="full-bleed">
-        <h2 className="p-0 font-elnath text-2xl md:text-4xl lg:text-5xl uppercase tracking-[0.3em] ml-10 mb-4 sm:ml-18 lg:ml-24">
+        <h2 className="p-0 font-elnath text-2xl sm:text-3xl md:text-5xl lg:text-6xl uppercase tracking-[0.15em] sm:tracking-[0.2em] md:tracking-[0.3em] text-amber-200/90 ml-10 mb-10 sm:ml-18 lg:ml-24 sm:mb-16">
           Contact Us
         </h2>
       </div>

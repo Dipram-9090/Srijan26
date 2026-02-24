@@ -36,7 +36,7 @@ export const MarqueeSlider = ({
 
   return (
     <section ref={sectionRef} className="full-bleed pt-30">
-      <h2 className={`p-0 font-elnath text-2xl md:text-4xl lg:text-5xl uppercase tracking-[0.3em] mb-4 ${titleAlignment === "left" ? "ml-10 sm:ml-18 lg:ml-24" : "mr-10 sm:mr-18 lg:mr-24 text-right"}`}>
+      <h2 className={`p-0 font-elnath text-2xl sm:text-3xl md:text-5xl lg:text-6xl uppercase tracking-[0.15em] sm:tracking-[0.2em] md:tracking-[0.3em] text-amber-200/90 mb-10 sm:mb-16 ${titleAlignment === "left" ? "ml-10 sm:ml-18 lg:ml-24" : "mr-10 sm:mr-18 lg:mr-24 text-right"}`}>
         {name}
       </h2>
       <ul className="flex m-auto overflow-hidden select-none">
