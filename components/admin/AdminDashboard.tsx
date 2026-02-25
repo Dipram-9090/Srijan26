@@ -36,7 +36,6 @@ import {
   Calendar,
 } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
-import EditEventDetails from "./EditEventDetails";
 
 interface AdminDashboardProps {
   user: AuthUser;
@@ -200,7 +199,6 @@ export function AdminDashboard({ user, events }: AdminDashboardProps) {
               </SelectContent>
               </Select>
             </div>
-            <EditEventDetails slug={selectedEvent?.slug} />
           </div>
 
           {selectedEvent && (
