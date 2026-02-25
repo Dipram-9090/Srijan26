@@ -1,31 +1,10 @@
 "use client";
+import Image from "next/image";
 
-const demoImages: CarouselImage[] = [
-  {
-    src: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=700&q=80",
-    label: "Torres del Paine",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=700&q=80",
-    label: "Swiss Alps",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1454496522488-7a8e488e8606?w=700&q=80",
-    label: "Dolomites, Italy",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1519681393784-d120267933ba?w=700&q=80",
-    label: "Starlit Peaks",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=700&q=80",
-    label: "Himalayan Dawn",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1490682143684-14369e18dce8?w=700&q=80",
-    label: "Lake & Summits",
-  },
-];
+const galleryImages: CarouselImage[] = Array.from({ length: 28 }).map((_, i) => ({
+  src: `/images/gallery/${i + 1}.webp`,
+  label: "Previous Edition",
+}));
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { useState, useCallback, useEffect, useRef } from "react";
 import { AnimatedSectionTitle } from "./AnimatedSectionTitle";
@@ -113,7 +92,7 @@ interface CarouselProps {
   images?: CarouselImage[];
 }
 
-export function Carousel({ images = demoImages }: CarouselProps) {
+export function Carousel({ images = galleryImages }: CarouselProps) {
   const [current, setCurrent] = useState(0);
   const [dims, setDims] = useState({ w: 0, h: 0 });
   const sceneRef = useRef<HTMLDivElement>(null);
@@ -165,7 +144,7 @@ export function Carousel({ images = demoImages }: CarouselProps) {
       {/* Title */}
       <div className="mb-12 relative z-20 w-full">
         <AnimatedSectionTitle
-          text="Glimpse of Srijan" // change this if you want to change the title
+          text="Glimpse of Srijan"
           className="text-4xl md:text-5xl lg:text-7xl font-elnath text-yellow text-center"
         />
       </div>
@@ -196,6 +175,12 @@ export function Carousel({ images = demoImages }: CarouselProps) {
             {cardW > 0 &&
               images.map((img, i) => {
                 const pos = getPos(i, current, n);
+                
+                // PERFORMANCE OPTIMIZATION: Only render cards that are relatively close to the current view
+                // Math.abs(pos) <= 3 means we only render the center card + 3 on each side
+                // The rest are completely unmounted from the DOM
+                if (Math.abs(pos) > 3) return null;
+
                 const cardStyle = getCardStyle(pos, cardW, cardH);
 
                 return (
@@ -219,11 +204,12 @@ export function Carousel({ images = demoImages }: CarouselProps) {
                       ...cardStyle,
                     }}
                   >
-                    <img
+                    <Image
                       src={img.src}
                       alt={img.label}
-                      loading="lazy"
-                      className="w-full h-full object-cover block"
+                      fill
+                      className="object-cover block"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     />
                     <div
                       className="absolute inset-0 pointer-events-none"
@@ -239,15 +225,18 @@ export function Carousel({ images = demoImages }: CarouselProps) {
         </div>
       </div>
 
-      {/* Caption */}
-      <div className="relative z-20 mt-6 h-8 flex items-center justify-center">
-        <p className="text-[12px] sm:text-sm font-euclid font-semibold tracking-[0.3em] uppercase text-yellow text-center transition-opacity duration-300">
-          {images[current]?.label}
+      {/* Caption removed to avoid duplication with SectionTitle */}
+
+      {/* Descriptive Text */}
+      <div className="relative z-20 mt-8 mb-4 max-w-2xl px-4 text-center mx-auto">
+        <p className="text-sm sm:text-base font-inter text-gray-300">
+          Experience the incredible energy, innovation, and legacy of Srijan. 
+          A journey through our past editions celebrating technology, management, and culture.
         </p>
       </div>
 
       {/* Controls */}
-      <div className="mt-8 relative z-20 flex justify-center items-center gap-6 sm:gap-10">
+      <div className="relative z-20 flex justify-center items-center gap-6 sm:gap-10">
         <button
           onClick={() => navigate(-1)}
           className="group w-14 h-10 sm:w-16 sm:h-12 flex items-center justify-center bg-yellow text-black hover:bg-[#ffe88a] active:bg-red active:text-white active:scale-95 transition-all duration-150 cursor-pointer"
@@ -257,30 +246,12 @@ export function Carousel({ images = demoImages }: CarouselProps) {
           <ArrowLeft size={20} className="group-hover:-translate-x-1 group-active:translate-x-0 transition-transform duration-200" />
         </button>
 
-        <div className="flex items-center gap-3">
-          {images.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => setCurrent(i)}
-              aria-label={`Go to slide ${i + 1}`}
-              className="group relative flex items-center justify-center w-6 h-6"
-            >
-              <span 
-                className={`absolute w-full h-full border border-yellow/50 rounded-full scale-0 transition-transform duration-300 ${i === current ? 'scale-100 opacity-100' : 'opacity-0 group-hover:scale-75 group-hover:opacity-50'}`}
-              />
-              <span
-                style={{
-                  width: i === current ? 10 : 6,
-                  height: i === current ? 10 : 6,
-                  borderRadius: "50%",
-                  background: i === current ? "#ebd87d" : "rgba(255,255,255,0.35)",
-                  boxShadow: i === current ? "0 0 12px rgba(235,216,125,0.8)" : "none",
-                  transition: "all 0.3s",
-                }}
-              />
-            </button>
-          ))}
+        <div className="flex bg-[#1a1a1a] px-4 py-2 rounded-full border border-yellow/20 items-center gap-3">
+          <span className="text-yellow font-euclid text-sm font-medium tracking-widest">
+            {current + 1} / {n}
+          </span>
         </div>
+
 
         <button
           onClick={() => navigate(1)}

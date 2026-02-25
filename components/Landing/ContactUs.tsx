@@ -30,7 +30,7 @@ export const ContactUs = () => {
       <div id="contact-us" className="full-bleed">
         <AnimatedSectionTitle
           text="Contact Us"
-          className="p-0 font-elnath text-2xl sm:text-3xl md:text-5xl lg:text-6xl uppercase tracking-[0.15em] sm:tracking-[0.2em] md:tracking-[0.3em] text-amber-200/90 ml-10 mb-10 sm:ml-18 lg:ml-24 sm:mb-16 flex justify-start"
+          className="text-4xl md:text-5xl lg:text-7xl font-elnath text-yellow ml-10 mb-10 sm:ml-18 lg:ml-24 sm:mb-16 flex justify-start"
         />
       </div>
       <ul className="divide-y divide-white/10 py-8 md:px-16 lg:px-32">
