@@ -31,6 +31,7 @@ const futura = localFont({
 });
 
 export const metadata: Metadata = {
+    metadataBase: new URL("https://srijanju.in"),
     title: "SRIJAN'26 | Jadavpur University",
     description:
         "F.E.T.S.U. presents SRIJAN'26, the annual Techno-Management fest of Jadavpur University. Participate in over 50+ events comprising genres of Coding, Gaming, Management, Brainstorming and many more. Since it's inception in 2007, Srijan has held a plethora of events, and collecting the best ideas & minds of Kolkata ever since",
@@ -42,11 +43,11 @@ export const metadata: Metadata = {
         title: "SRIJAN'26 | Jadavpur University",
         description:
             "F.E.T.S.U. presents SRIJAN'26, the annual Techno-Management fest of Jadavpur University. Participate in over 50+ events comprising genres of Coding, Gaming, Management, Brainstorming and many more. Since it's inception in 2007, Srijan has held a plethora of events, and collecting the best ideas & minds of Kolkata ever since",
-        url: "https://srijanju.in",
+        url: "/",
         siteName: "SRIJAN'26",
         images: [
             {
-                url: "https://srijanju.in/opengraph.webp",
+                url: "/opengraph.webp",
                 width: 1200,
                 height: 640,
                 alt: "SRIJAN'26 | Jadavpur University",
@@ -60,7 +61,7 @@ export const metadata: Metadata = {
         description:
             "F.E.T.S.U. presents SRIJAN'26, the annual Techno-Management fest of Jadavpur University. Participate in over 50+ events comprising genres of Coding, Gaming, Management, Brainstorming and many more. Ever since it's inception in 2007, Srijan has held a plethora of events, and collecting the best ideas & minds of Kolkata ever since",
         creator: "FETSU",
-        images: ["https://srijanju.in/opengraph.webp"],
+        images: ["/opengraph.webp"],
     },
 };
 

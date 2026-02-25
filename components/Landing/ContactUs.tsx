@@ -1,3 +1,5 @@
+import { AnimatedSectionTitle } from "./AnimatedSectionTitle";
+
 type ContactPerson = {
   name: string;
   position: string;
@@ -26,9 +28,10 @@ export const ContactUs = () => {
   return (
     <>
       <div id="contact-us" className="full-bleed">
-        <h2 className="p-0 font-elnath text-2xl md:text-4xl lg:text-5xl uppercase tracking-[0.3em] ml-10 mb-4 sm:ml-18 lg:ml-24">
-          Contact Us
-        </h2>
+        <AnimatedSectionTitle
+          text="Contact Us"
+          className="text-4xl md:text-5xl lg:text-7xl font-elnath text-yellow ml-10 mb-10 sm:ml-18 lg:ml-24 sm:mb-16 flex justify-start"
+        />
       </div>
       <ul className="divide-y divide-white/10 py-8 md:px-16 lg:px-32">
         {contacts.map((person, index) => (

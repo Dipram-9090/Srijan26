@@ -1,6 +1,8 @@
 import "dotenv/config";
 import { PrismaClient, UserRole } from "@prisma/client";
 import bcrypt from "bcryptjs";
+import fs from "fs/promises";
+import path from "path";
 
 const prisma = new PrismaClient();
 
@@ -281,6 +283,32 @@ async function main() {
       });
     }
   }
+
+  /* ============================
+     LIVE EVENTS (FILE STORE)
+  ============================ */
+
+  const liveEvents = [
+    {
+      id: "live-1",
+      slug: "hackathon",
+      name: "Srijan Hackathon",
+      round: "Prelims",
+      location: "Main Hall",
+    },
+    {
+      id: "live-2",
+      slug: "roborace",
+      name: "Robo Race",
+      round: "Finals",
+      location: "Ground Arena",
+    },
+  ];
+
+  const dataDir = path.join(process.cwd(), "data");
+  const liveEventsFile = path.join(dataDir, "liveEvents.json");
+  await fs.mkdir(dataDir, { recursive: true });
+  await fs.writeFile(liveEventsFile, JSON.stringify(liveEvents, null, 2), "utf-8");
 
   console.log("Seed complete");
   console.log("");

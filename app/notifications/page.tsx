@@ -1,15 +1,23 @@
 "use client";
 
-import Balls from "@/components/Balls";
 import NotificationCard from "@/components/Notifications/NotificationCard";
+import WavyGradient from "@/components/WavyGradient";
 
 export default function NotificationsPage() {
   const notifications: any[] = [];
 
   return (
     <main className="full-bleed min-h-screen relative text-white overflow-hidden">
-      <div className="fixed inset-0 z-[-20] bg-[#160505]" />
-      <Balls />
+      <WavyGradient
+        color1="#bc6116"
+        color2="#8f0c03"
+        color3="#1A0000"
+        direction={20}
+        speed={1.5}
+        waveHeight={0.45}
+        noiseIntensity={5}
+        waveAmplitude={1}
+      />
       <div className="relative z-10 w-full max-w-5xl mx-auto px-4 sm:px-6 py-16 sm:py-20 md:py-28 flex flex-col gap-10 sm:gap-12">
         <header className="flex flex-col items-center text-center gap-3 sm:gap-4 px-3">
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-elnath text-[#EBD87D] drop-shadow-lg leading-tight">

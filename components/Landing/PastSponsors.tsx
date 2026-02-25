@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { MarqueeSlider } from "./MarqueeSlider";
 
 const SPONSORS = [
@@ -115,22 +116,27 @@ const SPONSORS = [
 
 export const PastSponsors = () => {
   return (
-    <MarqueeSlider name="Past Sponsors" itemCount={SPONSORS.length}>
+    <MarqueeSlider name="Past Sponsors" itemCount={SPONSORS.length} baseSpeed={-0.02}>
       {SPONSORS.map((sponsor) => (
         <li
           key={sponsor.name}
-          className={`bg-no-repeat bg-contain bg-center block h-[33vw] w-[33vw] m-4 rounded`}
-          style={{
-            backgroundImage: `url(${sponsor.image})`,
-          }}
+          className="flex-shrink-0 flex items-center justify-center h-48 w-72 sm:h-64 sm:w-96 md:h-80 md:w-[480px] mx-6 sm:mx-10 p-6 sm:p-8 rounded-2xl bg-white/5 hover:bg-white/10 transition-colors border border-white/10 relative"
         >
           <a
             href={sponsor.link}
             target="_blank"
             rel="noopener noreferrer"
-            className="block h-full w-full"
+            className="relative flex h-full w-full items-center justify-center"
             aria-label={sponsor.name}
-          ></a>
+          >
+            <Image
+              src={`/${sponsor.image}`}
+              alt={sponsor.name}
+              fill
+              className="object-contain p-0 md:p-2"
+              sizes="(max-width: 768px) 320px, (max-width: 1024px) 400px, 500px"
+            />
+          </a>
         </li>
       ))}
     </MarqueeSlider>

@@ -1,33 +1,13 @@
 "use client";
+import Image from "next/image";
 
-const demoImages: CarouselImage[] = [
-  {
-    src: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=700&q=80",
-    label: "Torres del Paine",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=700&q=80",
-    label: "Swiss Alps",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1454496522488-7a8e488e8606?w=700&q=80",
-    label: "Dolomites, Italy",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1519681393784-d120267933ba?w=700&q=80",
-    label: "Starlit Peaks",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=700&q=80",
-    label: "Himalayan Dawn",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1490682143684-14369e18dce8?w=700&q=80",
-    label: "Lake & Summits",
-  },
-];
+const galleryImages: CarouselImage[] = Array.from({ length: 28 }).map((_, i) => ({
+  src: `/images/gallery/${i + 1}.webp`,
+  label: "Previous Edition",
+}));
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { useState, useCallback, useEffect, useRef } from "react";
+import { AnimatedSectionTitle } from "./AnimatedSectionTitle";
 
 export interface CarouselImage {
   src: string;
@@ -112,12 +92,14 @@ interface CarouselProps {
   images?: CarouselImage[];
 }
 
-export function Carousel({ images = demoImages }: CarouselProps) {
+export function Carousel({ images = galleryImages }: CarouselProps) {
   const [current, setCurrent] = useState(0);
   const [dims, setDims] = useState({ w: 0, h: 0 });
   const sceneRef = useRef<HTMLDivElement>(null);
   const touchStartX = useRef(0);
   const n = images.length;
+
+  const btnClipPath = "polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px)";
 
   // Measure the scene container and update on resize
   useEffect(() => {
@@ -157,15 +139,22 @@ export function Carousel({ images = demoImages }: CarouselProps) {
   const { w: cardW, h: cardH } = dims;
 
   return (
-    <div
-      className="full-bleed py-30 flex flex-col items-center justify-center px-4 sm:px-16 md:px-32 overflow-hidden"
-    >
+    <div className="full-bleed py-20 relative flex flex-col items-center justify-center px-4 sm:px-16 md:px-32 overflow-hidden">
+      
+      {/* Title */}
+      <div className="mb-12 relative z-20 w-full">
+        <AnimatedSectionTitle
+          text="Glimpse of Srijan"
+          className="text-4xl md:text-5xl lg:text-7xl font-elnath text-yellow text-center"
+        />
+      </div>
+
       {/*
         The scene wrapper takes up most of the viewport width (capped at a
         comfortable max) and drives all card sizing through ResizeObserver.
       */}
       <div
-        className="w-full"
+        className="w-full relative z-10"
         style={{ maxWidth: "min(820px, 90vw)" }}
         ref={sceneRef}
       >
@@ -186,6 +175,12 @@ export function Carousel({ images = demoImages }: CarouselProps) {
             {cardW > 0 &&
               images.map((img, i) => {
                 const pos = getPos(i, current, n);
+                
+                // PERFORMANCE OPTIMIZATION: Only render cards that are relatively close to the current view
+                // Math.abs(pos) <= 3 means we only render the center card + 3 on each side
+                // The rest are completely unmounted from the DOM
+                if (Math.abs(pos) > 3) return null;
+
                 const cardStyle = getCardStyle(pos, cardW, cardH);
 
                 return (
@@ -205,20 +200,22 @@ export function Carousel({ images = demoImages }: CarouselProps) {
                       boxShadow: "0 30px 80px rgba(0,0,0,0.55)",
                       transition: "all 0.6s cubic-bezier(0.25,0.46,0.45,0.94)",
                       backfaceVisibility: "hidden",
+                      border: pos === 0 ? "2px solid rgba(235,216,125,0.4)" : "1px solid rgba(255,255,255,0.1)",
                       ...cardStyle,
                     }}
                   >
-                    <img
+                    <Image
                       src={img.src}
                       alt={img.label}
-                      loading="lazy"
-                      className="w-full h-full object-cover block"
+                      fill
+                      className="object-cover block"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     />
                     <div
                       className="absolute inset-0 pointer-events-none"
                       style={{
                         background:
-                          "linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.35))",
+                          "linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.65))",
                       }}
                     />
                   </div>
@@ -228,51 +225,44 @@ export function Carousel({ images = demoImages }: CarouselProps) {
         </div>
       </div>
 
-      {/* Caption */}
-      <p className="mt-4 text-[10px] tracking-[0.3em] uppercase text-white/80 text-center min-h-[1em] transition-opacity duration-300">
-        {images[current]?.label}
-      </p>
+      {/* Caption removed to avoid duplication with SectionTitle */}
+
+      {/* Descriptive Text */}
+      <div className="relative z-20 mt-8 mb-4 max-w-2xl px-4 text-center mx-auto">
+        <p className="text-sm sm:text-base font-inter text-gray-300">
+          Experience the incredible energy, innovation, and legacy of Srijan. 
+          A journey through our past editions celebrating technology, management, and culture.
+        </p>
+      </div>
 
       {/* Controls */}
-      <div className="mt-5 flex justify-center items-center gap-4">
+      <div className="relative z-20 flex justify-center items-center gap-6 sm:gap-10">
         <button
           onClick={() => navigate(-1)}
-          className="w-9 h-9 flex items-center justify-center text-white/60 hover:text-white transition-all duration-200 hover:scale-110 text-xl"
+          className="group w-14 h-10 sm:w-16 sm:h-12 flex items-center justify-center bg-yellow text-black hover:bg-[#ffe88a] active:bg-red active:text-white active:scale-95 transition-all duration-150 cursor-pointer"
+          style={{ clipPath: btnClipPath }}
           aria-label="Previous"
         >
-          <ArrowLeft />
+          <ArrowLeft size={20} className="group-hover:-translate-x-1 group-active:translate-x-0 transition-transform duration-200" />
         </button>
 
-        <div className="flex items-center gap-2">
-          {images.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => setCurrent(i)}
-              aria-label={`Go to slide ${i + 1}`}
-              style={{
-                width: i === current ? 10 : 7,
-                height: i === current ? 10 : 7,
-                borderRadius: "50%",
-                background:
-                  i === current ? "#f0b040" : "rgba(255,255,255,0.35)",
-                boxShadow: i === current ? "0 0 8px #f0b040aa" : "none",
-                transition: "all 0.3s",
-                border: "none",
-                cursor: "pointer",
-                padding: 0,
-              }}
-            />
-          ))}
+        <div className="flex bg-[#1a1a1a] px-4 py-2 rounded-full border border-yellow/20 items-center gap-3">
+          <span className="text-yellow font-euclid text-sm font-medium tracking-widest">
+            {current + 1} / {n}
+          </span>
         </div>
+
 
         <button
           onClick={() => navigate(1)}
-          className="w-9 h-9 flex items-center justify-center text-white/60 hover:text-white transition-all duration-200 hover:scale-110 text-xl"
+          className="group w-14 h-10 sm:w-16 sm:h-12 flex items-center justify-center bg-yellow text-black hover:bg-[#ffe88a] active:bg-red active:text-white active:scale-95 transition-all duration-150 cursor-pointer"
+          style={{ clipPath: btnClipPath }}
           aria-label="Next"
         >
-          <ArrowRight />
+          <ArrowRight size={20} className="group-hover:translate-x-1 group-active:translate-x-0 transition-transform duration-200" />
         </button>
       </div>
     </div>
   );
 }
+
