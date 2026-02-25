@@ -139,7 +139,7 @@ export default function Timeline() {
   }, [dots]);
 
   return (
-    <section className="relative py-20 flex flex-col items-center overflow-hidden" style={{ gridColumn: '1 / -1', width: '100%' }}>
+    <section className="relative pt-20 pb-32 lg:pb-40 flex flex-col items-center overflow-hidden" style={{ gridColumn: '1 / -1', width: '100%' }}>
       <AnimatedSectionTitle 
         text="Explore Events at JU" 
         className="font-elnath text-2xl sm:text-3xl md:text-5xl lg:text-6xl uppercase tracking-[0.15em] sm:tracking-[0.2em] md:tracking-[0.3em] text-amber-200/90 mb-10 sm:mb-16 text-center px-4 flex justify-center w-full" 
