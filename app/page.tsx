@@ -6,6 +6,7 @@ import LiveEvents from "@/components/Landing/LiveEvents";
 import WavyGradient from "@/components/WavyGradient";
 import { ContactUs } from "@/components/Landing/ContactUs";
 import { PastSpeakers } from "@/components/Landing/PastSpeakers";
+import { About } from "@/components/Landing/About";
 
 export default function Home() {
   return (
@@ -26,6 +27,7 @@ export default function Home() {
       <LiveEvents />
       <PastSponsors />
       <PastSpeakers />
+      <About />
       <Carousel />
       <ContactUs />
     </>

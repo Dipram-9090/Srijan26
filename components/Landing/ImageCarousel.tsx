@@ -28,6 +28,7 @@ const demoImages: CarouselImage[] = [
 ];
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { useState, useCallback, useEffect, useRef } from "react";
+import { AnimatedSectionTitle } from "./AnimatedSectionTitle";
 
 export interface CarouselImage {
   src: string;
@@ -119,6 +120,8 @@ export function Carousel({ images = demoImages }: CarouselProps) {
   const touchStartX = useRef(0);
   const n = images.length;
 
+  const btnClipPath = "polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px)";
+
   // Measure the scene container and update on resize
   useEffect(() => {
     const el = sceneRef.current;
@@ -157,15 +160,22 @@ export function Carousel({ images = demoImages }: CarouselProps) {
   const { w: cardW, h: cardH } = dims;
 
   return (
-    <div
-      className="full-bleed py-30 flex flex-col items-center justify-center px-4 sm:px-16 md:px-32 overflow-hidden"
-    >
+    <div className="full-bleed py-20 relative flex flex-col items-center justify-center px-4 sm:px-16 md:px-32 overflow-hidden">
+      
+      {/* Title */}
+      <div className="mb-12 relative z-20 w-full">
+        <AnimatedSectionTitle
+          text="Glimpse of Srijan" // change this if you want to change the title
+          className="text-4xl md:text-5xl lg:text-7xl font-elnath text-yellow text-center"
+        />
+      </div>
+
       {/*
         The scene wrapper takes up most of the viewport width (capped at a
         comfortable max) and drives all card sizing through ResizeObserver.
       */}
       <div
-        className="w-full"
+        className="w-full relative z-10"
         style={{ maxWidth: "min(820px, 90vw)" }}
         ref={sceneRef}
       >
@@ -205,6 +215,7 @@ export function Carousel({ images = demoImages }: CarouselProps) {
                       boxShadow: "0 30px 80px rgba(0,0,0,0.55)",
                       transition: "all 0.6s cubic-bezier(0.25,0.46,0.45,0.94)",
                       backfaceVisibility: "hidden",
+                      border: pos === 0 ? "2px solid rgba(235,216,125,0.4)" : "1px solid rgba(255,255,255,0.1)",
                       ...cardStyle,
                     }}
                   >
@@ -218,7 +229,7 @@ export function Carousel({ images = demoImages }: CarouselProps) {
                       className="absolute inset-0 pointer-events-none"
                       style={{
                         background:
-                          "linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.35))",
+                          "linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.65))",
                       }}
                     />
                   </div>
@@ -229,50 +240,58 @@ export function Carousel({ images = demoImages }: CarouselProps) {
       </div>
 
       {/* Caption */}
-      <p className="mt-4 text-[10px] tracking-[0.3em] uppercase text-white/80 text-center min-h-[1em] transition-opacity duration-300">
-        {images[current]?.label}
-      </p>
+      <div className="relative z-20 mt-6 h-8 flex items-center justify-center">
+        <p className="text-[12px] sm:text-sm font-euclid font-semibold tracking-[0.3em] uppercase text-yellow text-center transition-opacity duration-300">
+          {images[current]?.label}
+        </p>
+      </div>
 
       {/* Controls */}
-      <div className="mt-5 flex justify-center items-center gap-4">
+      <div className="mt-8 relative z-20 flex justify-center items-center gap-6 sm:gap-10">
         <button
           onClick={() => navigate(-1)}
-          className="w-9 h-9 flex items-center justify-center text-white/60 hover:text-white transition-all duration-200 hover:scale-110 text-xl"
+          className="group w-14 h-10 sm:w-16 sm:h-12 flex items-center justify-center bg-yellow text-black hover:bg-[#ffe88a] active:bg-red active:text-white active:scale-95 transition-all duration-150 cursor-pointer"
+          style={{ clipPath: btnClipPath }}
           aria-label="Previous"
         >
-          <ArrowLeft />
+          <ArrowLeft size={20} className="group-hover:-translate-x-1 group-active:translate-x-0 transition-transform duration-200" />
         </button>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-3">
           {images.map((_, i) => (
             <button
               key={i}
               onClick={() => setCurrent(i)}
               aria-label={`Go to slide ${i + 1}`}
-              style={{
-                width: i === current ? 10 : 7,
-                height: i === current ? 10 : 7,
-                borderRadius: "50%",
-                background:
-                  i === current ? "#f0b040" : "rgba(255,255,255,0.35)",
-                boxShadow: i === current ? "0 0 8px #f0b040aa" : "none",
-                transition: "all 0.3s",
-                border: "none",
-                cursor: "pointer",
-                padding: 0,
-              }}
-            />
+              className="group relative flex items-center justify-center w-6 h-6"
+            >
+              <span 
+                className={`absolute w-full h-full border border-yellow/50 rounded-full scale-0 transition-transform duration-300 ${i === current ? 'scale-100 opacity-100' : 'opacity-0 group-hover:scale-75 group-hover:opacity-50'}`}
+              />
+              <span
+                style={{
+                  width: i === current ? 10 : 6,
+                  height: i === current ? 10 : 6,
+                  borderRadius: "50%",
+                  background: i === current ? "#ebd87d" : "rgba(255,255,255,0.35)",
+                  boxShadow: i === current ? "0 0 12px rgba(235,216,125,0.8)" : "none",
+                  transition: "all 0.3s",
+                }}
+              />
+            </button>
           ))}
         </div>
 
         <button
           onClick={() => navigate(1)}
-          className="w-9 h-9 flex items-center justify-center text-white/60 hover:text-white transition-all duration-200 hover:scale-110 text-xl"
+          className="group w-14 h-10 sm:w-16 sm:h-12 flex items-center justify-center bg-yellow text-black hover:bg-[#ffe88a] active:bg-red active:text-white active:scale-95 transition-all duration-150 cursor-pointer"
+          style={{ clipPath: btnClipPath }}
           aria-label="Next"
         >
-          <ArrowRight />
+          <ArrowRight size={20} className="group-hover:translate-x-1 group-active:translate-x-0 transition-transform duration-200" />
         </button>
       </div>
     </div>
   );
 }
+

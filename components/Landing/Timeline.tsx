@@ -3,6 +3,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { AnimatedSectionTitle } from './AnimatedSectionTitle';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -139,10 +140,10 @@ export default function Timeline() {
 
   return (
     <section className="relative py-20 flex flex-col items-center overflow-hidden" style={{ gridColumn: '1 / -1', width: '100%' }}>
-      {/* Timeline Title */}
-      <h2 className="font-elnath text-2xl sm:text-3xl md:text-5xl lg:text-6xl uppercase tracking-[0.15em] sm:tracking-[0.2em] md:tracking-[0.3em] text-amber-200/90 mb-10 sm:mb-16 text-center px-4">
-        Explore Events at JU
-      </h2>
+      <AnimatedSectionTitle 
+        text="Explore Events at JU" 
+        className="font-elnath text-2xl sm:text-3xl md:text-5xl lg:text-6xl uppercase tracking-[0.15em] sm:tracking-[0.2em] md:tracking-[0.3em] text-amber-200/90 mb-10 sm:mb-16 text-center px-4 flex justify-center w-full" 
+      />
 
 
       <div ref={containerRef} className="relative w-full max-w-125 px-8" style={{ aspectRatio: '637/2658' }}>
