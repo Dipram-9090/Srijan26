@@ -5,7 +5,12 @@ import Image from "next/image";
 import { Clickable } from "@/components/Clickable";
 import { Countdown } from "@/components/Landing/Countdown";
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 interface SplitTextMaskProps {
   text: string;
@@ -90,6 +95,34 @@ export function HeroSection() {
         { opacity: 1, y: 0, duration: 0.8, ease: "back.out(1.5)" },
         "-=0.6"
       );
+
+      gsap.to(".hero-video-container", {
+        opacity: 0,
+        ease: "none",
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top top",
+          end: "bottom top",
+          scrub: true,
+        },
+      });
+
+      const wavyCanvas = document.querySelector(".wavy-gradient-canvas");
+      
+      if (wavyCanvas) {
+        gsap.fromTo(wavyCanvas, {
+          opacity: 0.6,
+        }, {
+          opacity: 1,
+          ease: "none",
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: "top top",
+            end: "bottom top",
+            scrub: true,
+          },
+        });
+      }
     },
     { scope: containerRef }
   );
@@ -97,8 +130,30 @@ export function HeroSection() {
   return (
     <section
       ref={containerRef}
-      className="w-full h-[100dvh] pt-24 pb-12 lg:py-16 px-4 sm:px-8 lg:px-6 xl:px-8 flex flex-col justify-center lg:flex-row lg:items-center lg:justify-between overflow-hidden"
+      className="relative full-bleed w-full h-[100dvh] pt-40 pb-12 lg:pt-60 lg:pb-16 px-4 sm:px-8 lg:px-6 xl:px-8 flex flex-col justify-center lg:flex-row lg:items-center lg:justify-between overflow-hidden"
     >
+      {/* Background Video */}
+      <div 
+        className="hero-video-container absolute inset-0 z-0 pointer-events-none"
+        style={{
+          WebkitMaskImage: "linear-gradient(to bottom, black 60%, transparent 100%)",
+          maskImage: "linear-gradient(to bottom, black 60%, transparent 100%)"
+        }}
+      >
+        <video
+          src="/videos/landing/srijan_hero_compressed_1080p_crf32.webm"
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="auto"
+          disablePictureInPicture
+          disableRemotePlayback
+          className="absolute inset-0 w-full h-full object-cover opacity-70"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-transparent" />
+      </div>
+
       {/* Left section: Logo and Title */}
       <div className="flex flex-col items-center lg:items-start text-center lg:text-left z-10 w-full lg:w-max lg:-mt-90 -mt-40">
         <Image
