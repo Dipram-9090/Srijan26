@@ -43,7 +43,7 @@ export const MarqueeSlider = ({
     <section className="full-bleed pt-30 overflow-hidden w-full">
       <AnimatedSectionTitle
         text={name}
-        className={`p-0 font-elnath text-2xl sm:text-3xl md:text-5xl lg:text-6xl uppercase tracking-[0.15em] sm:tracking-[0.2em] md:tracking-[0.3em] text-amber-200/90 mb-10 sm:mb-16 flex ${
+        className={`text-4xl md:text-5xl lg:text-7xl font-elnath text-yellow mb-10 sm:mb-16 flex ${
           titleAlignment === "left"
             ? "ml-10 sm:ml-18 lg:ml-24 justify-start"
             : "mr-10 sm:mr-18 lg:mr-24 justify-end"

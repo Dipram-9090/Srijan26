@@ -32,11 +32,11 @@ export const About = () => {
         <div className="flex flex-col ml-10 sm:ml-18 lg:ml-24 gap-1 sm:gap-2 items-start">
           <AnimatedSectionTitle
             text="ABOUT"
-            className="p-0 font-elnath text-2xl sm:text-3xl md:text-5xl lg:text-5xl xl:text-6xl uppercase tracking-[0.15em] sm:tracking-[0.2em] md:tracking-[0.3em] text-amber-200/90 flex justify-start"
+            className="text-4xl md:text-5xl lg:text-7xl font-elnath text-yellow flex justify-start"
           />
           <AnimatedSectionTitle
             text="JADAVPUR UNIVERSITY"
-            className="p-0 font-elnath text-2xl sm:text-3xl md:text-5xl lg:text-5xl xl:text-6xl uppercase tracking-[0.15em] sm:tracking-[0.2em] md:tracking-[0.3em] text-amber-200/90 flex justify-start"
+            className="text-4xl md:text-5xl lg:text-7xl font-elnath text-yellow flex justify-start"
           />
         </div>
         <div className="font-euclid text-base sm:text-lg md:text-xl lg:text-[22px] text-white/80 leading-relaxed max-w-5xl mx-10 sm:mx-18 lg:mx-24 justify-start">
@@ -54,7 +54,7 @@ export const About = () => {
         {/* Title: Centered across both columns */}
         <AnimatedSectionTitle
           text="ABOUT SRIJAN"
-          className="p-0 font-elnath text-2xl sm:text-3xl md:text-5xl lg:text-5xl xl:text-6xl uppercase tracking-[0.15em] sm:tracking-[0.2em] md:tracking-[0.3em] text-amber-200/90 flex justify-center text-center whitespace-nowrap w-full"
+          className="text-4xl md:text-5xl lg:text-7xl font-elnath text-yellow flex justify-center text-center whitespace-nowrap w-full"
         />
 
         {/* Content: Two Columns */}

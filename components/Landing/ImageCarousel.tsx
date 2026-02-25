@@ -144,7 +144,7 @@ export function Carousel({ images = galleryImages }: CarouselProps) {
       {/* Title */}
       <div className="mb-12 relative z-20 w-full">
         <AnimatedSectionTitle
-          text="Glimpse of Srijan" // change this if you want to change the title
+          text="Glimpse of Srijan"
           className="text-4xl md:text-5xl lg:text-7xl font-elnath text-yellow text-center"
         />
       </div>

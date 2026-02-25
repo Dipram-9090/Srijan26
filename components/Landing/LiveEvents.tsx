@@ -17,7 +17,7 @@ export default async function LiveEvents() {
                     <div className="flex justify-center w-full">
                         <AnimatedSectionTitle
                             text="LIVE EVENTS"
-                            className="p-0 font-elnath text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl uppercase tracking-[0.15em] sm:tracking-[0.2em] md:tracking-[0.3em] text-amber-200/90"
+                            className="text-4xl md:text-5xl lg:text-7xl font-elnath text-yellow text-center"
                         />
                     </div>
                     
@@ -50,7 +50,7 @@ export default async function LiveEvents() {
             <div className="w-full max-w-[1500px] mx-auto flex flex-col items-center px-6 sm:px-10 lg:px-24">
                 <AnimatedSectionTitle
                     text="LIVE EVENTS"
-                    className="p-0 font-elnath text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl uppercase tracking-[0.15em] sm:tracking-[0.2em] md:tracking-[0.3em] text-amber-200/90 flex justify-center text-center whitespace-nowrap w-full"
+                    className="text-4xl md:text-5xl lg:text-7xl font-elnath text-yellow flex justify-center text-center whitespace-nowrap w-full"
                 />
             </div>
 
