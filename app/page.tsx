@@ -24,11 +24,11 @@ export default function Home() {
         className="wavy-gradient-canvas"
       />
       <HeroSection />
+      <About />
       <Timeline />
       <LiveEvents />
       <PastSponsors />
       <PastSpeakers />
-      <About />
       <Carousel />
       <ContactUs />
     </>

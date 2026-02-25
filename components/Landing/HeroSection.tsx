@@ -96,16 +96,22 @@ export function HeroSection() {
         "-=0.6"
       );
 
-      gsap.to(".hero-video-container", {
-        opacity: 0,
-        ease: "none",
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: "top top",
-          end: "bottom top",
-          scrub: true,
-        },
-      });
+      // Wait a tick for the sibling <About /> component to be fully mounted in the DOM
+      setTimeout(() => {
+        const aboutSrijan = document.querySelector(".about-srijan-wrapper");
+        if (aboutSrijan) {
+          gsap.to(".hero-video-container", {
+            yPercent: -100,
+            ease: "none",
+            scrollTrigger: {
+              trigger: aboutSrijan,
+              start: "top bottom", // Start moving when About Srijan hits the bottom of viewport
+              end: "top top",      // Finish moving when About Srijan top hits top of viewport
+              scrub: true,
+            },
+          });
+        }
+      }, 0);
 
       const wavyCanvas = document.querySelector(".wavy-gradient-canvas");
       
@@ -134,10 +140,10 @@ export function HeroSection() {
     >
       {/* Background Video */}
       <div 
-        className="hero-video-container absolute inset-0 z-0 pointer-events-none"
+        className="hero-video-container fixed inset-0 z-0 pointer-events-none h-[100dvh]"
         style={{
-          WebkitMaskImage: "linear-gradient(to bottom, black 60%, transparent 100%)",
-          maskImage: "linear-gradient(to bottom, black 60%, transparent 100%)"
+          WebkitMaskImage: "linear-gradient(to bottom, black 85%, transparent 100%)",
+          maskImage: "linear-gradient(to bottom, black 85%, transparent 100%)"
         }}
       >
         <video
