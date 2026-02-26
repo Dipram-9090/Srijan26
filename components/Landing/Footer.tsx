@@ -26,9 +26,9 @@ const LEGAL_LINKS = [
 ];
 
 const SOCIAL_LINKS = [
-  { icon: "/icons/linkedin.svg", alt: "LinkedIn", href: "https://linkedin.com" },
-  { icon: "/icons/instagram.svg", alt: "Instagram", href: "https://instagram.com" },
-  { icon: "/icons/youtube.svg", alt: "YouTube", href: "https://youtube.com" },
+  { icon: "/icons/linkedin.svg", alt: "LinkedIn", href: "https://in.linkedin.com/company/srijan-ju" },
+  { icon: "/icons/instagram.svg", alt: "Instagram", href: "https://www.instagram.com/srijan_ju/" },
+  { icon: "/icons/youtube.svg", alt: "YouTube", href: "https://www.youtube.com/channel/UCnuZJMtVle5xn5M1wYIlg9g" },
 ];
 
 
