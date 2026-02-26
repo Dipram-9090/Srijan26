@@ -20,7 +20,7 @@ export function AnimatedSectionTitle({ text, className = "" }: AnimatedSectionTi
   useGSAP(() => {
     gsap.fromTo(
       ".section-title-word",
-      { y: "110%" },
+      { y: "150%" }, 
       {
         y: "0%",
         duration: 2,
@@ -39,8 +39,8 @@ export function AnimatedSectionTitle({ text, className = "" }: AnimatedSectionTi
     <h2 ref={containerRef} className={className}>
       <span className="inline-flex flex-wrap justify-[inherit]">
         {text.split(" ").map((word, index) => (
-          <span key={index} className="overflow-hidden inline-block pb-1 mr-[0.3em]">
-            <span className="section-title-word inline-block translate-y-[110%] pb-1">
+          <span key={index} className="overflow-hidden inline-block pt-5 pb-1 mr-[0.3em]">
+            <span className="section-title-word inline-block translate-y-[150%] pb-1" >
               {word}
             </span>
           </span>
