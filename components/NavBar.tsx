@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useMobileNavContext } from "@/hooks/useMobileNav";
 import { NavLink } from "@/components/navbar/NavLink";
@@ -18,10 +19,12 @@ export default function NavBar() {
     setActiveTab(pathname);
   }, [pathname]);
 
+  const isHome = pathname === "/";
+
   return (
-    <nav className="full-bleed flex justify-between items-center py-4 px-4 h-fit sticky top-0 z-40 bg-background/10 backdrop-blur-md">
+    <nav className={`full-bleed flex justify-between items-center py-4 px-4 h-fit z-50 bg-background/10 backdrop-blur-md ${isHome ? 'fixed top-0 w-full' : 'sticky top-0'}`}>
       {/* Logo */}
-      <div className="flex gap-6">
+      <Link href="/" className="flex gap-6">
         <Image
           src="/images/srijan-thumbnail.svg"
           alt="A square shaped logo for Srijan'26"
@@ -34,7 +37,7 @@ export default function NavBar() {
           height={45}
           width={2.298 * 45}
         />
-      </div>
+      </Link>
 
       {/* Desktop Links */}
       {NAV_LINKS.map((link) => (
@@ -47,17 +50,17 @@ export default function NavBar() {
           className="hidden 2xl:flex"
         />
       ))}
-      <LoginButton 
-        className="hidden 2xl:flex" 
-        isActive={activeTab === '/login'} 
+      <LoginButton
+        className="hidden 2xl:flex"
+        isActive={activeTab === '/login'}
         onClick={() => setActiveTab('/login')}
       />
 
       {/* Mobile/Tablet Menu */}
       <div className="flex gap-6 2xl:hidden">
-         {/* Tablet Login Button */}
-        <LoginButton 
-          className="hidden md:flex" 
+        {/* Tablet Login Button */}
+        <LoginButton
+          className="hidden md:flex"
           isActive={activeTab === '/login'}
           onClick={() => setActiveTab('/login')}
         />
