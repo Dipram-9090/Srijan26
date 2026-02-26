@@ -94,7 +94,7 @@ function Dashboard({ user }: { user: User }) {
             <div className="space-y-4">
               {[
                 { label: "My Teams", data: user.teams, color: "border-l-yellow", empty: "Not part of any teams yet", isTeam: true },
-                { label: "Pending Requests", data: user.pendingTeamIds, color: "border-l-yellow", empty: "No pending invitations", isTeam: true },
+                { label: "Pending Requests", data: user.pendingTeams, color: "border-l-yellow", empty: "No pending invitations", isTeam: true },
                 { label: "Workshops", data: user.workshopIds, color: "border-l-yellow", empty: "No workshops registered", isTeam: false },
                 { label: "Wishlist", data: user.wishlistedEventIds, color: "border-l-yellow", empty: "Your wishlist is empty", isTeam: false }
               ].map((item, idx) => (
