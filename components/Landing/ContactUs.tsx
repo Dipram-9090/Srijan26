@@ -21,11 +21,6 @@ const contacts: ContactPerson[] = [
     name: "Shrawtrik Bhattacharjee",
     position: "Invitation Team",
     phone: "+91 82407 93529",
-  },
-  {
-    name: "Prama Ray",
-    position: "Tech Team",
-    phone: "+91 82933 31677",
   }
 ];
 
