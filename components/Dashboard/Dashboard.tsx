@@ -142,9 +142,11 @@ function Dashboard({ user }: { user: User }) {
         <aside className="space-y-6">
           <div className="p-6 bg-white/5 border border-yellow/20 rounded-2xl">
             <h3 className="text-yellow font-elnath mb-4 uppercase tracking-widest">Security</h3>
-            <button className="w-full py-2 border border-yellow/50 text-yellow text-xs uppercase hover:bg-yellow hover:text-black transition-all cursor-pointer">
-              Edit Profile
-            </button>
+            <Link href="/dashboard/edit-profile">
+              <button className="w-full py-2 border border-yellow/50 text-yellow text-xs uppercase hover:bg-yellow hover:text-black transition-all cursor-pointer">
+                Edit Profile
+              </button>
+            </Link>
           </div>
 
           {/* <div className="p-6 bg-linear-to-br from-red/20 to-orange/20 border border-red/30 rounded-2xl text-center">
