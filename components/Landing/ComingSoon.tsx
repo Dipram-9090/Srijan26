@@ -18,7 +18,7 @@ export function ComingSoon() {
             const tl = gsap.timeline({
                 scrollTrigger: {
                     trigger: containerRef.current,
-                    start: "top 80%",
+                    start: "top 90%",
                     toggleActions: "play none none reverse",
                 },
             });
@@ -26,12 +26,12 @@ export function ComingSoon() {
             tl.fromTo(
                 ".coming-soon-line",
                 { scaleX: 0 },
-                { scaleX: 1, duration: 0.8, ease: "power2.out" }
+                { scaleX: 1, duration: 0.6, ease: "power2.out" }
             )
                 .fromTo(
                     ".coming-soon-text",
                     { opacity: 0, y: 30, filter: "blur(6px)" },
-                    { opacity: 1, y: 0, filter: "blur(0px)", duration: 1, ease: "power3.out" },
+                    { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.5, ease: "power3.out" },
                     "-=0.4"
                 )
                 .fromTo(
@@ -45,16 +45,14 @@ export function ComingSoon() {
                         ease: "back.out(3)",
                     },
                     "-=0.5"
-                );
-
-            // Pulsing dot animation (loops forever)
-            gsap.to(".coming-soon-dots span", {
-                opacity: 0.3,
-                duration: 0.8,
-                stagger: { each: 0.2, repeat: -1, yoyo: true },
-                ease: "sine.inOut",
-                delay: 1.5,
-            });
+                )
+                // Pulsing dot animation — chained after intro so they don't conflict
+                .to(".coming-soon-dots span", {
+                    opacity: 0.3,
+                    duration: 0.8,
+                    stagger: { each: 0.2, repeat: -1, yoyo: true },
+                    ease: "sine.inOut",
+                });
         },
         { scope: containerRef }
     );
