@@ -25,7 +25,7 @@ async function Page() {
     if(!basicUser) redirect("/login");
 
     const dashboardData = await getDashboardDetails(user.email);
-    console.log("Dashboard data is:", dashboardData);
+    // console.log("Dashboard data is:", dashboardData);
     if (!dashboardData) redirect("/login");
 
     return <Dashboard user={dashboardData} />;

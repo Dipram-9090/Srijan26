@@ -147,7 +147,7 @@ function Dashboard({ user }: { user: User }) {
             </button>
           </div>
 
-          <div className="p-6 bg-linear-to-br from-red/20 to-orange/20 border border-red/30 rounded-2xl text-center">
+          {/* <div className="p-6 bg-linear-to-br from-red/20 to-orange/20 border border-red/30 rounded-2xl text-center">
             <p className="text-xs uppercase text-white/60 mb-2">Member Since</p>
             <p className="text-sm">
               {user.createdAt ? new Date(user.createdAt).toLocaleDateString('en-GB', {
@@ -156,7 +156,7 @@ function Dashboard({ user }: { user: User }) {
                 year: 'numeric'
               }) : "Date Unknown"}
             </p>
-          </div>
+          </div> */}
         </aside>
       </div>
 
