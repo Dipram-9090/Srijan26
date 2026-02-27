@@ -18,6 +18,7 @@ type User = {
     verificationToken?: string | null;
     teamIds?: string[];
     pendingTeamIds?: string[];
+    pendingTeams?: any[];
     wishlistedEventIds?: string[];
     workshopIds?: string[];
     teams?: {
