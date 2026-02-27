@@ -94,7 +94,7 @@ function Dashboard({ user }: { user: User }) {
             <div className="space-y-4">
               {[
                 { label: "My Teams", data: user.teams, color: "border-l-yellow", empty: "Not part of any teams yet", isTeam: true },
-                { label: "Pending Requests", data: user.pendingTeamIds, color: "border-l-yellow", empty: "No pending invitations", isTeam: true },
+                { label: "Pending Requests", data: user.pendingTeams, color: "border-l-yellow", empty: "No pending invitations", isTeam: true },
                 { label: "Workshops", data: user.workshopIds, color: "border-l-yellow", empty: "No workshops registered", isTeam: false },
                 { label: "Wishlist", data: user.wishlistedEventIds, color: "border-l-yellow", empty: "Your wishlist is empty", isTeam: false }
               ].map((item, idx) => (
@@ -142,12 +142,14 @@ function Dashboard({ user }: { user: User }) {
         <aside className="space-y-6">
           <div className="p-6 bg-white/5 border border-yellow/20 rounded-2xl">
             <h3 className="text-yellow font-elnath mb-4 uppercase tracking-widest">Security</h3>
-            <button className="w-full py-2 border border-yellow/50 text-yellow text-xs uppercase hover:bg-yellow hover:text-black transition-all cursor-pointer">
-              Edit Profile
-            </button>
+            <Link href="/dashboard/edit-profile">
+              <button className="w-full py-2 border border-yellow/50 text-yellow text-xs uppercase hover:bg-yellow hover:text-black transition-all cursor-pointer">
+                Edit Profile
+              </button>
+            </Link>
           </div>
 
-          <div className="p-6 bg-linear-to-br from-red/20 to-orange/20 border border-red/30 rounded-2xl text-center">
+          {/* <div className="p-6 bg-linear-to-br from-red/20 to-orange/20 border border-red/30 rounded-2xl text-center">
             <p className="text-xs uppercase text-white/60 mb-2">Member Since</p>
             <p className="text-sm">
               {user.createdAt ? new Date(user.createdAt).toLocaleDateString('en-GB', {
@@ -156,7 +158,7 @@ function Dashboard({ user }: { user: User }) {
                 year: 'numeric'
               }) : "Date Unknown"}
             </p>
-          </div>
+          </div> */}
         </aside>
       </div>
 

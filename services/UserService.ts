@@ -179,6 +179,29 @@ const resetPassword = async (
     }
 };
 
+const updateUserProfile = withAuth(async (sessionUserId: string, data: RegistrationData) => {
+    try {
+        await prisma.user.update({
+            where: {
+                id: sessionUserId,
+            },
+            data: {
+                phone: data.phone,
+                year: data.year,
+                college: data.college,
+                department: data.department,
+            },
+        });
+
+        return { ok: true, message: "Profile updated successfully" };
+    } catch (err) {
+        return {
+            ok: false,
+            message: `Failed to update profile: ${err}`,
+        };
+    }
+});
+
 export {
     completeUserRegistration,
     matchVerificationCode,
@@ -186,4 +209,5 @@ export {
     handleForgotPassword,
     verifyPasswordResetToken,
     resetPassword,
+    updateUserProfile,
 };

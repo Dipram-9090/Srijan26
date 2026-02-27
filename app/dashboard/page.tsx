@@ -1,7 +1,7 @@
 import CompleteRegistration from "@/components/Dashboard/CompleteRegistration";
 import Dashboard from "@/components/Dashboard/Dashboard";
 import VerifyEmail from "@/components/Dashboard/VerifyEmail";
-import { checkAuthentication, getUserByEmail } from "@/services/AuthService";
+import { checkAuthentication, getDashboardDetails, getUserByEmail } from "@/services/AuthService";
 import { SessionProvider } from "next-auth/react";
 import { redirect } from "next/navigation";
 
@@ -21,10 +21,14 @@ async function Page() {
     if (!user.registrationComplete)
         return <CompleteRegistration id={user.id} />;
 
-    const fullUser = await getUserByEmail(user.email);
-    if(!fullUser) redirect("/login");
+    const basicUser = await getUserByEmail(user.email);
+    if(!basicUser) redirect("/login");
 
-    return <Dashboard user={fullUser} />;
+    const dashboardData = await getDashboardDetails(user.email);
+    // console.log("Dashboard data is:", dashboardData);
+    if (!dashboardData) redirect("/login");
+
+    return <Dashboard user={dashboardData} />;
 }
 
 export default Page;
