@@ -185,7 +185,7 @@ export function HeroSection() {
     >
       <KalpanaSVG
         width={300}
-        className="kalpana-svg absolute z-100 right-50 top-10"
+        className="kalpana-svg absolute z-100 right-50 top-10 opacity-20"
       />
       {/* Background Video */}
       <div
