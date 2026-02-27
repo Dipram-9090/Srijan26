@@ -88,11 +88,6 @@ const SPONSORS = [
     link: "https://www.spykar.com",
   },
   {
-    name: "sugoi-drop-logo",
-    image: "images/sponsors/sugoi-drop-logo.webp",
-    link: "https://www.instagram.com/sugoidrop/",
-  },
-  {
     name: "telegraph-logo",
     image: "images/sponsors/telegraph-logo.webp",
     link: "https://www.telegraphindia.com",
