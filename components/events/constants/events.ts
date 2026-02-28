@@ -2,7 +2,8 @@ import { Event, Category, EventStatus } from "@/components/events/types/events";
 
 export const CLIP_PATH = "polygon(10px 0%, calc(100% - 10px) 0%, 100% 10px, calc(100% - 50px) 100%, 30px 100%, 0px 15px)";
 export const IMAGE_CLIP_PATH = "polygon(40px 0%, 100% 0%, 100% calc(100% - 40px), calc(100% - 40px) 100%, 0% 100%, 0% 40px)";
-export const CARD_DIMENSIONS = { w: 298, h: 418 };
+export const CARD_OUTLINE_DIMENSIONS = { w: 334.4, h: 418 };
+export const CARD_DIMENSIONS = { w: 322.4, h: 403 };
 
 export const CATEGORIES: Category[] = [
   "All",
@@ -16,9 +17,10 @@ export const CATEGORIES: Category[] = [
   "Misc",
 ];
 
-export const STATUSES: EventStatus[] = ["All", "Open", "Closed", "Coming Soon"];
+export const STATUSES: EventStatus[] = ["All", "Open", "Closed"];
 
 const CODING_EVENTS: Event[] = [
+  /*
   {
     id: "e1",
     slug: "epoch",
@@ -41,6 +43,9 @@ const CODING_EVENTS: Event[] = [
       { name: "Asmit Deb", contact: "6290050401" }
     ]
   },
+  */
+
+  /*
   {
     id: "e2",
     slug: "h42",
@@ -64,6 +69,9 @@ const CODING_EVENTS: Event[] = [
       { name: "Sayantan Biswas", contact: "9062334673" }
     ]
   },
+  */
+
+  /*
   {
     id: "e3",
     slug: "sherlocked",
@@ -87,6 +95,9 @@ const CODING_EVENTS: Event[] = [
       { name: "Swarnendu Banerjee", contact: "9564027954" }
     ]
   },
+  */
+
+  /*
   {
     id: "e4",
     slug: "cypher3331",
@@ -110,6 +121,9 @@ const CODING_EVENTS: Event[] = [
       { name: "Sarin Sanyal", contact: "9432264022" }
     ]
   },
+  */
+
+  /*
   {
     id: "e5",
     slug: "ss3",
@@ -133,6 +147,9 @@ const CODING_EVENTS: Event[] = [
       { name: "Anuska Nath", contact: "9330129467" }
     ]
   },
+  */
+
+  /*
   {
     id: "e6",
     slug: "sv1",
@@ -156,6 +173,9 @@ const CODING_EVENTS: Event[] = [
       { name: "Anirban Biswas", contact: "7718736188" }
     ]
   },
+  */
+
+  /*
   {
     id: "e7",
     slug: "ptb",
@@ -179,6 +199,9 @@ const CODING_EVENTS: Event[] = [
       { name: "Sayan Dutta", contact: "8584922334" }
     ]
   },
+  */
+
+  /*
   {
     id: "e8",
     slug: "h4g",
@@ -202,6 +225,9 @@ const CODING_EVENTS: Event[] = [
       { name: "Vivek Haldar", contact: "9875495117" }
     ]
   },
+  */
+
+  /*
   {
     id: "e9",
     slug: "uncode",
@@ -225,6 +251,9 @@ const CODING_EVENTS: Event[] = [
       { name: "Aneek Bhattacharya", contact: "9609916398" }
     ]
   },
+  */
+
+  /*
   {
     id: "e10",
     slug: "openaimer",
@@ -248,6 +277,9 @@ const CODING_EVENTS: Event[] = [
       { name: "Sombrata Biswas", contact: "9051468777" }
     ]
   },
+  */
+
+  /*
   {
     id: "e11",
     slug: "datadrift26",
@@ -271,9 +303,11 @@ const CODING_EVENTS: Event[] = [
       { name: "Arunabha Das", contact: "7595093099" }
     ]
   }
+  */
 ];
 
 const ROBOTICS_EVENTS: Event[] = [
+  /*
   {
     id: "r4",
     slug: "traffiq",
@@ -296,6 +330,9 @@ const ROBOTICS_EVENTS: Event[] = [
       { name: "Aayush Konar", contact: "9972095077" }
     ]
   },
+  */
+
+  /*
   {
     id: "r5",
     slug: "death-race",
@@ -319,6 +356,9 @@ const ROBOTICS_EVENTS: Event[] = [
       { name: "Ruchir Saha", contact: "7047505834" }
     ]
   },
+  */
+
+  /*
   {
     id: "r6",
     slug: "control-craft",
@@ -342,6 +382,9 @@ const ROBOTICS_EVENTS: Event[] = [
       { name: "Shreyas Ray", contact: "6291516600" }
     ]
   },
+  */
+
+  /*
   {
     id: "r7",
     slug: "rope-runner",
@@ -365,6 +408,9 @@ const ROBOTICS_EVENTS: Event[] = [
       { name: "Oum Pradhan", contact: "7595877944" }
     ]
   },
+  */
+
+  /*
   {
     id: "r8",
     slug: "btg26",
@@ -388,6 +434,9 @@ const ROBOTICS_EVENTS: Event[] = [
       { name: "Puja Shaw", contact: "79800 91693" }
     ]
   },
+  */
+
+  /*
   {
     id: "r9",
     slug: "xstream",
@@ -411,6 +460,9 @@ const ROBOTICS_EVENTS: Event[] = [
       { name: "Saikat Dutta", contact: "9733225497" }
     ]
   },
+  */
+
+  /*
   {
     id: "r11",
     slug: "thunderbolts",
@@ -434,6 +486,9 @@ const ROBOTICS_EVENTS: Event[] = [
       { name: "Niladri Saha", contact: "7439160736" }
     ]
   },
+  */
+
+  /*
   {
     id: "r12",
     slug: "skysprint",
@@ -456,6 +511,9 @@ const ROBOTICS_EVENTS: Event[] = [
       { name: "Subhojit Roy", contact: "7003312027" }
     ]
   },
+  */
+
+  /*
   {
     id: "r13",
     slug: "jal",
@@ -478,6 +536,9 @@ const ROBOTICS_EVENTS: Event[] = [
       { name: "Aditya Bhattacharyya", contact: "6290921928" }
     ]
   },
+  */
+
+  /*
   {
     id: "r14",
     slug: "hcg",
@@ -500,6 +561,9 @@ const ROBOTICS_EVENTS: Event[] = [
       { name: "Pradipta Mandal", contact: "7439456648" }
     ]
   },
+  */
+
+  /*
   {
     id: "r15",
     slug: "rbs",
@@ -523,6 +587,9 @@ const ROBOTICS_EVENTS: Event[] = [
       { name: "Sambit Mondal", contact: "8900237615" }
     ]
   },
+  */
+
+  /*
   {
     id: "r16",
     slug: "h2h",
@@ -545,6 +612,9 @@ const ROBOTICS_EVENTS: Event[] = [
       { name: "Suman Mandal", contact: "9153156109" }
     ]
   },
+  */
+
+  /*
   {
     id: "r17",
     slug: "iotbw",
@@ -568,9 +638,11 @@ const ROBOTICS_EVENTS: Event[] = [
       { name: "MD Tajuddin", contact: "8768589099" }
     ]
   }
+  */
 ];
 
 const BUSINESS_EVENTS: Event[] = [
+  /*
   {
     id: "b1",
     slug: "indx",
@@ -594,6 +666,9 @@ const BUSINESS_EVENTS: Event[] = [
       { name: "Sarbajit Mukherjee", contact: "8478045750" }
     ]
   },
+  */
+
+  /*
   {
     id: "b2",
     slug: "case-o-mania",
@@ -617,6 +692,9 @@ const BUSINESS_EVENTS: Event[] = [
       { name: "Aniruddha Roy", contact: "8900745390" }
     ]
   },
+  */
+
+  /*
   {
     id: "b3",
     slug: "ace-the-case",
@@ -640,6 +718,9 @@ const BUSINESS_EVENTS: Event[] = [
       { name: "Dipayan Sardar", contact: "9733817692" }
     ]
   },
+  */
+
+  /*
   {
     id: "b4",
     slug: "biznez-plan",
@@ -663,6 +744,9 @@ const BUSINESS_EVENTS: Event[] = [
       { name: "Adrija Das", contact: "7980466251" }
     ]
   },
+  */
+
+  /*
   {
     id: "b5",
     slug: "stratedgex",
@@ -686,6 +770,9 @@ const BUSINESS_EVENTS: Event[] = [
       { name: "Md Arsh Ansari", contact: "7003184131" }
     ]
   },
+  */
+
+  /*
   {
     id: "b6",
     slug: "pkv",
@@ -709,6 +796,9 @@ const BUSINESS_EVENTS: Event[] = [
       { name: "Soumyadeep", contact: "99036 38638" }
     ]
   },
+  */
+
+  /*
   {
     id: "b7",
     slug: "capital-clash",
@@ -732,6 +822,9 @@ const BUSINESS_EVENTS: Event[] = [
       { name: "Shubham sharma", contact: "9560134006" }
     ]
   },
+  */
+
+  /*
   {
     id: "b8",
     slug: "btm",
@@ -754,9 +847,11 @@ const BUSINESS_EVENTS: Event[] = [
       { name: "Dabita Biswas", contact: "9432161974" }
     ]
   }
+  */
 ];
 
 const BRAINSTORMING_EVENTS: Event[] = [
+  /*
   {
     id: "br1",
     slug: "justdefy",
@@ -779,6 +874,9 @@ const BRAINSTORMING_EVENTS: Event[] = [
       { name: "Souradip Raj Bose", contact: "9430152427" }
     ]
   },
+  */
+
+  /*
   {
     id: "br2",
     slug: "quizotopia",
@@ -801,9 +899,11 @@ const BRAINSTORMING_EVENTS: Event[] = [
       { name: "Prateek Kumar Sahoo", contact: "8334837118" }
     ]
   }
+  */
 ];
 
 const ESPORTS_EVENTS: Event[] = [
+  /*
   {
     id: "e-sp1",
     slug: "arena-valorant",
@@ -826,6 +926,9 @@ const ESPORTS_EVENTS: Event[] = [
       { name: "RAHUL MONDAL", contact: "7679156571" }
     ]
   },
+  */
+
+  /*
   {
     id: "e-sp2",
     slug: "arena-eafc",
@@ -848,6 +951,9 @@ const ESPORTS_EVENTS: Event[] = [
       { name: "AMRIT TIWARI", contact: "7407007440" }
     ]
   },
+  */
+
+  /*
   {
     id: "e-sp3",
     slug: "arena-bgmi",
@@ -870,6 +976,9 @@ const ESPORTS_EVENTS: Event[] = [
       { name: "IMRAN AHAMED", contact: "7908389933" }
     ]
   },
+  */
+
+  /*
   {
     id: "e-sp4",
     slug: "clash-royale",
@@ -892,6 +1001,9 @@ const ESPORTS_EVENTS: Event[] = [
       { name: "ANSH KUMAR SINGH", contact: "9775756073" }
     ]
   },
+  */
+
+  /*
   {
     id: "e-sp5",
     slug: "efootball",
@@ -914,6 +1026,9 @@ const ESPORTS_EVENTS: Event[] = [
       { name: "SOUMAYAN NANDI", contact: "8017041628" }
     ]
   },
+  */
+
+  /*
   {
     id: "e-sp6",
     slug: "uec-valorant",
@@ -936,6 +1051,9 @@ const ESPORTS_EVENTS: Event[] = [
       { name: "RUDRANIL MONDAL", contact: "7003463402" }
     ]
   },
+  */
+
+  /*
   {
     id: "e-sp7",
     slug: "uec-bgmi",
@@ -958,6 +1076,9 @@ const ESPORTS_EVENTS: Event[] = [
       { name: "IMRAN AHAMED", contact: "7908389933" }
     ]
   },
+  */
+
+  /*
   {
     id: "e-sp8",
     slug: "uec-eafc",
@@ -980,6 +1101,9 @@ const ESPORTS_EVENTS: Event[] = [
       { name: "AMRIT TIWARI", contact: "7407007440" }
     ]
   },
+  */
+
+  /*
   {
     id: "e-sp9",
     slug: "uec-wtec",
@@ -1002,9 +1126,11 @@ const ESPORTS_EVENTS: Event[] = [
       { name: "AYUSH BHAKTA", contact: "9903752006" }
     ]
   }
+  */
 ];
 
 const MISC_EVENTS: Event[] = [
+  /*
   {
     id: "m1",
     slug: "mathemagician",
@@ -1028,6 +1154,9 @@ const MISC_EVENTS: Event[] = [
       { name: "Sayanaditya Das", contact: "7679500949" }
     ]
   },
+  */
+
+  /*
   {
     id: "m2",
     slug: "vrexp",
@@ -1050,6 +1179,9 @@ const MISC_EVENTS: Event[] = [
       { name: "SANGLAP DAS", contact: "9836468930" }
     ]
   },
+  */
+
+  /*
   {
     id: "m3",
     slug: "clo",
@@ -1073,6 +1205,9 @@ const MISC_EVENTS: Event[] = [
       { name: "Disha Ghosh", contact: "9531614183" }
     ]
   },
+  */
+
+  /*
   {
     id: "m4",
     slug: "escape-room",
@@ -1096,6 +1231,9 @@ const MISC_EVENTS: Event[] = [
       { name: "Sania Gupta", contact: "9647719522" }
     ]
   },
+  */
+
+  /*
   {
     id: "m5",
     slug: "cc",
@@ -1118,6 +1256,9 @@ const MISC_EVENTS: Event[] = [
       { name: "Ankita Bhattacharya", contact: "7980006741" }
     ]
   },
+  */
+
+  /*
   {
     id: "m6",
     slug: "djk",
@@ -1141,6 +1282,9 @@ const MISC_EVENTS: Event[] = [
       { name: "Satadru Das", contact: "8240064430" }
     ]
   },
+  */
+
+  /*
   {
     id: "m7",
     slug: "pixellense",
@@ -1164,6 +1308,9 @@ const MISC_EVENTS: Event[] = [
       { name: "Satadru Das", contact: "8240064430" }
     ]
   },
+  */
+
+  /*
   {
     id: "m8",
     slug: "rat",
@@ -1186,6 +1333,7 @@ const MISC_EVENTS: Event[] = [
       { name: "Soumyadip Hira", contact: "7076583306" }
     ]
   }
+  */
 ];
 
 export const EVENTS_DATA: Event[] = [

@@ -1,10 +1,8 @@
 "use client";
 import { Event } from "@/components/events/types/events";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import Link from "next/link";
 import { useCallback, useEffect } from "react";
 import { CLIP_PATH, EVENTS_DATA } from "./constants/events";
-import { useRouter } from "next/navigation";
 
 interface Props {
   event: Event;
@@ -16,18 +14,24 @@ export default function EventNavigation({ event, onNavigate }: Props) {
     "--desktop-clip": CLIP_PATH,
   } as React.CSSProperties;
 
-  const router = useRouter();
-  const currentId = parseInt(event.id);
+  // Safely compare IDs regardless of whether they are strings or numbers
+  const currentIndex = EVENTS_DATA.findIndex(
+    (e) => String(e.id) === String(event.id),
+  );
 
-  // Use your existing math to grab the correct slugs from the array
-  // (Subtract 2 because currentId is 1-based, but arrays are 0-based)
-  const prevSlug = currentId > 1 ? EVENTS_DATA[currentId - 2].slug : null;
+  console.log("Current Event ID:", event.id, typeof event.id);
+  console.log("EVENTS_DATA IDs:", EVENTS_DATA.map(e => ({ id: e.id, type: typeof e.id })));
+  console.log("Calculated Index:", currentIndex);
+
+  // Calculate prev/next slugs strictly using the array index
+  const prevSlug = currentIndex > 0 ? EVENTS_DATA[currentIndex - 1].slug : null;
   const nextSlug =
-    currentId < EVENTS_DATA.length ? EVENTS_DATA[currentId].slug : null;
+    currentIndex !== -1 && currentIndex < EVENTS_DATA.length - 1
+      ? EVENTS_DATA[currentIndex + 1].slug
+      : null;
 
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
-      // Use onNavigate instead of router.push!
       if (e.key === "ArrowLeft" && prevSlug) {
         onNavigate(`/events/${prevSlug}`);
       } else if (e.key === "ArrowRight" && nextSlug) {
@@ -36,7 +40,7 @@ export default function EventNavigation({ event, onNavigate }: Props) {
         onNavigate("/events");
       }
     },
-    [prevSlug, nextSlug, onNavigate], // Update dependencies
+    [prevSlug, nextSlug, onNavigate],
   );
 
   useEffect(() => {

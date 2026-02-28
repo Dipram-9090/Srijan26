@@ -7,7 +7,11 @@ import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Calendar, Users, Trophy, MapPin, Info } from "lucide-react";
 import { Event } from "@/components/events/types/events";
-import { CLIP_PATH } from "./constants/events";
+import {
+  CLIP_PATH,
+  CARD_DIMENSIONS,
+  CARD_OUTLINE_DIMENSIONS,
+} from "./constants/events";
 import RegisterButton from "./RegisterButton";
 import ShareButton from "./ShareButton";
 import Image from "next/image";
@@ -77,7 +81,6 @@ const EventCard: React.FC<EventCardProps> = memo(({ event }) => {
         0,
       );
 
-    // Setup Entry animation using Intersection Observer
     if (entryLayerRef.current && containerRef.current) {
       const entryAnim = gsap.fromTo(
         entryLayerRef.current.children,
@@ -93,22 +96,17 @@ const EventCard: React.FC<EventCardProps> = memo(({ event }) => {
         },
       );
 
-      // Intersection Observer
       const observer = new IntersectionObserver(
         (entries) => {
-          // If the card enters the viewport (even due to a filter layout shift)
           if (entries[0].isIntersecting) {
             entryAnim.play();
-            observer.disconnect(); // Disconnect so it only plays once
+            observer.disconnect();
           }
         },
-        { threshold: 0.4 }, // Triggers when 30% of the card is visible (similar to your top 70%)
+        { threshold: 0.4 },
       );
 
-      // Start observing the card container
       observer.observe(containerRef.current);
-
-      // Cleanup on unmount
       return () => observer.disconnect();
     }
   }, [event.id]);
@@ -122,23 +120,29 @@ const EventCard: React.FC<EventCardProps> = memo(({ event }) => {
     hoverTl.current?.reverse();
   });
 
-  // Reverses the animation when an action button is clicked
   const handleActionClick = contextSafe(() => {
     hoverTl.current?.reverse();
   });
 
   return (
-    <div className="relative w-74 h-104 hidden lg:block">
+    <div
+      className="relative hidden lg:block"
+      style={{
+        width: CARD_OUTLINE_DIMENSIONS.w,
+        height: CARD_OUTLINE_DIMENSIONS.h,
+      }}
+    >
       <div
         ref={containerRef}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         style={{
+          width: CARD_DIMENSIONS.w,
+          height: CARD_DIMENSIONS.h,
           clipPath:
             "polygon(37.2px 0%, 100% 0%, 100% calc(100% - 37.2px), calc(100% - 37.2px) 100%, 0% 100%, 0% 37.2px)",
         }}
-        // Added will-change-transform for GPU optimization
-        className="relative top-1/2 left-1/2 -translate-1/2 z-10 bg-[#121212] overflow-hidden h-101 w-71 cursor-pointer will-change-transform"
+        className="relative top-1/2 left-1/2 -translate-1/2 z-10 bg-[#121212] overflow-hidden cursor-pointer will-change-transform"
       >
         {/* Entry animation layer */}
         <div
@@ -181,8 +185,6 @@ const EventCard: React.FC<EventCardProps> = memo(({ event }) => {
 
         {/* 3. CONTENT CONTAINER */}
         <div className="absolute bottom-0 left-0 w-full p-6 flex flex-col justify-end z-10 pointer-events-none">
-          {/* Make children pointer-events-auto so only they are clickable, not the empty space */}
-
           {/* -- ALWAYS VISIBLE PART (Title & Tags) -- */}
           <div
             ref={titleTagsRef}
@@ -203,8 +205,7 @@ const EventCard: React.FC<EventCardProps> = memo(({ event }) => {
               ref={titleRef}
               className="font-elnath text-2xl font-bold text-white uppercase will-change-[color]"
             >
-              {event.id}
-              {"."} {event.title}
+              {event.title}
             </h3>
           </div>
 
@@ -240,7 +241,7 @@ const EventCard: React.FC<EventCardProps> = memo(({ event }) => {
               </div>
             </div>
 
-            {/* Buttons - Added onClickCapture here */}
+            {/* Buttons */}
             <div
               className="flex flex-col gap-2 pb-1"
               onClickCapture={handleActionClick}
@@ -279,11 +280,15 @@ const EventCard: React.FC<EventCardProps> = memo(({ event }) => {
       </div>
       <svg
         ref={outLineRef}
-        viewBox="0 0 297 417"
-        className="absolute z-10 top-0 left-0 h-104 w-74 max-w-[20rem] pointer-events-none opacity-0 will-change-[opacity]"
+        viewBox={`0 0 ${CARD_OUTLINE_DIMENSIONS.w} ${CARD_OUTLINE_DIMENSIONS.h}`}
+        className="absolute z-10 top-0 left-0 pointer-events-none opacity-0 will-change-[opacity]"
+        style={{
+          width: CARD_OUTLINE_DIMENSIONS.w,
+          height: CARD_OUTLINE_DIMENSIONS.h,
+        }}
       >
         <path
-          d="M 40 1 L 295 1 L 295 376 L 256 415 L 1 415 L 1 40 Z"
+          d={`M 40 1 L ${CARD_OUTLINE_DIMENSIONS.w - 1} 1 L ${CARD_OUTLINE_DIMENSIONS.w - 1} ${CARD_OUTLINE_DIMENSIONS.h - 40} L ${CARD_OUTLINE_DIMENSIONS.w - 40} ${CARD_OUTLINE_DIMENSIONS.h - 1} L 1 ${CARD_OUTLINE_DIMENSIONS.h - 1} L 1 40 Z`}
           fill="transparent"
           stroke={event.color}
           strokeWidth="1.2"

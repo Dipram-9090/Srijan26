@@ -7,7 +7,11 @@ import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Calendar, Users, Trophy, MapPin, Info } from "lucide-react";
 import { Event } from "@/components/events/types/events";
-import { CLIP_PATH } from "./constants/events";
+import { 
+  CLIP_PATH, 
+  CARD_DIMENSIONS, 
+  CARD_OUTLINE_DIMENSIONS 
+} from "./constants/events";
 import RegisterButton from "./RegisterButton";
 import ShareButton from "./ShareButton";
 import Image from "next/image";
@@ -135,16 +139,24 @@ const EventCardTouch: React.FC<EventCardTouchProps> = memo(({ event }) => {
 
   return (
     // block lg:hidden keeps it strictly for mobile
-    <div className="relative w-74 h-104 block lg:hidden">
+    <div 
+      className="relative block lg:hidden"
+      style={{ 
+        width: CARD_OUTLINE_DIMENSIONS.w, 
+        height: CARD_OUTLINE_DIMENSIONS.h 
+      }}
+    >
       <div
         ref={containerRef}
         onClick={toggleCard}
         style={{
+          width: CARD_DIMENSIONS.w,
+          height: CARD_DIMENSIONS.h,
           clipPath:
             "polygon(37.2px 0%, 100% 0%, 100% calc(100% - 37.2px), calc(100% - 37.2px) 100%, 0% 100%, 0% 37.2px)",
           touchAction: "pan-y", // Fixes mobile scrolling conflicts
         }}
-        className="relative top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 bg-[#121212] overflow-hidden h-101 w-71 cursor-pointer tap-highlight-transparent will-change-transform"
+        className="relative top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 bg-[#121212] overflow-hidden cursor-pointer tap-highlight-transparent will-change-transform"
       >
         {/* Entry animation layer */}
         <div
@@ -285,11 +297,15 @@ const EventCardTouch: React.FC<EventCardTouchProps> = memo(({ event }) => {
       {/* Dynamic Outline */}
       <svg
         ref={outLineRef}
-        viewBox="0 0 297 417"
-        className="absolute z-10 top-0 left-0 h-104 w-74 max-w-[20rem] pointer-events-none opacity-0 will-change-[opacity]"
+        viewBox={`0 0 ${CARD_OUTLINE_DIMENSIONS.w} ${CARD_OUTLINE_DIMENSIONS.h}`}
+        className="absolute z-10 top-0 left-0 pointer-events-none opacity-0 will-change-[opacity]"
+        style={{ 
+          width: CARD_OUTLINE_DIMENSIONS.w, 
+          height: CARD_OUTLINE_DIMENSIONS.h 
+        }}
       >
         <path
-          d="M 40 1 L 295 1 L 295 376 L 256 415 L 1 415 L 1 40 Z"
+          d={`M 40 1 L ${CARD_OUTLINE_DIMENSIONS.w - 1} 1 L ${CARD_OUTLINE_DIMENSIONS.w - 1} ${CARD_OUTLINE_DIMENSIONS.h - 40} L ${CARD_OUTLINE_DIMENSIONS.w - 40} ${CARD_OUTLINE_DIMENSIONS.h - 1} L 1 ${CARD_OUTLINE_DIMENSIONS.h - 1} L 1 40 Z`}
           fill="transparent"
           stroke={event.color}
           strokeWidth="1.2"

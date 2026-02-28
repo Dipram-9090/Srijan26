@@ -1,9 +1,6 @@
 "use client";
 
-import { useRef } from "react";
 import { IMAGE_CLIP_PATH } from "./constants/events";
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
 import SwipeReveal from "./SwipeReveal";
 
 interface Props {
@@ -13,20 +10,6 @@ interface Props {
 }
 
 export default function EventDetailImage({ src, alt, className }: Props) {
-  useGSAP(() => {
-    gsap.fromTo(
-      ".entryLayers",
-      { scaleX: 1 },
-      {
-        scaleX: 0,
-        duration: 0.8,
-        ease: "power3.out",
-        stagger: 0.1,
-        transformOrigin: "right center",
-        force3D: true,
-      },
-    );
-  }, []);
 
   return (
     <div

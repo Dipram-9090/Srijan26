@@ -9,7 +9,7 @@ export type Category =
   | "Special Attractions"
   | "Misc";
 
-export type EventStatus = "All" | "Open" | "Closed" | "Coming Soon";
+export type EventStatus = "All" | "Open" | "Closed" ;
 
 export interface Coordinator {
   name: string;

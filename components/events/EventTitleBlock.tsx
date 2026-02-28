@@ -34,8 +34,7 @@ export default function EventTitleBlock({
           style={{ color }}
           className="font-elnath text-5xl md:text-7xl font-bold uppercase tracking-wide"
         >
-          {id}
-          {"."} {title}
+          {title}
         </h1>
 
         <p className="text-sm -mt-2 md:text-base text-white/70 leading-relaxed">
