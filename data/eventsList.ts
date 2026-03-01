@@ -104,7 +104,7 @@ const CODING_EVENTS: Event[] = [
   },
   */
 
-  /*
+  
   {
     id: "e5",
     slug: "ss3",
@@ -119,7 +119,7 @@ const CODING_EVENTS: Event[] = [
     prizePool: "₹ 10,000",
     link: "/register/ss3",
     driveLink: "https://drive.google.com/file/d/1Py4J3qnGrU0SfUNiyPmlf8bXmlRw89vh/view?usp=drive_link",
-    image: "/images/events/coding-default.jpg",
+    image: "/images/posters/snap-syntax.webp",
     tags: ["Web Dev", "Design"],
     status: "Open",
     coordinators: [
@@ -128,7 +128,7 @@ const CODING_EVENTS: Event[] = [
       { name: "Anuska Nath", contact: "9330129467" }
     ]
   },
-  */
+  
 
   /*
   {
@@ -182,7 +182,7 @@ const CODING_EVENTS: Event[] = [
   },
   */
 
-  /*
+  
   {
     id: "e8",
     slug: "h4g",
@@ -197,7 +197,7 @@ const CODING_EVENTS: Event[] = [
     prizePool: "₹ 10,000",
     link: "/register/hackforge",
     driveLink: "https://docs.google.com/document/d/1hU4U0AAEY1ZECqtupltfj_OuLTto-oRVjA-vmrLVn14/edit?usp=sharing",
-    image: "/images/events/coding-default.jpg",
+    image: "/images/posters/hackforge.webp",
     tags: ["Hackathon", "Dev"],
     status: "Open",
     coordinators: [
@@ -206,7 +206,7 @@ const CODING_EVENTS: Event[] = [
       { name: "Vivek Haldar", contact: "9875495117" }
     ]
   },
-  */
+  
 
   /*
   {
@@ -288,7 +288,7 @@ const CODING_EVENTS: Event[] = [
 ];
 
 const ROBOTICS_EVENTS: Event[] = [
-  /*
+  
   {
     id: "r4",
     slug: "traffiq",
@@ -303,7 +303,7 @@ const ROBOTICS_EVENTS: Event[] = [
     prizePool: "₹ 6,500",
     link: "/register/traffiq",
     driveLink: "https://drive.google.com/drive/folders/1w6ObIiuupOY-Mlh-vM0K8bcHmoNqpvIy?usp=sharing",
-    image: "/images/events/robotics-default.jpg",
+    image: "/images/posters/traffiq.webp",
     tags: ["AI", "CV", "Robotics"],
     status: "Open",
     coordinators: [
@@ -311,9 +311,9 @@ const ROBOTICS_EVENTS: Event[] = [
       { name: "Aayush Konar", contact: "9972095077" }
     ]
   },
-  */
+  
 
-  /*
+  
   {
     id: "r5",
     slug: "death-race",
@@ -328,7 +328,7 @@ const ROBOTICS_EVENTS: Event[] = [
     prizePool: "₹ 35,000",
     link: "/register/death-race",
     driveLink: "https://drive.google.com/file/d/1Le26wRR5jGZFjMIYOPrQDyYmSyUzTVvX/view?usp=drive_link",
-    image: "/images/events/robotics-default.jpg",
+    image: "/images/posters/death-race.webp",
     tags: ["Racing", "Combat"],
     status: "Open",
     coordinators: [
@@ -337,7 +337,7 @@ const ROBOTICS_EVENTS: Event[] = [
       { name: "Ruchir Saha", contact: "7047505834" }
     ]
   },
-  */
+  
 
   /*
   {
@@ -417,7 +417,7 @@ const ROBOTICS_EVENTS: Event[] = [
   },
   */
 
-  /*
+  
   {
     id: "r9",
     slug: "xstream",
@@ -432,7 +432,7 @@ const ROBOTICS_EVENTS: Event[] = [
     prizePool: "₹ 10,000",
     link: "/register/xstream",
     driveLink: "https://drive.google.com/file/d/1IREzcdYRhvOZxxT50c1YUvedJxFkGdUB/view?usp=drivesdk",
-    image: "/images/events/robotics-default.jpg",
+    image: "/images/posters/xstream.webp",
     tags: ["Aerodynamics", "Design"],
     status: "Open",
     coordinators: [
@@ -441,9 +441,9 @@ const ROBOTICS_EVENTS: Event[] = [
       { name: "Saikat Dutta", contact: "9733225497" }
     ]
   },
-  */
+  
 
-  /*
+  
   {
     id: "r11",
     slug: "thunderbolts",
@@ -458,7 +458,7 @@ const ROBOTICS_EVENTS: Event[] = [
     prizePool: "₹ 6,000",
     link: "/register/thunderbolts",
     driveLink: "https://drive.google.com/file/d/1BIF35JH9Syj4HA664kCs3n41LKcWcTyc/view?usp=sharing",
-    image: "/images/events/robotics-default.jpg",
+    image: "/images/posters/voltedged.webp",
     tags: ["Power", "Electronics"],
     status: "Open",
     coordinators: [
@@ -467,9 +467,9 @@ const ROBOTICS_EVENTS: Event[] = [
       { name: "Niladri Saha", contact: "7439160736" }
     ]
   },
-  */
+  
 
-  /*
+  
   {
     id: "r12",
     slug: "skysprint",
@@ -484,7 +484,7 @@ const ROBOTICS_EVENTS: Event[] = [
     prizePool: "₹ 6,000",
     link: "/register/skysprint",
     driveLink: "https://drive.google.com/drive/folders/1E6wrjSiNy5Eo7_AGc3ZiLNiUPVaO5kKq?usp=sharing",
-    image: "/images/events/robotics-default.jpg",
+    image: "/images/posters/skysprint.webp",
     tags: ["Aerospace", "Gliders"],
     status: "Open",
     coordinators: [
@@ -492,7 +492,7 @@ const ROBOTICS_EVENTS: Event[] = [
       { name: "Subhojit Roy", contact: "7003312027" }
     ]
   },
-  */
+  
 
   /*
   {
@@ -595,7 +595,7 @@ const ROBOTICS_EVENTS: Event[] = [
   },
   */
 
-  /*
+  
   {
     id: "r17",
     slug: "iotbw",
@@ -610,7 +610,7 @@ const ROBOTICS_EVENTS: Event[] = [
     prizePool: "₹ 15,000",
     link: "/register/iotbidwars",
     driveLink: "https://drive.google.com/file/d/1HUvVMDuUvPMb7iKrsSEi11_nErO7P1Qv/view?usp=sharing",
-    image: "/images/events/robotics-default.jpg",
+    image: "/images/posters/iot-bidwars.webp",
     tags: ["IoT", "Electronics"],
     status: "Open",
     coordinators: [
@@ -619,11 +619,11 @@ const ROBOTICS_EVENTS: Event[] = [
       { name: "MD Tajuddin", contact: "8768589099" }
     ]
   }
-  */
+  
 ];
 
 const BUSINESS_EVENTS: Event[] = [
-  /*
+  
   {
     id: "b1",
     slug: "indx",
@@ -638,7 +638,7 @@ const BUSINESS_EVENTS: Event[] = [
     prizePool: "₹ 12,000",
     link: "/register/industrix",
     driveLink: "https://drive.google.com/file/d/18BNV4vZCQkevl9Jy7sPsW4GQgwU3xTFA/view?usp=sharing",
-    image: "/images/events/business-default.jpg",
+    image: "/images/posters/industrix.webp",
     tags: ["Manufacturing", "Startup", "Economics"],
     status: "Open",
     coordinators: [
@@ -647,7 +647,7 @@ const BUSINESS_EVENTS: Event[] = [
       { name: "Sarbajit Mukherjee", contact: "8478045750" }
     ]
   },
-  */
+  
 
   /*
   {
@@ -675,7 +675,7 @@ const BUSINESS_EVENTS: Event[] = [
   },
   */
 
-  /*
+  
   {
     id: "b3",
     slug: "ace-the-case",
@@ -690,7 +690,7 @@ const BUSINESS_EVENTS: Event[] = [
     prizePool: "₹ 6,000",
     link: "/register/ace-the-case",
     driveLink: "https://drive.google.com/drive/folders/1IrQNz5vWwU1kHmqnHVfl6U_eWELPX_xP",
-    image: "/images/events/business-default.jpg",
+    image: "/images/posters/ace-the-case.webp",
     tags: ["Entrepreneurship", "Case Study"],
     status: "Open",
     coordinators: [
@@ -699,9 +699,9 @@ const BUSINESS_EVENTS: Event[] = [
       { name: "Dipayan Sardar", contact: "9733817692" }
     ]
   },
-  */
+  
 
-  /*
+  
   {
     id: "b4",
     slug: "biznez-plan",
@@ -716,7 +716,7 @@ const BUSINESS_EVENTS: Event[] = [
     prizePool: "₹ 6,000",
     link: "/register/biznez-plan",
     driveLink: "https://drive.google.com/file/d/1AKKhlGl-UrkmMKUisxbnghnFW9oET98d/view?usp=sharing",
-    image: "/images/events/business-default.jpg",
+    image: "/images/posters/biznez-plan.webp",
     tags: ["Startup", "Pitching"],
     status: "Open",
     coordinators: [
@@ -725,9 +725,9 @@ const BUSINESS_EVENTS: Event[] = [
       { name: "Adrija Das", contact: "7980466251" }
     ]
   },
-  */
+  
 
-  /*
+  
   {
     id: "b5",
     slug: "stratedgex",
@@ -742,7 +742,7 @@ const BUSINESS_EVENTS: Event[] = [
     prizePool: "₹ 6,000",
     link: "/register/stratedgex",
     driveLink: "https://drive.google.com/file/d/1-oQYdX5PlPLPbLLoKvMThOEyWw9jbolg/view?usp=drive_link",
-    image: "/images/events/business-default.jpg",
+    image: "/images/posters/stratedgex.webp",
     tags: ["Strategy", "Marketing"],
     status: "Open",
     coordinators: [
@@ -751,7 +751,7 @@ const BUSINESS_EVENTS: Event[] = [
       { name: "Md Arsh Ansari", contact: "7003184131" }
     ]
   },
-  */
+  
 
   /*
   {
@@ -779,7 +779,7 @@ const BUSINESS_EVENTS: Event[] = [
   },
   */
 
-  /*
+  
   {
     id: "b7",
     slug: "capital-clash",
@@ -794,7 +794,7 @@ const BUSINESS_EVENTS: Event[] = [
     prizePool: "₹ 8,000",
     link: "/register/capital-clash",
     driveLink: "https://srijanju.in/events/capital-clash-details",
-    image: "/images/events/business-default.jpg",
+    image: "/images/posters/capital-clash.webp",
     tags: ["Finance", "Stock Market"],
     status: "Open",
     coordinators: [
@@ -803,9 +803,9 @@ const BUSINESS_EVENTS: Event[] = [
       { name: "Shubham sharma", contact: "9560134006" }
     ]
   },
-  */
+  
 
-  /*
+
   {
     id: "b8",
     slug: "btm",
@@ -820,7 +820,7 @@ const BUSINESS_EVENTS: Event[] = [
     prizePool: "₹ 8,000",
     link: "/register/btm",
     driveLink: "https://drive.google.com/drive/folders/1PFqp6rzenivpK_zRG07pAwSNhpta6F6V?usp=sharing",
-    image: "/images/events/business-default.jpg",
+    image: "/images/posters/beat-the-market.webp",
     tags: ["Trading", "Finance"],
     status: "Open",
     coordinators: [
@@ -828,7 +828,7 @@ const BUSINESS_EVENTS: Event[] = [
       { name: "Dabita Biswas", contact: "9432161974" }
     ]
   }
-  */
+
 ];
 
 const BRAINSTORMING_EVENTS: Event[] = [
@@ -959,7 +959,7 @@ const ESPORTS_EVENTS: Event[] = [
   },
   */
 
-  /*
+  
   {
     id: "e-sp4",
     slug: "clash-royale",
@@ -974,7 +974,7 @@ const ESPORTS_EVENTS: Event[] = [
     prizePool: "₹ 6,000",
     link: "/register/clash-royale",
     driveLink: "https://drive.google.com/file/d/1Bwvj0wWAJ_LLiWdlMcbEp2w0S-AT8NiI/view?usp=sharing",
-    image: "/images/events/esports-default.jpg",
+    image: "/images/posters/clash-royale.webp",
     tags: ["Mobile", "Strategy"],
     status: "Open",
     coordinators: [
@@ -982,7 +982,7 @@ const ESPORTS_EVENTS: Event[] = [
       { name: "ANSH KUMAR SINGH", contact: "9775756073" }
     ]
   },
-  */
+  
 
   /*
   {
