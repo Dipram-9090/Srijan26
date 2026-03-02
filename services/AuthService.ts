@@ -155,7 +155,7 @@ const checkAuthentication = async (redirectUrl = "") => {
   const session = await auth();
   const encodedRedirectUrl = encodeURIComponent(redirectUrl);
   if (!session || !session.user || !session.user.id)
-    redirect(`/signin?redirect=${encodedRedirectUrl}`);
+    redirect(`/login?redirect=${encodedRedirectUrl}`);
 
   if (redirectUrl.indexOf("dashboard") !== -1) return session.user;
 
