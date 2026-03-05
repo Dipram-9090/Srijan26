@@ -7,11 +7,11 @@ type ContactPerson = {
 };
 
 const contacts: ContactPerson[] = [
-  {
-    name: "Ankush Agarwala",
-    position: "Event Team",
-    phone: "+91 96356 09058",
-  },
+  // {
+  //   name: "Ankush Agarwala",
+  //   position: "Event Team",
+  //   phone: "+91 96356 09058",
+  // },
   {
     name: "Saumili Ray",
     position: "Design Team",
