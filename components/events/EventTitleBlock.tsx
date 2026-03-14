@@ -19,6 +19,25 @@ export default function EventTitleBlock({
   lastDate,
   className,
 }: Props) {
+  // Helper function to process strings with **bold** markers
+  const renderWithBold = (text: string) => {
+    if (!text) return null;
+    const parts = text.split(/(\*\*.*?\*\*)/g);
+
+    return parts.map((part, i) => {
+      // If the chunk starts and ends with **, render it bold
+      if (part.startsWith("**") && part.endsWith("**")) {
+        return (
+          <strong key={i} style={{ color }} className="font-euclid font-semibold opacity-80">
+            {part.slice(2, -2)}
+          </strong>
+        );
+      }
+      // Otherwise, render normal text
+      return part;
+    });
+  };
+
   return (
     <SwipeReveal>
       <div className={` ${className} flex flex-col gap-2`}>
@@ -38,7 +57,7 @@ export default function EventTitleBlock({
         </h1>
 
         <p className="text-sm -mt-2 md:text-base text-white/70 leading-relaxed">
-          {description}
+          {renderWithBold(description)}
         </p>
       </div>
     </SwipeReveal>
