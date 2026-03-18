@@ -703,7 +703,7 @@ const ROBOTICS_EVENTS: Event[] = [
     rules: ["All-terrain bot", "Speed", "Resilience"],
     lastDate: "TBA",
     prizePool: "₹ 6,000",
-    link: "/register/highway-to-hell",
+    link: "/register/h2h",
     driveLink:
       "https://drive.google.com/file/d/1QkjKX1ZRQR5JkWCj_3XPsvGVQRF8zEuD/view?usp=drivesdk",
     image: "/images/posters/h2h.webp",
