@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import Image from "next/image";
 import { Clickable } from "@/components/Clickable";
 import { Countdown } from "@/components/Landing/Countdown";
@@ -42,6 +42,19 @@ const SplitTextMask = ({
 
 export function HeroSection() {
   const containerRef = useRef(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  // The `media` attribute on <video><source> is ignored by all browsers.
+  // We must pick the correct src in JS before the video starts loading.
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    const isMobile = window.innerWidth < 768;
+    video.src = isMobile
+      ? "/videos/landing/srijan_hero_mobile_720p.webm"
+      : "/videos/landing/srijan_hero_compressed_1080p_crf32.webm";
+    video.load();
+  }, []);
 
   useGSAP(
     () => {
@@ -211,6 +224,7 @@ export function HeroSection() {
         }}
       >
         <video
+          ref={videoRef}
           autoPlay
           loop
           muted
@@ -220,19 +234,7 @@ export function HeroSection() {
           disablePictureInPicture
           disableRemotePlayback
           className="absolute inset-0 w-full h-full object-cover opacity-70"
-        >
-          {/* Desktop: full 1080p */}
-          <source
-            media="(min-width: 768px)"
-            src="/videos/landing/srijan_hero_compressed_1080p_crf32.webm"
-            type="video/webm"
-          />
-          {/* Mobile / tablet: lighter 720p */}
-          <source
-            src="/videos/landing/srijan_hero_mobile_720p.webm"
-            type="video/webm"
-          />
-        </video>
+        />
         <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-transparent" />
       </div>
 
