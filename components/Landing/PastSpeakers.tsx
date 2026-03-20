@@ -5,52 +5,52 @@ import { MarqueeSlider } from "./MarqueeSlider";
 
 const SPEAKERS = [
   {
-    image: "/images/speakers/aman_dhattarwal.jpg",
+    image: "/images/speakers/aman_dhattarwal.webp",
     name: "Aman Dhattarwal",
     description: "Influential Educator, Entrepreneur & Founder of Apna College",
   },
   {
-    image: "/images/speakers/amitabh-singh.png",
+    image: "/images/speakers/amitabh-singh.webp",
     name: "Amitabh Singh",
     description: "Project Manager Chandrayaan-1 & Operations Director Chandrayaan-3, ISRO",
   },
   {
-    image: "/images/speakers/debiprosad_duari.jpg",
+    image: "/images/speakers/debiprosad_duari.webp",
     name: "Debiprosad Duari",
     description: "Renowned Astronomer & Former Director of M.P. Birla Planetarium",
   },
   {
-    image: "/images/speakers/dr_gajendra_purohit.jpg",
+    image: "/images/speakers/dr_gajendra_purohit.webp",
     name: "Dr. Gajendra Purohit",
     description: "Distinguished Mathematician, Educator & Founder of MathsCare",
   },
   {
-    image: "/images/speakers/gaurav_sen.jpg",
+    image: "/images/speakers/gaurav_sen.webp",
     name: "Gaurav Sen",
     description: "System Design Expert & Founder of InterviewReady",
   },
   {
-    image: "/images/speakers/raj_vikramaditya.jpg",
+    image: "/images/speakers/raj_vikramaditya.webp",
     name: "Raj Vikramaditya (Striver)",
     description: "Ex-Google Software Engineer & Founder of TakeUForward",
   },
   {
-    image: "/images/speakers/rajit_bhattacharya.jpg",
+    image: "/images/speakers/rajit_bhattacharya.webp",
     name: "Rajit Bhattacharya",
     description: "Co-Founder & CEO of Data Sutram",
   },
   {
-    image: "/images/speakers/sabyasachi_biswas.jpg",
+    image: "/images/speakers/sabyasachi_biswas.webp",
     name: "Sabyasachi Biswas",
     description: "Senior Vice President of Digital Transformation at Vikram Solar",
   },
   {
-    image: "/images/speakers/shibaji_paul.jpg",
+    image: "/images/speakers/shibaji_paul.webp",
     name: "Shibaji Paul",
     description: "Computer Science Educator & Renowned Travel Vlogger",
   },
   {
-    image: "/images/speakers/soumita_roy_choudhury.png",
+    image: "/images/speakers/soumita_roy_choudhury.webp",
     name: "Soumita Roy Choudhury",
     description: "Tech Leader & Global Revenue Executive at Mobilewalla",
   },
