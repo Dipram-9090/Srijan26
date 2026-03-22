@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { Send, X, Maximize2, Minimize2, LogIn } from "lucide-react";
@@ -9,10 +9,7 @@ import { sendMessageToBot } from "./api";
 import { ChatMessages } from "./ChatMessages";
 
 function ChatHeader({
-  isFullscreen,
-  onFullscreen,
-  onMinimize,
-  onClose,
+  isFullscreen, onFullscreen, onMinimize, onClose,
 }: {
   isFullscreen: boolean;
   onFullscreen?: () => void;
@@ -107,8 +104,8 @@ function ChatInput({
   );
 }
 
-export default function ChatWidget({ initialOpen = false }: { initialOpen?: boolean }) {
-  const [isOpen, setIsOpen] = useState(initialOpen);
+export default function ChatWidget() {
+  const [isOpen, setIsOpen] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -127,9 +124,13 @@ export default function ChatWidget({ initialOpen = false }: { initialOpen?: bool
   const { status } = useSession();
   const isLoggedIn = status === "authenticated";
 
-  // Scroll-based visibility on homepage; always visible on other pages
   useEffect(() => {
     const update = () => {
+      const isMobile = window.innerWidth <= 640;
+      if (isMobile && isEventPage && !isOpen) {
+        setVisible(false);
+        return;
+      }
       if (!isHome) {
         setVisible(true);
       } else {
@@ -143,9 +144,9 @@ export default function ChatWidget({ initialOpen = false }: { initialOpen?: bool
       window.removeEventListener("scroll", update);
       window.removeEventListener("resize", update);
     };
-  }, [isHome, isOpen]);
+  }, [isHome, isEventPage, isOpen]);
 
-  // Close fullscreen when chat is closed
+  // Reset
   useEffect(() => {
     if (!isOpen) {
       setIsFullscreen(false);
@@ -154,13 +155,13 @@ export default function ChatWidget({ initialOpen = false }: { initialOpen?: bool
     }
   }, [isOpen]);
 
-  const handleQuickReply = useCallback((option: typeof QUICK_QUESTIONS[number]) => {
+  const handleQuickReply = (option: typeof QUICK_QUESTIONS[number]) => {
     setMessages((prev) => [
       ...prev,
       { role: "user", content: option.label },
       { role: "assistant", content: option.answer, link: option.link },
     ]);
-  }, []);
+  };
 
   const handleSend = async () => {
     if (!input.trim() || !isLoggedIn) return;
@@ -250,6 +251,7 @@ export default function ChatWidget({ initialOpen = false }: { initialOpen?: bool
         }
       `}</style>
 
+      {/* Fullscreen overlay */}
       {isOpen && isFullscreen && (
         <div className="srijan-chat-fullscreen" style={{ position: "fixed", inset: 0, zIndex: 10000, display: "flex", flexDirection: "column", background: "linear-gradient(160deg, #1e0808 0%, #160505 60%, #1a0a05 100%)", fontFamily: "var(--font-euclid), 'Euclid Circular B', sans-serif" }}>
           <ChatHeader isFullscreen onMinimize={() => setIsFullscreen(false)} onClose={() => setIsOpen(false)} />
@@ -262,11 +264,12 @@ export default function ChatWidget({ initialOpen = false }: { initialOpen?: bool
         </div>
       )}
 
+      {/* Floating widget */}
       <div
         className={`srijan-widget ${visible ? "srijan-widget-visible" : "srijan-widget-hidden"}`}
         style={{ position: "fixed", bottom: "1rem", right: "1rem", zIndex: 9999, display: "flex", flexDirection: "column", alignItems: "flex-end", gap: "1rem", fontFamily: "var(--font-euclid), 'Euclid Circular B', sans-serif" }}
       >
-        {/* Chat window (non-fullscreen) */}
+        {/* Chat window*/}
         {isOpen && !isFullscreen && (
           <div className="srijan-chat-window" style={{ width: "380px", height: "600px", display: "flex", flexDirection: "column", overflow: "hidden", borderRadius: "16px", border: "1px solid rgba(235,216,125,0.18)", background: "linear-gradient(160deg, #1e0808 0%, #160505 60%, #1a0a05 100%)", boxShadow: "0 32px 80px rgba(0,0,0,0.7), 0 0 0 1px rgba(240,148,0,0.08) inset" }}>
             <ChatHeader isFullscreen={false} onFullscreen={() => setIsFullscreen(true)} onClose={() => setIsOpen(false)} />
@@ -287,15 +290,12 @@ export default function ChatWidget({ initialOpen = false }: { initialOpen?: bool
           <button
             onClick={() => setIsOpen((o) => !o)}
             className={((!isOpen ? "srijan-glow " : "") + "srijan-toggle-size")}
-            style={{ flexShrink: 0, borderRadius: "50%", border: "2px solid rgba(235,216,125,0.4)", overflow: "hidden", cursor: "pointer", background: "#160505", padding: 0, transition: "transform 0.2s, border-color 0.2s" }}
+            style={{ borderRadius: "50%", border: "2px solid rgba(235,216,125,0.4)", overflow: "hidden", cursor: "pointer", background: "#160505", padding: 0, transition: "transform 0.2s, border-color 0.2s" }}
             onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.transform = "scale(1.1)"; (e.currentTarget as HTMLButtonElement).style.borderColor = "#ebd87d"; }}
             onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.transform = "scale(1)"; (e.currentTarget as HTMLButtonElement).style.borderColor = "rgba(235,216,125,0.4)"; }}
             aria-label="Toggle chat"
           >
-            <img src={BOT_AVATAR} alt="Kalpana" className="srijan-toggle-img-size"
-              fetchPriority="high"
-              style={{ display: "block" }}
-            />
+            <img src={BOT_AVATAR} alt="Kalpana" className="srijan-toggle-img-size" style={{ display: "block" }} />
           </button>
         </div>
       </div>

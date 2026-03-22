@@ -73,7 +73,7 @@ export const ChatMessages = React.memo(function ChatMessages({ messages, isLoadi
         <div key={idx} style={{ display: "flex", justifyContent: msg.role === "user" ? "flex-end" : "flex-start", width: "100%" }}>
           <div style={{ display: "flex", maxWidth: "85%", gap: 8, flexDirection: msg.role === "user" ? "row-reverse" : "row", alignItems: "flex-start" }}>
             {msg.role === "assistant" && (
-              <img src={BOT_AVATAR} alt="Kalpana"
+              <img src={BOT_AVATAR} alt="Kalpana" loading="lazy"
                 style={{ width: 24, height: 24, borderRadius: "50%", flexShrink: 0, marginTop: 2, border: "1px solid rgba(235,216,125,0.25)", background: "#2a0d0d", objectFit: "cover" }}
               />
             )}
@@ -101,7 +101,7 @@ export const ChatMessages = React.memo(function ChatMessages({ messages, isLoadi
                 {/* Event poster */}
                 {msg.poster && msg.poster !== "None" && msg.poster !== "" && (
                   <div style={{ marginTop: 10, borderRadius: 10, overflow: "hidden", border: "1px solid rgba(235,216,125,0.15)", background: "rgba(0,0,0,0.2)", display: "flex", justifyContent: "center" }}>
-                    <img src={`${POSTER_BASE_URL}${msg.poster}`} alt="Event poster"
+                    <img src={`${POSTER_BASE_URL}${msg.poster}`} alt="Event poster" loading="lazy"
                       style={{ width: "100%", maxWidth: 350, height: "auto", maxHeight: 300, objectFit: "contain", display: "block" }}
                       onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
                     />
@@ -148,7 +148,7 @@ export const ChatMessages = React.memo(function ChatMessages({ messages, isLoadi
       {/* Loading indicator */}
       {isLoading && (
         <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
-          <img src={BOT_AVATAR} alt="" style={{ width: 24, height: 24, borderRadius: "50%", opacity: 0.4, filter: "grayscale(1)", objectFit: "cover" }} />
+          <img src={BOT_AVATAR} alt="" loading="lazy" style={{ width: 24, height: 24, borderRadius: "50%", opacity: 0.4, filter: "grayscale(1)", objectFit: "cover" }} />
           <div style={{ padding: "8px 14px", borderRadius: "4px 18px 18px 18px", background: "rgba(255,255,255,0.04)", border: "1px solid rgba(235,216,125,0.1)", display: "flex", alignItems: "center", gap: 8 }}>
             <Loader2 size={13} style={{ color: "#f09400" }} className="animate-spin" />
             <span style={{ fontSize: 12, color: "rgba(255,255,255,0.35)", letterSpacing: "0.05em" }}>Thinking…</span>
