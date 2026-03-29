@@ -516,8 +516,29 @@ const leavePendingTeam = withAuth(
         }
     },
 );
-
-
+const editTeamName = withAuth(
+  async (sessionUserId: string, teamId: string, newName: string) => {
+    if(!newName) return {ok: false, message: "Team name cannot be empty"};
+    try {
+      await prisma.team.update({
+        where: {
+          id: teamId,
+          leader: sessionUserId,
+        },
+        data: {
+          name: newName,
+        },
+      });
+      return { ok: true, message: `Changed team name to ${newName}` };
+    } catch (err) {
+      console.error("Error while editing team name - ", err);
+      return {
+        ok: false,
+        message: "Error occurred - failed to edit team name",
+      };
+    }
+  },
+);
 
 export {
     getRegistrationStatus,
@@ -531,4 +552,5 @@ export {
     leavePendingTeam,
     acceptPendingMember,
     rejectPendingMember,
+    editTeamName
 };

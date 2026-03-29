@@ -126,7 +126,7 @@ function RegistrationForm({ id }: { id: string }) {
             <h1 className="text-4xl sm:text-5xl font-semibold font-elnath text-yellow mb-8 text-center">
                 Complete &nbsp; Registration
             </h1>
-            <div className="flex flex-col items-center gap-2 w-full sm:w-1/3 2xl:w-1/4">
+            <div className="flex flex-col items-center gap-2 w-4/5 sm:w-1/3 2xl:w-1/4">
                 <input
                     type="text"
                     name="phone"
@@ -141,7 +141,7 @@ function RegistrationForm({ id }: { id: string }) {
                     <p className="text-sm text-red-500">{errors.phone}</p>
                 )}
             </div>
-            <div className="flex flex-col items-center gap-2 w-full sm:w-1/3 2xl:w-1/4">
+            <div className="flex flex-col items-center gap-2 w-4/5 sm:w-1/3 2xl:w-1/4">
                 <input
                     type="text"
                     name="college"
@@ -156,7 +156,7 @@ function RegistrationForm({ id }: { id: string }) {
                     <p className="text-sm text-red-500">{errors.college}</p>
                 )}
             </div>
-            <div className="flex flex-col items-center gap-2 w-full sm:w-1/3 2xl:w-1/4">
+            <div className="flex flex-col items-center gap-2 w-4/5 sm:w-1/3 2xl:w-1/4">
                 <input
                     type="text"
                     name="department"
@@ -171,7 +171,7 @@ function RegistrationForm({ id }: { id: string }) {
                     <p className="text-sm text-red-500">{errors.department}</p>
                 )}
             </div>
-            <div className="flex flex-col items-center gap-2 w-full sm:w-1/3 2xl:w-1/4">
+            <div className="flex flex-col items-center gap-2 w-4/5 sm:w-1/3 2xl:w-1/4">
                 <input
                     type="text"
                     name="year"
@@ -187,7 +187,7 @@ function RegistrationForm({ id }: { id: string }) {
                 )}
             </div>
 
-            <div className="flex flex-col items-center gap-2 w-full sm:w-1/3 2xl:w-1/4">
+            <div className="flex flex-col items-center gap-2 w-4/5 sm:w-1/3 2xl:w-1/4">
                 <button
                     type="button"
                     onClick={() => setShowReferral((prev) => !prev)}

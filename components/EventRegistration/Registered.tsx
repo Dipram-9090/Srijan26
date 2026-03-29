@@ -1,7 +1,7 @@
 import { SessionUser } from "@/types/user";
 import { Event, Team } from "@/types/events";
 import React from "react";
-import TeamControls from "./TeamControls";
+import { EditTeamName, TeamControls } from "./TeamControls";
 import NotRegistered from "./NotRegistered";
 import MemberControls from "./MemberControls";
 import LeaveTeam from "./LeaveTeam";
@@ -39,7 +39,10 @@ function Registered({
             {/* Unstop Link if needed */}
             {eventData && eventData.unstopLink && (
                 <div className="mb-4 flex flex-col items-center w-full gap-y-3">
-                    <p className="text-sm sm:text-base w-4/5 text-center">Prelims will be held on Unstop, so registration on the platform is required.</p>
+                    <p className="text-sm sm:text-base w-4/5 text-center">
+                        Prelims will be held on Unstop, so registration on the
+                        platform is required.
+                    </p>
                     <Link href={eventData.unstopLink} target="_blank">
                         <Image
                             src={"/Unstop-Logo-White-Small.png"}
@@ -53,7 +56,14 @@ function Registered({
             )}
             <div className="flex flex-col sm:flex-row w-full justify-around gap-y-12">
                 <div className="flex sm:w-2/3 flex-col items-center">
-                    <h4 className="text-lg font-bold">Team: {team?.name}</h4>
+                    <div className="w-full sm:w-3/4 mb-3 border border-yellow/30 rounded-sm p-2 flex justify-between items-center gap-3">
+                        <h4 className="text-xl font-bold tracking-tight text-white">
+                            {team?.name}
+                        </h4>
+                        {isTeamLead && (
+                            <EditTeamName teamId={team.id} />
+                        )}
+                    </div>
                     <h6 className="mb-2 text-yellow">Members</h6>
                     <div className="hidden sm:flex w-full sm:w-3/4 justify-between rounded-t-sm border-b border-gray-300/30 bg-gray-600/30 px-4 py-2 transition-colors duration-300">
                         <p>Name</p>
