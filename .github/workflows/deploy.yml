@@ -26,7 +26,11 @@ jobs:
             npm ci
             npx prisma generate
             
-            cp -a .next .next_backup || true
+            if [ -d ".next" ]; then
+              rm -rf .next_backup
+              cp -a .next .next_backup
+              rm -rf .next/cache  
+            fi
             
             if npm run build; then
               echo "Build passed! Deploying..."
@@ -35,6 +39,7 @@ jobs:
             else
               echo "Build failed! Restoring previous working version..."
               rm -rf .next
-              mv .next_backup .next
+              mv .next_backup .next || true
+              pm2 reload srijan26
               exit 1
             fi
