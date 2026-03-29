@@ -20,9 +20,9 @@ export default function EventNavigation({ event, onNavigate }: Props) {
     (e) => String(e.id) === String(event.id),
   );
 
-  console.log("Current Event ID:", event.id, typeof event.id);
+  /* console.log("Current Event ID:", event.id, typeof event.id);
   console.log("EVENTS_DATA IDs:", EVENTS_DATA.map(e => ({ id: e.id, type: typeof e.id })));
-  console.log("Calculated Index:", currentIndex);
+  console.log("Calculated Index:", currentIndex); */
 
   // Calculate prev/next slugs strictly using the array index
   const prevSlug = currentIndex > 0 ? EVENTS_DATA[currentIndex - 1].slug : null;

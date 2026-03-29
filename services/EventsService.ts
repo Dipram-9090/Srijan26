@@ -286,7 +286,7 @@ const transferTeamLead = withAuth(
             });
             return { ok: true, message: "Changed team lead successfully!" };
         } catch (err) {
-            console.log(`Error while transferring team lead: ${err}`);
+            console.error(`Error while transferring team lead: ${err}`);
             return { ok: false, message: "Error occurred" };
         }
     },
@@ -310,7 +310,7 @@ const removeMember = withAuth(
             });
             return { ok: true, message: "Removed member" };
         } catch (err) {
-            console.log(`Error while removing member: ${err}`);
+            console.error(`Error while removing member: ${err}`);
             return { ok: false, message: "Error occurred" };
         }
     },
@@ -380,7 +380,7 @@ const acceptPendingMember = withAuth(async (
         if (status && !status.ok) return status;
         return { ok: true, message: "Accepted member" };
     } catch (err) {
-        console.log(`Error while accepting member: ${err}`);
+        console.error(`Error while accepting member: ${err}`);
         return {
             ok: false,
             message: "Error occurred - failed to accept member",
@@ -406,7 +406,7 @@ const rejectPendingMember = withAuth(
             });
             return { ok: true, message: "Rejected member" };
         } catch (err) {
-            console.log(`Error while removing member: ${err}`);
+            console.error(`Error while removing member: ${err}`);
             return { ok: false, message: "Error occurred - failed to reject" };
         }
     },
