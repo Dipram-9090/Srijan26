@@ -34,6 +34,7 @@ const CODING_EVENTS: Event[] = [
     link: "/register/epoch",
     driveLink:
       "https://drive.google.com/file/d/1z0xX5WVTDhK1wkC3i5FxChVbZXf2TRUC/view?usp=sharing",
+      whatsappLink: "https://chat.whatsapp.com/FfdrEV9n1aOECGJrj5QazV",
     coordinators: [
       { name: "Atmik Goswami", contact: "8910425255" },
       { name: "Asmit Deb", contact: "6290050401" },
