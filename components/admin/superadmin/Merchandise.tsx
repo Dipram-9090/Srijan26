@@ -31,56 +31,8 @@ import { Download } from "lucide-react";
 import { downloadCSV } from "@/utils/downloadCSV";
 import { MerchandiseData } from "@/types/superadmin";
 
-const TEMP_MERCH: MerchandiseData[] = [
-  {
-    "id": "ORD-001",
-    "size": "M",
-    "color": "BLACK",
-    "status": "Pending",
-    "preferredCampus": "JADAVPUR",
-    "customText": "Go Team!",
-    "user": {
-      "name": "Aarav Sharma",
-      "email": "aarav.sharma@example.com",
-      "phone": "9876543210",
-      "department": "Computer Science",
-      "year": "2026"
-    }
-  },
-  {
-    "id": "ORD-002",
-    "size": "L",
-    "color": "BLACK",
-    "status": "Shipped",
-    "preferredCampus": "JADAVPUR",
-    "customText": null,
-    "user": {
-      "name": "Priya Das",
-      "email": "priya.das@example.com",
-      "phone": null,
-      "department": "Mechanical Engineering",
-      "year": "2027"
-    }
-  },
-  {
-    "id": "ORD-003",
-    "size": null,
-    "color": "BLACK",
-    "status": "Delivered",
-    "preferredCampus": "JADAVPUR",
-    "customText": "Limited Edition",
-    "user": {
-      "name": "Rahul Verma",
-      "email": "rahul.verma@example.com",
-      "phone": "9123456780",
-      "department": null,
-      "year": "2029"
-    }
-  }
-]
-
 function Merchandise() {
-    const [merchandise, setMerchandise] = useState<MerchandiseData[]>(TEMP_MERCH);
+    const [merchandise, setMerchandise] = useState<MerchandiseData[]>([]);
     const [loadingMerch, setLoadingMerch] = useState(false);
 
     // Filters
@@ -91,9 +43,9 @@ function Merchandise() {
     const [merchCampusFilter, setMerchCampusFilter] = useState<string>("all");
     const [merchColorFilter, setMerchColorFilter] = useState<string>("BLACK");
     
-    // useEffect(() => {
-    //     fetchMerchandise();
-    // }, []);
+    useEffect(() => {
+        fetchMerchandise();
+    }, []);
 
     async function fetchMerchandise() {
         setLoadingMerch(true);
