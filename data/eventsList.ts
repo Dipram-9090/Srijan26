@@ -603,7 +603,7 @@ const ROBOTICS_EVENTS: Event[] = [
       "https://drive.google.com/drive/folders/10zfK0vRqXm0nqB5xAQvYmXyKkoTLlxNR",
     image: "/images/posters/control-craft.webp",
     tags: ["Manual Bot", "Mechatronics"],
-    status: "Open",
+    status: "Closed",
     coordinators: [
       { name: "Priyam Adhikary", contact: "8389916827" },
       { name: "Sarfaroz Gazi", contact: "9932225737" },
@@ -648,7 +648,7 @@ const ROBOTICS_EVENTS: Event[] = [
       "https://drive.google.com/drive/folders/1qxolD1GtNA98UhYNMXRCaaFjtsXnFTLc",
     image: "/images/posters/rope-runner.webp",
     tags: ["Mechatronics", "Innovation"],
-    status: "Open",
+    status: "Closed",
     coordinators: [
       { name: "Shreyash Ray", contact: "6291516600" },
       { name: "Rasoshree Ghosh", contact: "7439059081" },
