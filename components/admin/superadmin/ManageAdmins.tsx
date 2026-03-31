@@ -83,7 +83,8 @@ function ManageAdmins() {
     async function searchUsers(query: string) {
         setSearchingUsers(true);
         try {
-            const res = await fetch(`/api/superadmin/admins?action=searchUsers&query=${query}`);
+            const encodedQuery = encodeURIComponent(query);
+            const res = await fetch(`/api/superadmin/admins?action=searchUsers&query=${encodedQuery}`);
             if (res.ok) {
                 const data = await res.json();
                 setSearchedUsers(data);
