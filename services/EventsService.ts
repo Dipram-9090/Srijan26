@@ -93,7 +93,7 @@ const getRegistrationStatus = withAuth(
 );
 
 const getEventFromSlug = async (slug: string) => {
-    const event = await prisma.event.findFirst({
+    const event = await prisma.event.findUnique({
         where: {
             slug,
         },
@@ -446,7 +446,7 @@ const deleteTeam = withAuth(async (sessionUserId: string, team: Team) => {
     try {
         const oid = { $oid: team.id };
 
-        const eventStatus = await prisma.event.findFirst({where: {slug: team.eventSlug}});
+        const eventStatus = await prisma.event.findUnique({where: {slug: team.eventSlug}, select: {registrationOpen: true}});
         if(!eventStatus?.registrationOpen) return {ok: false, message: "Registrations closed"};
 
         const existingTeam = await prisma.team.findUnique({
