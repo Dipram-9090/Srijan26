@@ -59,4 +59,7 @@ export interface Event {
 
   // --- State ---
   status: EventStatus;
+
+  // For Events where the slug is different in DB
+  backendSlug?: string;
 }

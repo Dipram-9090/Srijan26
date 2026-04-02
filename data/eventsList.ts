@@ -551,6 +551,7 @@ const ROBOTICS_EVENTS: Event[] = [
   {
     id: "r5",
     slug: "death-race",
+    backendSlug: "death_race",
     title: "Death Race",
     category: "Circuits and Robotics",
     color: "#1DDBFF",
@@ -661,6 +662,7 @@ const ROBOTICS_EVENTS: Event[] = [
   {
     id: "r11",
     slug: "thunderbolts",
+    backendSlug: "thunderbolts_voltedged",
     title: "THUNDERBOLTS VOLTEDGED",
     category: "Circuits and Robotics",
     color: "#1DDBFF",
@@ -797,6 +799,7 @@ const ROBOTICS_EVENTS: Event[] = [
   {
     id: "r18",
     slug: "lord-of-the-ring",
+    backendSlug: "lotr",
     title: "Lord of the Ring",
     category: "Circuits and Robotics",
     color: "#1DDBFF",
@@ -1132,6 +1135,7 @@ const BRAINSTORMING_EVENTS: Event[] = [
   {
     id: "br3",
     slug: "xstream",
+    backendSlug: "XSTREAM",
     title: "XSTREAM",
     category: "Brainstorming",
     color: "#1DDBFF",
@@ -1320,6 +1324,7 @@ const ESPORTS_EVENTS: Event[] = [
   {
     id: "e-sp4",
     slug: "clash-royale",
+    backendSlug: "cr",
     title: "CLASH ROYALE",
     category: "Esports",
     color: "#FC422D",
@@ -1736,6 +1741,7 @@ const MISC_EVENTS: Event[] = [
   {
     id: "m9",
     slug: "skysprint",
+    backendSlug: "sks",
     title: "SKYSPRINT",
     category: "Misc",
     color: "#1DDBFF",
@@ -1969,3 +1975,8 @@ export const EVENTS_DATA: Event[] = [
   ...ESPORTS_EVENTS,
   ...MISC_EVENTS,
 ];
+
+export const getBackendSlug = (slug: string) => {
+  const matchingEvent = EVENTS_DATA.find(event => event.slug === slug);
+  return matchingEvent?.backendSlug || slug;
+}

@@ -6,9 +6,10 @@ import DocButton from "./DocButton";
 
 interface Props {
   event: Event;
+  registrationOpen: boolean;
 }
 
-export default function FloatingActionBar({ event }: Props) {
+export default function FloatingActionBar({ event, registrationOpen }: Props) {
   return (
     <div className="fixed bottom-0 left-0 w-full bg-[#121212] p-4 z-50">
       <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
@@ -30,7 +31,7 @@ export default function FloatingActionBar({ event }: Props) {
         <div className="flex gap-2 sm:gap-4 w-fit">
           <DocButton docUrl={event.driveLink ?? event.pdfLink ?? ""} label="Details" />
           <ShareButton eventSlug={event.slug} eventTitle={event.title} />
-          <RegisterButton status={event.status} link={event.link} />
+          <RegisterButton status={event.status} link={event.link} registrationOpen={registrationOpen} slug={event.slug} />
         </div>
       </div>
     </div>
