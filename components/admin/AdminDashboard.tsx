@@ -36,6 +36,10 @@ import {
   Calendar,
 } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
+import { getEventRegistrationStatus } from "@/services/EventsService";
+import { useConfirmationDialogContext } from "@/hooks/useConfirmationDialog";
+import { closeEventRegistrations, openEventRegistrations } from "@/services/AdminService";
+import toast from "react-hot-toast";
 
 interface AdminDashboardProps {
   user: AuthUser;
@@ -50,6 +54,8 @@ export function AdminDashboard({ user, events }: AdminDashboardProps) {
     useState<VerificationFilter>("all");
   const [participants, setParticipants] = useState<EventParticipant[]>([]);
   const [loading, setLoading] = useState(false);
+  const [registrationOpen, setRegistrationOpen] = useState(false);
+  const dialog = useConfirmationDialogContext();
   const isEventParticipant = (value: unknown): value is EventParticipant => {
     if (!value || typeof value !== "object") return false;
     const v = value as EventParticipant;
@@ -63,6 +69,7 @@ export function AdminDashboard({ user, events }: AdminDashboardProps) {
   useEffect(() => {
     if (selectedEventSlug) {
       loadParticipants();
+      getEventRegistrationStatus(selectedEventSlug).then((res) => setRegistrationOpen(res));
     }
   }, [selectedEventSlug, verification]);
 
@@ -140,6 +147,36 @@ export function AdminDashboard({ user, events }: AdminDashboardProps) {
   };
 
   const isSuperAdmin = user.role === "SUPERADMIN";
+
+  const handleCloseRegistrations = () => {
+    dialog.showDialog(`Are you sure you want to close registrations for ${selectedEventSlug}?`, () => {
+      closeEventRegistrations(selectedEventSlug)
+      .then(res => {
+        if(res.ok){
+          setRegistrationOpen(false);
+          toast.success("Registrations closed");
+        }else{
+          toast.error("Error occurred");
+        }
+      })
+      .catch(() => toast.error("Error occurred"));
+    })
+  }
+
+  const handleOpenRegistrations = () => {
+    dialog.showDialog(`Are you sure you want to open registrations for ${selectedEventSlug}?`, () => {
+      openEventRegistrations(selectedEventSlug)
+      .then(res => {
+        if(res.ok){
+          setRegistrationOpen(true);
+          toast.success("Registrations opened");
+        }else{
+          toast.error("Error occurred");
+        }
+      })
+      .catch(() => toast.error("Error occurred"));
+    })
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100 text-slate-900">
@@ -256,6 +293,15 @@ export function AdminDashboard({ user, events }: AdminDashboardProps) {
                         {selectedEvent.name}
                       </CardDescription>
                     </div>
+                    {registrationOpen ? 
+                      <button className="bg-black text-white py-2 px-4 rounded-sm cursor-pointer"
+                      onClick={handleCloseRegistrations}>
+                        Close Registrations
+                      </button> : 
+                      <button className="bg-black text-white py-2 px-4 rounded-sm cursor-pointer"
+                      onClick={handleOpenRegistrations}>
+                        Open Registrations
+                      </button>}
                     <Button
                       onClick={handleExport}
                       className="whitespace-nowrap bg-slate-900 text-white hover:bg-slate-800"
