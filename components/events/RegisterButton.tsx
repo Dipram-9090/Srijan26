@@ -18,7 +18,7 @@ interface RegisterButtonProps {
 const RegisterButton: React.FC<RegisterButtonProps> = ({ link, isCard, slug }) => {
   const { data: session } = useSession();
   const [registered, setRegistered] = useState(false);
-  const [registrationOpen, setRegistrationOpen] = useState(true);
+  const [registrationOpen, setRegistrationOpen] = useState(true); // default to true because /register will check status anyways
   const router = useRouter();
   const desktopClipStyle = { "--desktop-clip": CLIP_PATH } as React.CSSProperties;
   const isExternal = link.startsWith("http");
@@ -26,14 +26,13 @@ const RegisterButton: React.FC<RegisterButtonProps> = ({ link, isCard, slug }) =
   useEffect(() => {
     getEventRegistrationStatus(slug)
     .then(isOpen => setRegistrationOpen(isOpen))
+    .catch(() => setRegistrationOpen(true)) // default to true because /register will check status anyways
   },[slug]);
 
   useEffect(() => {
     isUserRegistered(session?.user.id ?? "", slug)
-    .then(isUserRegistered => {
-      if(!isUserRegistered) setRegistered(false);
-      else setRegistered(true);
-    })
+    .then(isUserRegistered => setRegistered(isUserRegistered))
+    .catch(() => setRegistered(false))
   },[session?.user.id, slug])
 
   const handleRegisterClick = (e: React.MouseEvent<HTMLAnchorElement>) => {

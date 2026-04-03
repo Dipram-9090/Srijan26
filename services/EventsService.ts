@@ -5,7 +5,7 @@ import { SessionUser } from "@/types/user";
 import { Event, RegistrationStatus, Team } from "@/types/events";
 import ShortUniqueId from "short-unique-id";
 import { withAuth } from "@/utils/withAuth";
-import { signOut } from "@/auth";
+import { auth, signOut } from "@/auth";
 import { unstable_cache } from "next/cache";
 import { getBackendSlug } from "@/data/eventsList";
 
@@ -94,12 +94,13 @@ const getRegistrationStatus = withAuth(
     },
 );
 
-const getEventFromSlug = async (slug: string) => 
-    unstable_cache(
+const getEventFromSlug = async (slug: string) => {
+    const eventSlug = getBackendSlug(slug);
+    return unstable_cache(
         async () => {
             const event = await prisma.event.findUnique({
                 where: {
-                    slug,
+                    slug: eventSlug,
                 },
                 select: {
                     id: true,
@@ -112,9 +113,10 @@ const getEventFromSlug = async (slug: string) =>
             });
             return event;
         },
-        [slug],
-        { tags: [slug] },
+        [eventSlug],
+        { tags: [eventSlug] },
    )();
+}
 
    const getEventRegistrationStatus = async (slug: string) => 
     unstable_cache(
@@ -602,8 +604,9 @@ const editTeamName = withAuth(
 
 const isUserRegistered = async (userId: string, slug: string) => {
     try{
+        const session = await auth();
+        if (!userId || !session || session.user.id !== userId) return false; 
         const eventSlug = getBackendSlug(slug);
-        if (!userId) return false; 
         const existingTeam = await prisma.team.findFirst({
             where: {
                 eventSlug,
