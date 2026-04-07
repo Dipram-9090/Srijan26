@@ -1617,7 +1617,7 @@ const ESPORTS_EVENTS: Event[] = [
         title: "Tournament",
         date: "10th, 11th & 12th April",
         timeSlots: [
-          { time: "10:00 am - 5:00 pm", venues: ["Exam Hall / 3rd Yr Class, SMCC 2nd Floor"] }
+          { time: "10:00 am - 5:00 pm", venues: ["Final Year Classroom, SMCC 2nd Floor", "Exam Hall / 3rd Yr Class, SMCC 2nd Floor"] }
         ]
       }
     ],
@@ -1671,7 +1671,7 @@ const ESPORTS_EVENTS: Event[] = [
         title: "Tournament",
         date: "10th, 11th & 12th April",
         timeSlots: [
-          { time: "10:00 am - 5:00 pm", venues: ["Exam Hall / 3rd Yr Class, SMCC 2nd Floor"] }
+          { time: "10:00 am - 5:00 pm", venues: ["Final Year Classroom, SMCC 2nd Floor", "Exam Hall / 3rd Yr Class, SMCC 2nd Floor"] }
         ]
       }
     ],
@@ -1703,7 +1703,7 @@ const ESPORTS_EVENTS: Event[] = [
         title: "Tournament",
         date: "10th, 11th & 12th April",
         timeSlots: [
-          { time: "10:00 am - 5:00 pm", venues: ["Exam Hall / 3rd Yr Class, SMCC 2nd Floor"] }
+          { time: "10:00 am - 5:00 pm", venues: ["Final Year Classroom, SMCC 2nd Floor", "Exam Hall / 3rd Yr Class, SMCC 2nd Floor"] }
         ]
       }
     ],
@@ -1744,7 +1744,7 @@ const ESPORTS_EVENTS: Event[] = [
         title: "Tournament",
         date: "10th, 11th & 12th April",
         timeSlots: [
-          { time: "10:00 am - 5:00 pm", venues: ["Exam Hall / 3rd Yr Class, SMCC 2nd Floor"] }
+          { time: "10:00 am - 5:00 pm", venues: ["Final Year Classroom, SMCC 2nd Floor", "Exam Hall / 3rd Yr Class, SMCC 2nd Floor"] }
         ]
       }
     ],
@@ -1798,7 +1798,7 @@ const ESPORTS_EVENTS: Event[] = [
         title: "Tournament",
         date: "10th, 11th & 12th April",
         timeSlots: [
-          { time: "10:00 am - 5:00 pm", venues: ["Exam Hall / 3rd Yr Class, SMCC 2nd Floor"] }
+          { time: "10:00 am - 5:00 pm", venues: ["Final Year Classroom, SMCC 2nd Floor", "Exam Hall / 3rd Yr Class, SMCC 2nd Floor"] }
         ]
       }
     ],
@@ -1830,7 +1830,7 @@ const ESPORTS_EVENTS: Event[] = [
         title: "Tournament",
         date: "10th, 11th & 12th April",
         timeSlots: [
-          { time: "10:00 am - 5:00 pm", venues: ["Exam Hall / 3rd Yr Class, SMCC 2nd Floor"] }
+          { time: "10:00 am - 5:00 pm", venues: ["Final Year Classroom, SMCC 2nd Floor", "Exam Hall / 3rd Yr Class, SMCC 2nd Floor"] }
         ]
       }
     ],
@@ -1864,7 +1864,7 @@ const ESPORTS_EVENTS: Event[] = [
         title: "Tournament",
         date: "10th, 11th & 12th April",
         timeSlots: [
-          { time: "10:00 am - 5:00 pm", venues: ["Exam Hall / 3rd Yr Class, SMCC 2nd Floor"] }
+          { time: "10:00 am - 5:00 pm", venues: ["Final Year Classroom, SMCC 2nd Floor", "Exam Hall / 3rd Yr Class, SMCC 2nd Floor"] }
         ]
       }
     ],
@@ -1898,7 +1898,7 @@ const ESPORTS_EVENTS: Event[] = [
         title: "Tournament",
         date: "10th, 11th & 12th April",
         timeSlots: [
-          { time: "10:00 am - 5:00 pm", venues: ["Exam Hall / 3rd Yr Class, SMCC 2nd Floor"] }
+          { time: "10:00 am - 5:00 pm", venues: ["Final Year Classroom, SMCC 2nd Floor", "Exam Hall / 3rd Yr Class, SMCC 2nd Floor"] }
         ]
       }
     ],
@@ -1932,7 +1932,7 @@ const ESPORTS_EVENTS: Event[] = [
         title: "Tournament",
         date: "10th, 11th & 12th April",
         timeSlots: [
-          { time: "10:00 am - 5:00 pm", venues: ["Exam Hall / 3rd Yr Class, SMCC 2nd Floor"] }
+          { time: "10:00 am - 5:00 pm", venues: ["Final Year Classroom, SMCC 2nd Floor", "Exam Hall / 3rd Yr Class, SMCC 2nd Floor"] }
         ]
       }
     ],
