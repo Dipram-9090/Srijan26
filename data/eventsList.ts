@@ -1206,6 +1206,34 @@ const BRAINSTORMING_EVENTS: Event[] = [
       "Finals: A more intense and challenging quiz session, designed to push participants further and test their mastery of the concepts learned.",
     ],
     lastDate: "TBA",
+    schedule: [
+      {
+        title: "Prelims",
+        date: "10th April",
+        timeSlots: [
+          {
+            time: "12-5pm",
+            venues: [
+              "Smart Classroom, SMCC 3rd Floor",
+              "1st Year Classroom, SMCC 3rd Floor",
+              "Seminar Hall 2, SMCC 1st Floor",
+            ]
+          }
+        ]
+      },
+      {
+        title: "Finals",
+        date: "12th April",
+        timeSlots: [
+          {
+            time: "2-5pm",
+            venues: [
+              "Seminar Hall 2, SMCC 1st Floor"
+            ]
+          }
+        ]
+      }
+    ],
     prizePool: "₹ 6,000",
     link: "/register/cypher3331",
     driveLink:
