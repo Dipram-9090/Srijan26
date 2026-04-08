@@ -167,7 +167,7 @@ const CODING_EVENTS: Event[] = [
       { name: "Kaji Manirul Islam", contact: "7865060015" },
       { name: "Swarnendu Banerjee", contact: "9564027954" },
     ],
-    status: "Open",
+    status: "Closed",
   },
   {
     id: "e5",
